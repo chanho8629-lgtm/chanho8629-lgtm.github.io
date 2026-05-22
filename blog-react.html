@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React 19 — 타입 안전한 프론트엔드 구축 | JCH Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <style>
+    .blog-hero {
+      min-height: 54vh;
+      background: linear-gradient(135deg, #1a0530, #5b1a8a, #9333ea);
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 6% 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(147,51,234,.4), transparent);
+    }
+    .hero-icon {
+      font-size: 5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+      filter: drop-shadow(0 0 40px rgba(163,230,53,.25));
+    }
+    .blog-hero-inner { position: relative; max-width: 740px; }
+    .blog-hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: .9rem;
+    }
+    .blog-hero-title span { color: var(--accent); }
+    .blog-hero-sub {
+      font-size: clamp(.85rem, 1.3vw, .95rem);
+      color: rgba(255,255,255,.65);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+    .blog-hero-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.4rem; }
+    .content-body { max-width: 860px; margin: 0 auto; padding: 4rem 6%; }
+    .content-section { margin-bottom: 4rem; }
+    .sec-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .7rem;
+      display: block;
+    }
+    .sec-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .sec-desc {
+      font-size: .88rem;
+      color: var(--txt2);
+      line-height: 1.9;
+      max-width: 640px;
+    }
+    .code-wrap { margin: 1.6rem 0; }
+    .code-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      margin-bottom: .4rem;
+    }
+    .code { white-space: pre; }
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .lesson-list li {
+      display: flex;
+      gap: .8rem;
+      font-size: .83rem;
+      color: var(--txt2);
+      line-height: 1.75;
+    }
+    .lesson-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: .55rem;
+    }
+    .related-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.2rem;
+    }
+    .rel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-weight: 600;
+      transition: border-color .2s, color .2s;
+    }
+    .rel-link:hover { border-color: var(--accent); color: var(--accent); }
+    .back-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="hdr">
+  <a href="index.html" class="logo">JCH<em>.</em></a>
+  <nav class="gnav">
+    <a href="index.html">← 홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact" class="gnav-cta">Contact</a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <span class="hero-icon">⚛️</span>
+    <div class="blog-hero-tags">
+      <span class="badge">React 19</span>
+      <span class="badge">TypeScript</span>
+      <span class="badge">TanStack Query</span>
+      <span class="badge">Zustand</span>
+      <span class="badge">TailwindCSS</span>
+      <span class="badge">Vite</span>
+    </div>
+    <h1 class="blog-hero-title">React 19 —<br><span>타입 안전한 프론트엔드 구축</span></h1>
+    <p class="blog-hero-sub">TypeScript strict 모드, 서버/클라이언트 상태 분리, 선언적 애니메이션까지 — Clausion 프론트엔드를 구축하며 익힌 현대적 React 개발 패턴을 정리합니다.</p>
+  </div>
+</section>
+
+<!-- 본문 -->
+<main class="content-body">
+
+  <!-- 뒤로가기 -->
+  <div class="back-row">
+    <a href="index.html" class="btn-back">← 포트폴리오로 돌아가기</a>
+    <div class="badge-row">
+      <span class="badge-gray badge">Frontend</span>
+      <span class="badge-gray badge">2025</span>
+    </div>
+  </div>
+
+  <!-- 1. 개요 -->
+  <section class="content-section">
+    <span class="sec-label">Overview</span>
+    <h2 class="sec-title">React 19 + TypeScript로 Clausion 프론트엔드 구축</h2>
+    <p class="sec-desc">
+      Clausion(AI 기반 교육 플랫폼)의 프론트엔드를 React 19와 TypeScript 5 strict 모드로 구축했습니다.
+      핵심 설계 원칙은 서버 상태(TanStack Query)와 클라이언트 상태(Zustand)를 명확히 분리하는 것이었습니다.
+      서버에서 오는 데이터는 캐싱·재요청·낙관적 업데이트가 필요하고, 클라이언트 전용 상태(인증 정보, UI 토글)는
+      별도 스토어로 관리하는 구조를 정착시켰습니다.
+      React 19의 새로운 훅(use, useOptimistic, useFormStatus)과 Server Actions를 실험적으로 적용하며
+      최신 생태계 변화를 직접 체험했습니다.
+    </p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 2. 핵심 학습 -->
+  <section class="content-section">
+    <span class="sec-label">Core Topics</span>
+    <h2 class="sec-title">핵심 학습 주제</h2>
+    <div>
+      <div class="feat-item">
+        <div class="feat-icon">🔷</div>
+        <div>
+          <div class="feat-title">TypeScript — 인터페이스·타입으로 런타임 오류 사전 방지</div>
+          <div class="feat-desc">
+            strict 모드를 활성화해 implicit any, null 가능성, 불필요한 타입 단언을 컴파일 단계에서 차단했습니다.
+            API 응답 타입을 Zod로 런타임 검증하고, 제네릭을 활용한 커스텀 훅으로 타입 추론이 깨지지 않는 구조를 설계했습니다.
+            타입 가드(is, in, instanceof)와 discriminated union으로 상태에 따른 UI 분기를 안전하게 처리했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🌊</div>
+        <div>
+          <div class="feat-title">TanStack Query v5 — 서버 상태 관리</div>
+          <div class="feat-desc">
+            useQuery, useMutation, useInfiniteQuery로 서버 데이터의 페칭·캐싱·동기화를 선언적으로 처리했습니다.
+            staleTime과 gcTime을 도메인별로 다르게 설정하고(강의 목록 5분, 사용자 정보 10분), 낙관적 업데이트(useOptimistic)로
+            UX를 개선했습니다. Suspense 모드와 Error Boundary를 결합한 로딩/오류 처리 패턴을 정착시켰습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🐻</div>
+        <div>
+          <div class="feat-title">Zustand — 경량 전역 상태 관리</div>
+          <div class="feat-desc">
+            Redux 대비 보일러플레이트를 90% 이상 줄이면서도 미들웨어(devtools, persist, immer)를 조합해
+            충분한 기능을 확보했습니다. Slice 패턴으로 스토어를 도메인별로 분리하고, subscribe로 상태 변화를
+            외부 로직과 연동했습니다. Jotai와의 장단점을 비교 검토한 후 팀 컨벤션에 Zustand를 선택했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">💨</div>
+        <div>
+          <div class="feat-title">TailwindCSS 4.2.2 — 유틸리티 기반 UI</div>
+          <div class="feat-desc">
+            CSS-in-JS 대비 런타임 오버헤드가 없고, 클래스 이름만 보면 스타일을 바로 파악할 수 있습니다.
+            @layer components로 반복 패턴을 컴포넌트 클래스로 추출하고, arbitrary value([color:#a3e635])로
+            디자인 시스템 외 예외 케이스를 처리했습니다. Tailwind Merge + clsx 조합으로 동적 클래스 충돌을 방지했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">⚡</div>
+        <div>
+          <div class="feat-title">Vite 6 — 빠른 개발 환경과 최적화 빌드</div>
+          <div class="feat-desc">
+            esbuild 기반 HMR이 50ms 이내로 반영되어 개발 생산성이 크게 향상됩니다. 프로덕션 빌드에서
+            Rollup의 tree-shaking과 code-splitting을 활용해 초기 번들 크기를 48% 줄였습니다.
+            vite-plugin-pwa로 오프라인 지원과 캐싱 전략을 간단히 구성했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🎬</div>
+        <div>
+          <div class="feat-title">Framer Motion 12 — 선언적 애니메이션</div>
+          <div class="feat-desc">
+            페이지 전환, 목록 항목 등장, 모달 오버레이 등 UI 모션을 선언적으로 정의했습니다.
+            AnimatePresence로 언마운트 애니메이션을 처리하고, useScroll + useTransform으로
+            스크롤 연동 시차(Parallax) 효과를 구현했습니다. layout prop으로 DOM 변화 시 자동 보간 애니메이션을 적용했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 3. 코드 개념 -->
+  <section class="content-section">
+    <span class="sec-label">Code Concepts</span>
+    <h2 class="sec-title">핵심 코드 개념</h2>
+
+    <div class="code-wrap">
+      <div class="code-label">TanStack Query — 커스텀 훅 패턴</div>
+      <div class="code"><span class="cmt">// TanStack Query 커스텀 훅</span>
+<span class="kw">import</span> { useQuery, useMutation, useQueryClient } <span class="kw">from</span> <span class="str">'@tanstack/react-query'</span>;
+
+<span class="kw">export const</span> <span class="fn">useCourseList</span> = (filters?: <span class="cls">CourseFilters</span>) => {
+  <span class="kw">return</span> <span class="fn">useQuery</span>({
+    queryKey: [<span class="str">'courses'</span>, filters],
+    queryFn: () => api.<span class="fn">get</span>&lt;<span class="cls">Course</span>[]&gt;(<span class="str">'/courses'</span>, { params: filters }),
+    staleTime: <span class="num-c">5</span> * <span class="num-c">60</span> * <span class="num-c">1000</span>,
+    select: (data) => data.<span class="fn">filter</span>((c) => c.isPublished),
+  });
+};
+
+<span class="kw">export const</span> <span class="fn">useEnrollCourse</span> = () => {
+  <span class="kw">const</span> queryClient = <span class="fn">useQueryClient</span>();
+  <span class="kw">return</span> <span class="fn">useMutation</span>({
+    mutationFn: (courseId: <span class="kw">number</span>) => api.<span class="fn">post</span>(<span class="str">`/courses/${courseId}/enroll`</span>),
+    onSuccess: () => {
+      <span class="cmt">// 수강 목록 캐시 무효화</span>
+      queryClient.<span class="fn">invalidateQueries</span>({ queryKey: [<span class="str">'my-courses'</span>] });
+    },
+  });
+};</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">Zustand 스토어 — 인증 상태 관리</div>
+      <div class="code"><span class="cmt">// Zustand 인증 스토어</span>
+<span class="kw">import</span> { create } <span class="kw">from</span> <span class="str">'zustand'</span>;
+<span class="kw">import</span> { persist } <span class="kw">from</span> <span class="str">'zustand/middleware'</span>;
+
+<span class="kw">interface</span> <span class="cls">AuthStore</span> {
+  user: <span class="cls">User</span> | <span class="kw">null</span>;
+  accessToken: <span class="kw">string</span> | <span class="kw">null</span>;
+  <span class="fn">login</span>: (user: <span class="cls">User</span>, token: <span class="kw">string</span>) => <span class="kw">void</span>;
+  <span class="fn">logout</span>: () => <span class="kw">void</span>;
+  <span class="fn">isAuthenticated</span>: () => <span class="kw">boolean</span>;
+}
+
+<span class="kw">const</span> useAuthStore = <span class="fn">create</span>&lt;<span class="cls">AuthStore</span>&gt;()(<span class="fn">persist</span>(
+  (set, get) => ({
+    user: <span class="kw">null</span>,
+    accessToken: <span class="kw">null</span>,
+    <span class="fn">login</span>: (user, token) => <span class="fn">set</span>({ user, accessToken: token }),
+    <span class="fn">logout</span>: () => <span class="fn">set</span>({ user: <span class="kw">null</span>, accessToken: <span class="kw">null</span> }),
+    <span class="fn">isAuthenticated</span>: () => get().accessToken !== <span class="kw">null</span>,
+  }),
+  { name: <span class="str">'auth-storage'</span>, partialize: (s) => ({ user: s.user }) }
+));</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">TypeScript — Zod 런타임 검증</div>
+      <div class="code"><span class="cmt">// Zod 스키마로 API 응답 타입 보장</span>
+<span class="kw">import</span> { z } <span class="kw">from</span> <span class="str">'zod'</span>;
+
+<span class="kw">const</span> CourseSchema = z.<span class="fn">object</span>({
+  id: z.<span class="fn">number</span>(),
+  title: z.<span class="fn">string</span>().<span class="fn">min</span>(<span class="num-c">1</span>),
+  instructor: z.<span class="fn">object</span>({ id: z.<span class="fn">number</span>(), name: z.<span class="fn">string</span>() }),
+  price: z.<span class="fn">number</span>().<span class="fn">nonnegative</span>(),
+  isPublished: z.<span class="fn">boolean</span>(),
+  tags: z.<span class="fn">array</span>(z.<span class="fn">string</span>()),
+});
+
+<span class="kw">type</span> <span class="cls">Course</span> = z.<span class="fn">infer</span>&lt;<span class="kw">typeof</span> CourseSchema&gt;;
+
+<span class="kw">async function</span> <span class="fn">fetchCourse</span>(id: <span class="kw">number</span>): <span class="cls">Promise</span>&lt;<span class="cls">Course</span>&gt; {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/courses/${id}`</span>);
+  <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+  <span class="kw">return</span> CourseSchema.<span class="fn">parse</span>(data); <span class="cmt">// 런타임 검증</span>
+}</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 4. 실제 적용 -->
+  <section class="content-section">
+    <span class="sec-label">Real-World Application</span>
+    <h2 class="sec-title">실제 적용 사례</h2>
+    <div class="grid2" style="margin-top:1.2rem; gap:1rem;">
+      <div class="hl-box">
+        <div class="hl-t">📚 Clausion — 강의 목록 & 진도 대시보드</div>
+        <p>TanStack Query로 강의 목록을 페이지네이션·캐싱 처리. useInfiniteQuery + 가상 스크롤(TanStack Virtual)로 수백 개의 강의도 부드럽게 렌더링했습니다. 학습 진도는 Zustand + localStorage로 오프라인 상태에서도 유지됩니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">💬 실시간 채팅 UI</div>
+        <p>WebSocket 연결 상태를 Zustand로 관리하고, 수신 메시지를 TanStack Query 캐시에 직접 삽입(setQueryData)하여 서버 재요청 없이 실시간으로 화면을 갱신했습니다. Framer Motion으로 메시지 등장 애니메이션을 구현했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 5. 배운 점 -->
+  <section class="content-section">
+    <span class="sec-label">Lessons Learned</span>
+    <h2 class="sec-title">개발하며 배운 것들</h2>
+    <ul class="lesson-list">
+      <li><div class="lesson-dot"></div><span><strong>서버/클라이언트 상태 경계</strong> — 처음엔 Zustand에 모든 상태를 넣었다가, API 데이터를 TanStack Query로 이전하면서 캐싱과 동기화 문제가 자동으로 해결되는 경험을 했습니다. 경계를 명확히 하는 것이 가장 중요합니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>TypeScript strict 모드 활용</strong> — strictNullChecks로 인한 에러가 처음엔 불편했지만, null 역참조로 인한 런타임 에러가 거의 사라졌습니다. 타입을 설계하는 시간이 디버깅 시간을 줄여줍니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>QueryKey 설계의 중요성</strong> — queryKey를 배열로 계층화해야 관련 쿼리를 일괄 무효화할 수 있습니다. 처음부터 체계적으로 설계하지 않으면 캐시 정합성 문제가 발생합니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>컴포넌트 분리 기준</strong> — 재사용성보다 변경 이유가 같은 코드를 묶는 것이 올바른 분리 기준임을 경험했습니다. 너무 이른 추상화는 오히려 유지보수를 어렵게 만듭니다.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 연관 프로젝트 -->
+  <section class="content-section">
+    <span class="sec-label">Related</span>
+    <h2 class="sec-title">연관 프로젝트 및 학습</h2>
+    <div class="related-row">
+      <a href="clausion.html" class="rel-link">🤖 Clausion 프로젝트</a>
+      <a href="bideo.html" class="rel-link">🎬 BIDEO 프로젝트</a>
+      <a href="blog-spring.html" class="rel-link">🖥️ Spring Boot 백엔드</a>
+      <a href="blog-realtime.html" class="rel-link">⚡ Real-Time 시스템</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="pf-footer">
+  <span>© 2025 Jung Chan Ho</span>
+  <div style="display:flex;gap:1.2rem;">
+    <a href="index.html">홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

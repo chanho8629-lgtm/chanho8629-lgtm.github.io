@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time — 실시간 통신 시스템 설계 | JCH Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <style>
+    .blog-hero {
+      min-height: 54vh;
+      background: linear-gradient(135deg, #001a1c, #004d5e, #0891b2);
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 6% 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(8,145,178,.45), transparent);
+    }
+    .hero-icon {
+      font-size: 5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+      filter: drop-shadow(0 0 40px rgba(163,230,53,.25));
+    }
+    .blog-hero-inner { position: relative; max-width: 740px; }
+    .blog-hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: .9rem;
+    }
+    .blog-hero-title span { color: var(--accent); }
+    .blog-hero-sub {
+      font-size: clamp(.85rem, 1.3vw, .95rem);
+      color: rgba(255,255,255,.65);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+    .blog-hero-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.4rem; }
+    .content-body { max-width: 860px; margin: 0 auto; padding: 4rem 6%; }
+    .content-section { margin-bottom: 4rem; }
+    .sec-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .7rem;
+      display: block;
+    }
+    .sec-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .sec-desc {
+      font-size: .88rem;
+      color: var(--txt2);
+      line-height: 1.9;
+      max-width: 640px;
+    }
+    .code-wrap { margin: 1.6rem 0; }
+    .code-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      margin-bottom: .4rem;
+    }
+    .code { white-space: pre; }
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .lesson-list li {
+      display: flex;
+      gap: .8rem;
+      font-size: .83rem;
+      color: var(--txt2);
+      line-height: 1.75;
+    }
+    .lesson-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: .55rem;
+    }
+    .related-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.2rem;
+    }
+    .rel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-weight: 600;
+      transition: border-color .2s, color .2s;
+    }
+    .rel-link:hover { border-color: var(--accent); color: var(--accent); }
+    .back-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .arch-diagram {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      color: var(--txt2);
+    }
+    .arch-node {
+      background: rgba(163,230,53,.07);
+      border: 1px solid rgba(163,230,53,.2);
+      color: var(--accent);
+      padding: .4rem .9rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .74rem;
+    }
+    .arch-arrow { color: var(--txt3); font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="hdr">
+  <a href="index.html" class="logo">JCH<em>.</em></a>
+  <nav class="gnav">
+    <a href="index.html">← 홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact" class="gnav-cta">Contact</a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <span class="hero-icon">⚡</span>
+    <div class="blog-hero-tags">
+      <span class="badge">WebSocket</span>
+      <span class="badge">STOMP</span>
+      <span class="badge">RabbitMQ</span>
+      <span class="badge">SSE</span>
+      <span class="badge">Redis Pub/Sub</span>
+    </div>
+    <h1 class="blog-hero-title">Real-Time —<br><span>실시간 통신 시스템 설계</span></h1>
+    <p class="blog-hero-sub">WebSocket + STOMP 기반 실시간 입찰·채팅·알림 구현부터 RabbitMQ 이벤트 기반 비동기 처리까지 — BIDEO 경매 시스템을 구축하며 익힌 실시간 아키텍처를 정리합니다.</p>
+  </div>
+</section>
+
+<!-- 본문 -->
+<main class="content-body">
+
+  <!-- 뒤로가기 -->
+  <div class="back-row">
+    <a href="index.html" class="btn-back">← 포트폴리오로 돌아가기</a>
+    <div class="badge-row">
+      <span class="badge-gray badge">Real-Time</span>
+      <span class="badge-gray badge">2025</span>
+    </div>
+  </div>
+
+  <!-- 1. 개요 -->
+  <section class="content-section">
+    <span class="sec-label">Overview</span>
+    <h2 class="sec-title">WebSocket + STOMP + RabbitMQ로 실시간 시스템 구축</h2>
+    <p class="sec-desc">
+      BIDEO 경매 플랫폼에서 입찰이 발생하면 수백 명의 참여자에게 동시에 실시간으로 정보가 전달되어야 합니다.
+      단순한 폴링(polling)은 서버 부하와 지연 문제가 있어, WebSocket 기반 양방향 통신과 STOMP 프로토콜을 선택했습니다.
+      이벤트 기반 비동기 처리는 RabbitMQ로, 다중 서버 환경의 메시지 브로드캐스트는 Redis Pub/Sub으로 처리했습니다.
+      AI 응답 스트리밍처럼 단방향 서버→클라이언트 스트리밍이 필요한 경우 SSE(Server-Sent Events)를 활용했습니다.
+    </p>
+
+    <!-- 아키텍처 다이어그램 -->
+    <div class="arch-diagram">
+      <span class="arch-node">클라이언트</span>
+      <span class="arch-arrow">⇄</span>
+      <span class="arch-node">WebSocket / STOMP</span>
+      <span class="arch-arrow">→</span>
+      <span class="arch-node">Spring MessageBroker</span>
+      <span class="arch-arrow">→</span>
+      <span class="arch-node">RabbitMQ</span>
+      <span class="arch-arrow">→</span>
+      <span class="arch-node">Redis Pub/Sub</span>
+      <span class="arch-arrow">→</span>
+      <span class="arch-node">전체 서버 브로드캐스트</span>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 2. 핵심 학습 -->
+  <section class="content-section">
+    <span class="sec-label">Core Topics</span>
+    <h2 class="sec-title">핵심 학습 주제</h2>
+    <div>
+      <div class="feat-item">
+        <div class="feat-icon">🔌</div>
+        <div>
+          <div class="feat-title">WebSocket — 양방향 지속 연결</div>
+          <div class="feat-desc">
+            HTTP는 요청-응답이 끝나면 연결이 끊어지지만, WebSocket은 TCP 연결을 유지하여 서버가 먼저 데이터를 보낼 수 있습니다.
+            Upgrade 핸드셰이크 과정을 이해하고, 연결 끊김 감지(Heartbeat/Ping-Pong)와 자동 재연결(Exponential Backoff) 전략을 구현했습니다.
+            연결당 세션 객체를 관리하는 방식으로 특정 사용자에게 개인화 메시지를 전송했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📨</div>
+        <div>
+          <div class="feat-title">STOMP 프로토콜 — WebSocket 위의 메시징 레이어</div>
+          <div class="feat-desc">
+            WebSocket은 바이트 스트림만 다루지만, STOMP는 그 위에 pub/sub 패턴과 헤더를 제공합니다.
+            /topic/ (브로드캐스트)와 /queue/ (개인 메시지) 두 채널로 구독을 분리했습니다.
+            @MessageMapping으로 메시지를 수신하고 @SendTo로 특정 토픽에 발행하는 구조가 직관적이고 테스트하기 쉬웠습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🐇</div>
+        <div>
+          <div class="feat-title">RabbitMQ — Exchange/Queue/Binding 구조</div>
+          <div class="feat-desc">
+            Direct Exchange(입찰 처리), Fanout Exchange(전체 알림), Topic Exchange(카테고리별 구독) 세 유형을 실제로 적용해봤습니다.
+            Dead Letter Queue로 처리 실패 메시지를 격리하고, 메시지 TTL과 최대 재시도 횟수를 설정하여 무한 재시도를 방지했습니다.
+            Spring AMQP와 RabbitAdmin으로 Queue/Exchange를 코드에서 선언했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📡</div>
+        <div>
+          <div class="feat-title">SSE — 단방향 서버→클라이언트 스트리밍</div>
+          <div class="feat-desc">
+            WebSocket 연결이 부담스러운 경우(알림, AI 응답 스트리밍)에 SSE를 활용했습니다.
+            SseEmitter로 서버에서 이벤트를 밀어 넣고, EventSource API로 클라이언트가 수신했습니다.
+            연결 만료(timeout) 처리와 클라이언트 재연결 시 Last-Event-ID로 이전 이벤트를 재전송하는 메커니즘을 구현했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🔴</div>
+        <div>
+          <div class="feat-title">Redis Pub/Sub — 다중 서버 브로드캐스트</div>
+          <div class="feat-desc">
+            서버가 2대 이상이면 WebSocket 세션이 서버마다 분리됩니다. Redis Pub/Sub으로 한 서버가 발행한 메시지를
+            모든 서버가 수신해 자신의 WebSocket 세션에 브로드캐스트하는 구조를 구현했습니다.
+            Redisson의 RTopic을 사용하여 구독 관리를 단순화했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 3. 코드 개념 -->
+  <section class="content-section">
+    <span class="sec-label">Code Concepts</span>
+    <h2 class="sec-title">핵심 코드 개념</h2>
+
+    <div class="code-wrap">
+      <div class="code-label">WebSocket STOMP 설정 — WebSocketConfig.java</div>
+      <div class="code"><span class="cmt">// WebSocket STOMP 설정</span>
+<span class="kw">@Configuration</span>
+<span class="kw">@EnableWebSocketMessageBroker</span>
+<span class="kw">public class</span> <span class="cls">WebSocketConfig</span> <span class="kw">implements</span> <span class="cls">WebSocketMessageBrokerConfigurer</span> {
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">configureMessageBroker</span>(<span class="cls">MessageBrokerRegistry</span> config) {
+        <span class="cmt">// 브로드캐스트 채널 및 개인 메시지 채널 설정</span>
+        config.<span class="fn">enableSimpleBroker</span>(<span class="str">"/topic"</span>, <span class="str">"/queue"</span>);
+        config.<span class="fn">setApplicationDestinationPrefixes</span>(<span class="str">"/app"</span>);
+        config.<span class="fn">setUserDestinationPrefix</span>(<span class="str">"/user"</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">registerStompEndpoints</span>(<span class="cls">StompEndpointRegistry</span> registry) {
+        registry.<span class="fn">addEndpoint</span>(<span class="str">"/ws"</span>)
+            .<span class="fn">setAllowedOriginPatterns</span>(<span class="str">"*"</span>)
+            .<span class="fn">withSockJS</span>(); <span class="cmt">// SockJS 폴백 지원</span>
+    }
+}</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">입찰 메시지 처리 — BidController.java</div>
+      <div class="code"><span class="cmt">// 입찰 메시지 수신 및 브로드캐스트</span>
+<span class="kw">@Controller</span>
+<span class="kw">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> <span class="cls">BidController</span> {
+
+    <span class="kw">private final</span> <span class="cls">BidService</span> bidService;
+    <span class="kw">private final</span> <span class="cls">SimpMessagingTemplate</span> messagingTemplate;
+
+    <span class="kw">@MessageMapping</span>(<span class="str">"/bid/{auctionId}"</span>)
+    <span class="kw">public void</span> <span class="fn">processBid</span>(
+        <span class="kw">@DestinationVariable</span> <span class="cls">Long</span> auctionId,
+        <span class="cls">BidRequest</span> bid,
+        <span class="cls">Principal</span> principal
+    ) {
+        <span class="cls">BidResponse</span> result = bidService.<span class="fn">placeBid</span>(auctionId, bid, principal.<span class="fn">getName</span>());
+
+        <span class="cmt">// 경매방 전체에 새 입찰 정보 브로드캐스트</span>
+        messagingTemplate.<span class="fn">convertAndSend</span>(
+            <span class="str">"/topic/auction/"</span> + auctionId, result
+        );
+
+        <span class="cmt">// 이전 최고가 입찰자에게 개인 알림</span>
+        messagingTemplate.<span class="fn">convertAndSendToUser</span>(
+            result.<span class="fn">getOutbidUserId</span>(),
+            <span class="str">"/queue/notifications"</span>,
+            <span class="kw">new</span> <span class="cls">OutbidNotification</span>(auctionId, result.<span class="fn">getNewPrice</span>())
+        );
+    }
+}</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">Redis Pub/Sub 브로드캐스트 — RedisMessageBroker.java</div>
+      <div class="code"><span class="cmt">// 다중 서버 환경 Redis Pub/Sub 브로드캐스트</span>
+<span class="kw">@Component</span>
+<span class="kw">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> <span class="cls">RedisMessageBroker</span> {
+
+    <span class="kw">private final</span> <span class="cls">RedissonClient</span> redisson;
+    <span class="kw">private final</span> <span class="cls">SimpMessagingTemplate</span> messagingTemplate;
+
+    <span class="kw">@PostConstruct</span>
+    <span class="kw">public void</span> <span class="fn">subscribe</span>() {
+        <span class="cls">RTopic</span> topic = redisson.<span class="fn">getTopic</span>(<span class="str">"auction.bid.events"</span>);
+        topic.<span class="fn">addListener</span>(<span class="cls">BidEvent</span>.<span class="kw">class</span>, (channel, event) -> {
+            <span class="cmt">// 이 서버의 WebSocket 세션에 브로드캐스트</span>
+            messagingTemplate.<span class="fn">convertAndSend</span>(
+                <span class="str">"/topic/auction/"</span> + event.<span class="fn">getAuctionId</span>(), event
+            );
+        });
+    }
+
+    <span class="kw">public void</span> <span class="fn">publish</span>(<span class="cls">BidEvent</span> event) {
+        redisson.<span class="fn">getTopic</span>(<span class="str">"auction.bid.events"</span>).<span class="fn">publish</span>(event);
+    }
+}</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 4. BIDEO 경매 시스템 -->
+  <section class="content-section">
+    <span class="sec-label">Case Study</span>
+    <h2 class="sec-title">BIDEO 경매 시스템 — 실시간 입찰 구현</h2>
+    <div class="grid2" style="margin-top:1.2rem; gap:1rem;">
+      <div class="hl-box">
+        <div class="hl-t">⚡ 동시 입찰 처리</div>
+        <p>여러 사용자가 동시에 입찰하면 경쟁 조건(Race Condition)이 발생합니다. Redis 분산 락(Redisson RLock)으로 경매당 하나의 입찰만 처리되도록 보장했습니다. 락 획득 대기 시간 500ms, 만료 시간 3초로 설정했습니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">📡 낙찰 알림 및 정산</div>
+        <p>경매 종료 시 WebSocket으로 낙찰자에게 즉시 알림을 전송하고, RabbitMQ로 정산·이메일 발송·영상 소유권 이전 작업을 비동기로 처리했습니다. 정산 실패 시 Dead Letter Queue에서 수동 처리합니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">🔄 연결 끊김 복구</div>
+        <p>클라이언트 네트워크가 불안정할 경우 SockJS가 Long Polling으로 자동 전환됩니다. 재연결 시 최신 경매 상태를 REST API로 동기화하고, 그 이후부터 WebSocket 이벤트를 다시 수신하는 전략을 구현했습니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">🔐 WebSocket 인증</div>
+        <p>HTTP 핸드셰이크 단계에서 JWT를 검증하는 HandshakeInterceptor를 구현했습니다. STOMP CONNECT 프레임의 Authorization 헤더를 파싱하여 Principal을 설정하고, 인증되지 않은 연결은 즉시 차단했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 5. 배운 점 -->
+  <section class="content-section">
+    <span class="sec-label">Lessons Learned</span>
+    <h2 class="sec-title">개발하며 배운 것들</h2>
+    <ul class="lesson-list">
+      <li><div class="lesson-dot"></div><span><strong>WebSocket 세션 관리</strong> — 세션이 메모리에 쌓이면 서버가 죽습니다. 연결 수를 모니터링하고, 비활성 세션을 주기적으로 정리하는 로직이 필수입니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>동시성 처리 — synchronized vs Redis 락</strong> — synchronized는 단일 서버에서만 동작합니다. 스케일 아웃을 고려한다면 처음부터 Redis 분산 락을 사용하는 것이 올바른 선택입니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>메시지 유실 방지</strong> — RabbitMQ 메시지를 처리하다 서버가 죽으면 ack가 없으므로 메시지가 재발행됩니다. 멱등성(Idempotency)을 보장하도록 중복 처리 방지 로직이 반드시 필요합니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>SSE vs WebSocket 선택 기준</strong> — 단방향 스트리밍은 SSE가 구현이 단순하고 HTTP/2와 잘 맞습니다. 양방향 소통이 필요하거나 낮은 지연이 중요하면 WebSocket을 선택해야 합니다.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 연관 프로젝트 -->
+  <section class="content-section">
+    <span class="sec-label">Related</span>
+    <h2 class="sec-title">연관 프로젝트 및 학습</h2>
+    <div class="related-row">
+      <a href="bideo.html" class="rel-link">🎬 BIDEO 프로젝트</a>
+      <a href="blog-spring.html" class="rel-link">🖥️ Spring Boot 백엔드</a>
+      <a href="blog-db.html" class="rel-link">🗄️ Database 설계</a>
+      <a href="blog-react.html" class="rel-link">⚛️ React 프론트엔드</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="pf-footer">
+  <span>© 2025 Jung Chan Ho</span>
+  <div style="display:flex;gap:1.2rem;">
+    <a href="index.html">홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

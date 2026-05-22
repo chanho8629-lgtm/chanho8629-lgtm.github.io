@@ -1,797 +1,1080 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
-	<title>프론트엔드 개발자 구민정</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>정찬호 | Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk','Noto Sans KR',sans-serif; background:#000; color:#fff; overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    /* ── HEADER ── */
+    .hdr { position:fixed; top:0; left:0; right:0; z-index:999; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 6%; transition:background .3s, color .3s; }
+    .hdr.dark-bg { background:rgba(0,0,0,.88); border-bottom:1px solid #111; backdrop-filter:blur(16px); }
+    .hdr.light-bg { background:rgba(255,255,255,.92); border-bottom:1px solid #e8e8e8; backdrop-filter:blur(16px); }
+    .logo { font-family:'Manrope'; font-weight:900; font-size:1.2rem; letter-spacing:-.04em; transition:color .3s; }
+    .hdr.light-bg .logo { color:#000; }
+    .logo em { color:#a3e635; font-style:normal; }
+    .gnav { display:flex; align-items:center; gap:2rem; }
+    .gnav a { font-size:.83rem; font-weight:500; color:#555; transition:color .2s; }
+    .hdr.dark-bg .gnav a { color:#555; }
+    .hdr.light-bg .gnav a { color:#888; }
+    .gnav a:hover { color:#a3e635; }
+    .gnav-cta { background:#000 !important; color:#fff !important; padding:.4rem 1.2rem; border-radius:50px; font-weight:700 !important; transition:background .2s !important; }
+    .hdr.light-bg .gnav-cta { background:#000 !important; color:#fff !important; }
+    .gnav-cta:hover { background:#a3e635 !important; color:#000 !important; }
+    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .ham span { width:22px; height:1.5px; background:#fff; transition:.3s; }
+    .hdr.light-bg .ham span { background:#000; }
 
-	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
+    /* ══ HERO : sticky scroll-zoom ══ */
+    .hero-pin { height:300vh; position:relative; }
+    .hero {
+      position:sticky; top:0; width:100%; height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      background:#000; overflow:hidden;
+    }
+    .orb-wrap {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      pointer-events:none; will-change:transform; transform-origin:center;
+    }
+    #spaceCanvas { position:absolute; width:min(520px,68vw); height:min(520px,68vw); border-radius:50%; z-index:0; }
+    .orb-core  { position:absolute; width:min(500px,65vw); height:min(500px,65vw); border-radius:50%; background:radial-gradient(circle,#000 55%,transparent 100%); z-index:2; }
+    .orb-halo  { position:absolute; width:min(640px,82vw); height:min(640px,82vw); border-radius:50%; background:radial-gradient(circle, transparent 42%, rgba(255,255,255,.03) 47%, rgba(255,255,255,.20) 51%, rgba(255,255,255,.28) 53%, rgba(255,255,255,.14) 58%, rgba(200,200,200,.04) 65%, transparent 74%); filter:blur(7px); z-index:3; }
+    .orb-glow  { position:absolute; width:min(900px,116vw); height:min(900px,116vw); border-radius:50%; background:radial-gradient(circle, transparent 46%, rgba(255,255,255,.012) 53%, rgba(160,160,160,.03) 59%, transparent 70%); filter:blur(28px); z-index:0; }
+    .hero-overlay { position:absolute; inset:0; z-index:20; background:#fff; opacity:0; pointer-events:none; }
+    .hero-txt { position:relative; z-index:10; text-align:center; will-change:opacity,transform; }
+    .hero-txt h1 { font-size:clamp(2rem,5vw,4.2rem); font-weight:900; line-height:1.2; letter-spacing:-.03em; opacity:0; animation:fadeUp 1.4s .3s cubic-bezier(.16,1,.3,1) forwards; }
+    .hero-txt p  { margin-top:1rem; font-size:clamp(.8rem,1.3vw,.9rem); color:#3a3a3a; opacity:0; animation:fadeUp 1.4s .6s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); font-size:.6rem; color:#2a2a2a; letter-spacing:.14em; text-transform:uppercase; z-index:11; opacity:0; animation:fadeUp .8s 1.3s ease forwards; }
+    .scroll-hint::after { content:''; display:block; width:1px; height:36px; background:linear-gradient(to bottom,#2a2a2a,transparent); margin:.5rem auto 0; }
 
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
+    /* ══ 흰 배경 공통 ══ */
+    .white-world { background:#fff; color:#000; }
 
-	<link rel="stylesheet" href="css/aos.css">
+    /* ══ 지구 캔버스 ══ */
+    #globeCanvas {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      border-radius:50%; z-index:5;
+    }
 
-	<link rel="stylesheet" href="css/ionicons.min.css">
+    /* ══ 와이드 패널 카드 ══ */
+    .g-card {
+      position:absolute;
+      width:300px; height:420px;
+      border-radius:0;          /* 원기둥 연속 면 — 모서리 없애야 이어짐 */
+      overflow:hidden; padding:0;
+      box-shadow:0 0 0 transparent; background:#111;
+      transition:filter .12s, opacity .12s;
+      will-change:transform,opacity,filter;
+      transform-style:preserve-3d;
+      backface-visibility:hidden;          /* 뒷면 자동 은닉 */
+      -webkit-backface-visibility:hidden;
+    }
+    .g-panel-bg {
+      position:absolute; inset:0 0 28% 0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:7rem;
+    }
+    #gc0 .g-panel-bg{background:linear-gradient(135deg,#0a0f1e,#0d2d6b,#1e4d9a)}
+    #gc1 .g-panel-bg{background:linear-gradient(135deg,#1a0530,#5b1a8a,#9333ea)}
+    #gc2 .g-panel-bg{background:linear-gradient(135deg,#001a1c,#004d5e,#0891b2)}
+    #gc3 .g-panel-bg{background:linear-gradient(135deg,#1c0500,#7c1d0c,#ea580c)}
+    #gc4 .g-panel-bg{background:linear-gradient(135deg,#05071e,#1e1b6b,#4338ca)}
+    #gc5 .g-panel-bg{background:linear-gradient(135deg,#021207,#14532d,#16a34a)}
+    .g-panel-fg {
+      position:absolute; inset:72% 0 0 0;
+      background:#0d0d0d;
+      display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+      padding:1rem 1.8rem 1.2rem;
+    }
+    .g-panel-cat {
+      font-size:.62rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+      color:rgba(255,255,255,.32); margin-bottom:.38rem; display:block;
+    }
+    .g-panel-title {
+      font-size:1.35rem; font-weight:900; color:#fff;
+      letter-spacing:-.02em; line-height:1.15;
+    }
+    .g-panel-sub {
+      font-size:.78rem; color:rgba(255,255,255,.38);
+      margin-top:.3rem; letter-spacing:.01em;
+    }
+    /* 챕터 섹션 배경 장식 글자 */
+    .ch-deco {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:space-between;
+      pointer-events:none; z-index:1; overflow:hidden; padding:0 2%;
+    }
+    .ch-deco span {
+      font-size:clamp(180px,26vw,420px); font-weight:900;
+      letter-spacing:-.06em; line-height:.85;
+      -webkit-text-stroke:1.5px rgba(255,255,255,.05); color:transparent;
+      user-select:none; flex-shrink:0;
+    }
+    #globeScene { cursor: grab; user-select:none; }
+    #globeScene:active { cursor: grabbing; }
 
-	<link rel="stylesheet" href="css/flaticon.css">
-	<link rel="stylesheet" href="css/icomoon.css">
-	<link rel="stylesheet" href="css/style.css">
+    /* 진행 도트 */
+    .prog-dot { width:6px; height:6px; border-radius:50%; background:#2a2a2a; transition:background .3s, transform .3s; cursor:pointer; }
+    .prog-dot.on { background:#a3e635; transform:scale(1.5); }
+
+    /* ══ SKILL MODAL ══ */
+    #skillModal { position:fixed; inset:0; z-index:500; pointer-events:none; }
+    #skillModal.open { pointer-events:auto; }
+    #modalBackdrop { position:absolute; inset:0; background:rgba(0,0,0,.65); opacity:0; transition:opacity .35s; }
+    #skillModal.open #modalBackdrop { opacity:1; }
+    #modalSheet {
+      position:absolute; bottom:0; left:0; right:0;
+      background:#111; border-radius:24px 24px 0 0;
+      padding:1.6rem 1.8rem 3rem;
+      transform:translateY(100%);
+      transition:transform .42s cubic-bezier(.32,0,.15,1);
+      max-height:78vh; overflow-y:auto;
+    }
+    #skillModal.open #modalSheet { transform:translateY(0); }
+    .modal-handle { width:40px; height:4px; background:#333; border-radius:2px; margin:0 auto 1.6rem; }
+    .modal-head { display:flex; align-items:flex-start; gap:1.2rem; }
+    .modal-icon-wrap { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.9rem; flex-shrink:0; }
+    .modal-title { font-size:1.3rem; font-weight:800; color:#fff; letter-spacing:-.02em; }
+    .modal-sub { font-size:.68rem; color:#a3e635; font-weight:600; letter-spacing:.1em; text-transform:uppercase; margin-top:.3rem; }
+    .modal-desc { margin-top:1.2rem; font-size:.88rem; color:#aaa; line-height:1.75; }
+    .modal-items { list-style:none; margin-top:1.2rem; display:flex; flex-direction:column; gap:.55rem; }
+    .modal-items li { display:flex; align-items:center; gap:.75rem; font-size:.84rem; color:#ddd; }
+    .modal-items li::before { content:''; display:block; width:6px; height:6px; border-radius:50%; background:#a3e635; flex-shrink:0; }
+    .modal-close { position:absolute; top:1.3rem; right:1.4rem; background:rgba(255,255,255,.07); border:none; color:#888; font-size:1rem; cursor:pointer; line-height:1; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background .2s,color .2s; }
+    .modal-close:hover { background:rgba(255,255,255,.15); color:#fff; }
+    .g-card { cursor:pointer; }
+    .g-card:hover { opacity:.88; }
+
+    /* ══ 이후 흰 섹션들 ══ */
+    .sec { padding:110px 0; background:#fff; }
+    .wrap { max-width:1100px; margin:0 auto; padding:0 6%; }
+    .eyebrow { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#a3e635; margin-bottom:.75rem; }
+    .sec-title { font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:900; line-height:1.1; letter-spacing:-.03em; color:#111; }
+    .sec-sub { margin-top:.8rem; color:#888; font-size:.92rem; line-height:1.85; max-width:480px; }
+
+    /* reveal */
+    .up { opacity:0; transform:translateY(55px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .up.on { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
+
+    /* 프로젝트 카드 */
+    .pgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2.5rem; }
+    .pc { background:#fff; border:1px solid #e8e8e8; border-radius:16px; overflow:hidden; transition:transform .3s,border-color .3s,box-shadow .3s; }
+    .pc:hover { transform:translateY(-8px); border-color:#ccc; box-shadow:0 20px 50px rgba(0,0,0,.1); }
+    .pc-img { height:160px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
+    .p-bideo .pc-img{background:linear-gradient(135deg,#0a0a20,#14103a)}
+    .p-cla   .pc-img{background:linear-gradient(135deg,#051508,#0a2015)}
+    .p-gg    .pc-img{background:linear-gradient(135deg,#14051a,#200a2a)}
+    .pc-body { padding:1.4rem; }
+    .pc-badge { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.5rem; display:block; }
+    .p-bideo .pc-badge{color:#a3e635} .p-cla .pc-badge{color:#22d3ee} .p-gg .pc-badge{color:#c084fc}
+    .pc h3 { font-size:.95rem; font-weight:800; color:#111; margin-bottom:.4rem; line-height:1.3; }
+    .pc p  { font-size:.78rem; color:#777; line-height:1.65; margin-bottom:.9rem; }
+    .pc-stacks { display:flex; flex-wrap:wrap; gap:.3rem; }
+    .pst { background:#f5f5f5; border:1px solid #eee; color:#666; padding:.18rem .5rem; border-radius:5px; font-size:.66rem; font-family:'Manrope'; font-weight:600; }
+    .pbtn { display:inline-flex; align-items:center; gap:.4rem; background:#000; color:#fff; padding:.55rem 1.2rem; border-radius:50px; font-size:.78rem; font-weight:700; margin-top:1rem; transition:background .2s; }
+    .pbtn:hover { background:#a3e635; color:#000; }
+
+    /* 스킬 그리드 */
+    .sgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:.9rem; margin-top:2.5rem; }
+    .sg { background:#fff; border:1px solid #e8e8e8; border-radius:14px; padding:1.3rem; transition:border-color .2s,transform .2s; }
+    .sg:hover { border-color:#bbb; transform:translateY(-4px); }
+    .sg-t { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#ccc; margin-bottom:1rem; }
+    .slist { display:flex; flex-direction:column; gap:.55rem; }
+    .si { display:flex; align-items:center; gap:.55rem; }
+    .sd { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .sn { font-size:.8rem; font-weight:500; color:#444; }
+
+    /* ═══ PROJECT SLIDES ═══ */
+    .proj-section { background:#000; }
+    .proj-slide {
+      display:flex; min-height:100vh;
+      align-items:stretch;
+    }
+    .proj-slide.rev { flex-direction:row-reverse; }
+    .proj-visual {
+      width:46%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; min-height:420px;
+    }
+    .proj-visual::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to right, rgba(0,0,0,.5) 0%, transparent 55%);
+      pointer-events:none;
+    }
+    .proj-slide.rev .proj-visual::after {
+      background:linear-gradient(to left, rgba(0,0,0,.5) 0%, transparent 55%);
+    }
+    .proj-icon-big {
+      font-size:7rem; position:relative; z-index:1;
+      filter:drop-shadow(0 0 50px rgba(0,0,0,.85));
+    }
+    .proj-info {
+      flex:1; background:#090909;
+      display:flex; flex-direction:column; justify-content:center;
+      padding:4rem 6%;
+    }
+    .proj-type-badge {
+      display:block; font-size:.58rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:#a3e635; margin-bottom:1rem;
+    }
+    .proj-title-big {
+      font-size:clamp(1.8rem,4vw,3.2rem); font-weight:900;
+      color:#a3e635; letter-spacing:-.04em; line-height:1.05;
+      margin-bottom:1.2rem;
+    }
+    .proj-quote-text {
+      font-size:clamp(.85rem,1.4vw,1.05rem); font-weight:600;
+      color:#e0e0e0; line-height:1.65; margin-bottom:.7rem;
+    }
+    .proj-desc-text {
+      font-size:.78rem; color:#4a4a4a; line-height:1.75; margin-bottom:1.4rem;
+    }
+    .proj-tag-row { display:flex; flex-wrap:wrap; gap:.32rem; margin-bottom:1.8rem; }
+    .proj-tag {
+      background:rgba(163,230,53,.07); border:1px solid rgba(163,230,53,.22);
+      color:#a3e635; padding:.22rem .65rem; border-radius:50px;
+      font-size:.62rem; font-weight:700; letter-spacing:.04em;
+    }
+    .proj-link {
+      display:inline-flex; align-items:center; gap:.45rem;
+      background:#a3e635; color:#000; padding:.6rem 1.5rem;
+      border-radius:50px; font-weight:800; font-size:.78rem;
+      width:fit-content; transition:transform .2s,box-shadow .2s;
+    }
+    .proj-link:hover { transform:translateX(5px); box-shadow:0 6px 24px rgba(163,230,53,.28); }
+    @media(max-width:768px){
+      .proj-slide, .proj-slide.rev { flex-direction:column; min-height:auto; }
+      .proj-visual { width:100%; min-height:240px; height:48vw; }
+      .proj-info { padding:2.5rem 6%; }
+    }
+
+    /* 연락처 */
+    .crow { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:2.5rem; }
+    .cc { background:#fff; border:1px solid #e8e8e8; border-radius:16px; padding:1.5rem 2rem; min-width:165px; text-align:center; transition:border-color .3s,transform .3s,box-shadow .3s; }
+    .cc:hover { border-color:#a3e635; transform:translateY(-8px); box-shadow:0 16px 40px rgba(163,230,53,.1); }
+    .cc-ico { font-size:1.7rem; margin-bottom:.6rem; }
+    .cc dt { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#a3e635; margin-bottom:.3rem; }
+    .cc dd { font-size:.82rem; font-weight:600; color:#333; }
+
+    /* footer */
+    footer { background:#f5f5f5; border-top:1px solid #e8e8e8; padding:2rem 6%; display:flex; align-items:center; justify-content:space-between; font-size:.78rem; color:#aaa; flex-wrap:wrap; gap:1rem; }
+    footer a { color:#888; } footer a:hover { color:#5a7a10; }
+
+    /* responsive */
+    @media(max-width:900px){
+      .chapter-sticky{grid-template-columns:1fr}
+      .orb-white-wrap{display:none}
+      .ch-dots{display:none}
+      .pgrid{grid-template-columns:1fr}
+      .sgrid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:640px){
+      .gnav{display:none}
+      .gnav.open{display:flex;flex-direction:column;gap:1.5rem;position:fixed;inset:64px 0 0;background:#fff;padding:3rem 6%;z-index:998}
+      .gnav.open a{font-size:1rem;color:#333}
+      .ham{display:flex}
+    }
+  </style>
 </head>
+<body>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <a class="logo" href="#">JCH<em>.</em></a>
+  <nav class="gnav" id="gnav">
+    <a href="#chapters">학습</a>
+    <a href="#projects">프로젝트</a>
+    <a href="#contact" class="gnav-cta">Contact</a>
+  </nav>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</header>
 
+<!-- ══ HERO ══ -->
+<div class="hero-pin" id="heroPin">
+  <section class="hero" id="home">
+    <div class="orb-wrap" id="orbWrap">
+      <div class="orb-glow"></div>
+      <canvas id="spaceCanvas"></canvas>
+      <div class="orb-core"></div>
+      <div class="orb-halo"></div>
+    </div>
+    <div class="hero-overlay" id="heroOverlay"></div>
+    <div class="hero-txt" id="heroTxt">
+      <h1>코드로 서비스를<br>설계합니다.</h1>
+      <p>Spring Boot · React · FastAPI · AI — 정찬호의 개발 포트폴리오</p>
+    </div>
+    <div class="scroll-hint" id="scrollHint">SCROLL</div>
+  </section>
+</div>
 
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html"><span>K</span>ooMinJeong</a>
-			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
+<!-- ══ 3D 글로브 챕터 ══ -->
+<div id="chapters" style="background:#fff;">
+  <div id="chapterPin" style="height:220vh;position:relative;">
+    <div id="chapterSticky" style="position:fixed;top:0;left:0;right:0;height:100vh;overflow:visible;background:#000;opacity:0;pointer-events:none;z-index:15;transition:opacity .15s;">
+      <canvas id="starCanvas" style="position:absolute;inset:0;z-index:0;"></canvas>
+      <div class="ch-deco"><span>J</span><span>CH</span></div>
 
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<li class="nav-item"><a href="#education-section" class="nav-link"><span>Education</span></a></li>
-					<li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
-					<li class="nav-item"><a href="#side-projects-section" class="nav-link"><span>Side
-								Projects</span></a>
-					</li>
-					<li class="nav-item"><a href="#blog-section" class="nav-link"><span>My Blog</span></a></li>
-					<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<section class="hero-wrap js-fullheight">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
-				<div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-center">
-					<div class="text text-center">
-						<span class="subheading">Hey! I am</span>
-						<h1>구민정</h1>
-						<h2>I'm a
-							<span class="txt-rotate" data-period="500"
-								data-rotate='[  "풀스택 개발자", "스타트업 개발자", "6년차"]'></span>
-						</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<div class="mouse">
-			<a href="#" class="mouse-icon">
-				<div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
-			</a>
-		</div>
-	</section>
+      <!-- 상단 레이블 -->
+      <div id="chSectionLabel" style="position:absolute;top:48px;left:50%;transform:translateX(-50%);text-align:center;z-index:20;opacity:0;transition:opacity 1s ease;">
+        <p style="font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#a3e635;margin-bottom:.4rem;">Learning Curriculum</p>
+        <h2 id="chActiveTitle" style="font-size:clamp(1rem,2vw,1.4rem);font-weight:700;color:#fff;letter-spacing:-.02em;min-height:1.6em;transition:opacity .4s ease;"></h2>
+      </div>
 
-	<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
-		<div class="container">
-			<div class="row d-flex no-gutters">
-				<div class="col-md-6 col-lg-6 d-flex">
-					<div class="img-about img d-flex align-items-stretch">
-						<div class="overlay"></div>
-						<div class="img d-flex align-self-stretch align-items-center"
-							style="background-image:url(images/about.jpg);">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-6 pl-md-5 py-5">
-					<div class="row justify-content-start pb-3">
-						<div class="col-md-12 heading-section ftco-animate">
-							<h1 class="big">About</h1>
-							<h2 class="mb-4">About Me</h2>
-							<p>커피와 노트북만 있다면, 언제 어디서나 즐겁게 일하는 6년차 개발자 정쿠입니다. </p>
-							<ul class="about-info mt-4 px-md-0 px-2">
-								<li class="d-flex"><span>Name:</span> <span>구민정</span></li>
-								<li class="d-flex"><span>Address:</span> <span>성남시 분당구 정자동</span></li>
-								<li class="d-flex"><span>Email:</span> <span>cookie00421@gmail.com</span></li>
-								<li class="d-flex"><span>Phone: </span> <span>+82-10-1234-5678</span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="counter-wrap ftco-animate d-flex mt-md-3">
-						<div class="text">
-							<p class="mb-4">
-								<span class="number" data-number="24">0</span>
-								<span>Project complete</span>
-							</p>
-							<p><a target="_blank"
-									href="https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing"
-									class="btn btn-primary py-3 px-3">이력서 다운받기</a></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+      <!-- 3D 씬 -->
+      <div id="globeScene" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <!-- 지구 캔버스 -->
+        <canvas id="globeCanvas"></canvas>
+        <!-- 3D 카드 stage: 구 그리기 완료 후 등장 -->
+        <div id="globeStage" style="position:relative;transform-style:preserve-3d;opacity:0;transition:opacity 1s ease;">
+          <div class="g-card" id="gc0"><div class="g-panel-bg">🖥️</div><div class="g-panel-fg"><div class="g-panel-cat">BACKEND</div><div class="g-panel-title">Spring Boot</div><div class="g-panel-sub">Java 17 · JPA · MyBatis</div></div></div>
+          <div class="g-card" id="gc1"><div class="g-panel-bg">⚛️</div><div class="g-panel-fg"><div class="g-panel-cat">FRONTEND</div><div class="g-panel-title">React 19</div><div class="g-panel-sub">TypeScript · TailwindCSS</div></div></div>
+          <div class="g-card" id="gc2"><div class="g-panel-bg">⚡</div><div class="g-panel-fg"><div class="g-panel-cat">REAL-TIME</div><div class="g-panel-title">WebSocket</div><div class="g-panel-sub">RabbitMQ · SSE</div></div></div>
+          <div class="g-card" id="gc3"><div class="g-panel-bg">🤖</div><div class="g-panel-fg"><div class="g-panel-cat">AI / API</div><div class="g-panel-title">FastAPI</div><div class="g-panel-sub">LangChain · RAG · OpenAI</div></div></div>
+          <div class="g-card" id="gc4"><div class="g-panel-bg">🗄️</div><div class="g-panel-fg"><div class="g-panel-cat">DATABASE</div><div class="g-panel-title">PostgreSQL</div><div class="g-panel-sub">Redis · Flyway</div></div></div>
+          <div class="g-card" id="gc5"><div class="g-panel-bg">📊</div><div class="g-panel-fg"><div class="g-panel-cat">DATA</div><div class="g-panel-title">Analysis</div><div class="g-panel-sub">Pandas · Scikit-learn</div></div></div>
+        </div>
+      </div>
 
-	<section class="ftco-section ftco-no-pb ftco-counter img" id="section-counter">
-		<div class="container-fluid px-md-5">
-			<div class="row d-md-flex align-items-center">
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18 shadow">
-						<div class="text">
-							<strong class="number" data-number="365">0</strong>
-							<span>코딩한 일수</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18 shadow">
-						<div class="text">
-							<strong class="number" data-number="100">0</strong>
-							<span>Complete Projects</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18 shadow">
-						<div class="text">
-							<strong class="number" data-number="100">0</strong>
-							<span>Happy Customers</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18 shadow">
-						<div class="text">
-							<strong class="number" data-number="50">0</strong>
-							<span>Cups of coffee</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+      <!-- 하단 진행 인디케이터 -->
+      <div id="chProgress" style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.6rem;z-index:20;opacity:0;transition:opacity 1s ease;"></div>
 
+    </div>
+  </div>
+</div>
 
-	<section class="ftco-section ftco-no-pb goto-here" id="resume-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<nav id="navi">
-						<ul>
-							<li><a href="#page-1">Education</a></li>
-							<li><a href="#page-2">Experience</a></li>
-							<li><a href="#page-3">Skills</a></li>
-							<li><a href="#page-4">Projects</a></li>
-						</ul>
-					</nav>
-				</div>
-				<div class="col-md-9" id="education-section">
-					<div id="page-1" class="page one">
-						<h2 class="heading">Education</h2>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2010-2015</span>
-								<h2>컴퓨터 공학 & 전자 공학 복수 전공</h2>
-								<span class="position">Handong Global Univercity</span>
-								<p>전산 동아리 활동과 기숙사 생활을 통해, 함께 일하는 밥을 배웠습니다. Computer Science 기초 지식을 4년간 탄탄히 쌓아 빠르고 올바른
-									방향으로 성장할 수 있는 개발자가 되었습니다. </p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Computer Processing Systems/Computer Software</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences fly
-									into your mouth.</p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Diploma in Computer</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences fly
-									into your mouth.</p>
-							</div>
-						</div>
-					</div>
+<!-- ══ PROJECTS ══ -->
+<section class="proj-section" id="projects">
 
-					<div id="page-2" class="page two">
-						<h2 class="heading">Work Experience</h2>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2019.09-2021.04(1년 8개월)</span>
-								<h2>Full Stack Developer</h2>
-								<span class="position">주식회사 더라피스</span>
-								<p>동남아 스파 예약 서비스 Web 개발, 온라인 요가 수업 예약/결제 서비스 개발<br /></p>
-								<b class="text-primary">기술 스택</b>
-								<p>ReactJS, Next.js,Typescript, Styled-components, AWS S3 static hosting</p>
-								<b class="text-primary">주요 업무 </b>
-								<div>
-									<div> - React + typescript 기반 웹 서비스 개발/운영</div>
-									<div> - 디자인 시스템 도입을 위한 UI 컴포넌트 관리용 storybook 도입</div>
-									<div> - SEO를 위한 Next.js 도입</div>
-									<div> - Serverless 환경을 위한 s3 기반의 static hosting 구축</div>
-								</div>
-								</p>
-							</div>
+  <!-- BIDEO -->
+  <div class="proj-slide">
+    <div class="proj-visual" style="background:linear-gradient(155deg,#04050f 0%,#0b1060 55%,#1628b8 100%)">
+      <span class="proj-icon-big">🎬</span>
+    </div>
+    <div class="proj-info">
+      <span class="proj-type-badge">주력 프로젝트</span>
+      <h2 class="proj-title-big">BIDEO.</h2>
+      <p class="proj-quote-text">영상 창작자와 구매자를<br>실시간으로 연결하다.</p>
+      <p class="proj-desc-text">창작자·구매자 연결. 실시간 입찰, 결제, S3 업로드, 추천 시스템.</p>
+      <div class="proj-tag-row">
+        <span class="proj-tag">Spring Boot</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">Redis</span><span class="proj-tag">AWS S3</span><span class="proj-tag">WebSocket</span>
+      </div>
+      <a class="proj-link" href="bideo.html">자세히 보기 →</a>
+    </div>
+  </div>
 
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Web Designer</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Web Marketing</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Art &amp; Creative Director</h2>
-								<span class="position">Side Tech</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-					</div>
-					<div id="page-3" class="page three">
-						<h2 class="heading">Skills</h2>
-						<div class="row progress-circle mb-5">
-							<div class="col-lg-4 mb-4">
-								<div class="bg-white rounded-lg shadow p-4">
-									<h2 class="h5 font-weight-bold text-center mb-4">CSS</h2>
+  <!-- Clausion -->
+  <div class="proj-slide rev">
+    <div class="proj-visual" style="background:linear-gradient(155deg,#020c04 0%,#073a12 55%,#0d6025 100%)">
+      <span class="proj-icon-big">📚</span>
+    </div>
+    <div class="proj-info">
+      <span class="proj-type-badge">팀 프로젝트</span>
+      <h2 class="proj-title-big">CLAUSION.</h2>
+      <p class="proj-quote-text">화상 강의에 AI를 더한<br>온라인 교육 플랫폼.</p>
+      <p class="proj-desc-text">React 19 + Spring Boot/JPA. 화상 강의, AI 챗봇, 코드 리뷰 통합.</p>
+      <div class="proj-tag-row">
+        <span class="proj-tag">React 19</span><span class="proj-tag">JPA</span><span class="proj-tag">LiveKit</span><span class="proj-tag">OpenAI</span><span class="proj-tag">Docker</span>
+      </div>
+      <a class="proj-link" href="clausion.html">자세히 보기 →</a>
+    </div>
+  </div>
 
-									<!-- Progress bar 1 -->
-									<div class="progress mx-auto" data-value='90'>
-										<span class="progress-left">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<span class="progress-right">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<div
-											class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-											<div class="h2 font-weight-bold">90<sup class="small">%</sup></div>
-										</div>
-									</div>
-									<!-- END -->
+  <!-- GGSHOP -->
+  <div class="proj-slide">
+    <div class="proj-visual" style="background:linear-gradient(155deg,#0c0212 0%,#280848 55%,#420d78 100%)">
+      <span class="proj-icon-big">⚡</span>
+    </div>
+    <div class="proj-info">
+      <span class="proj-type-badge">학습 프로젝트</span>
+      <h2 class="proj-title-big">GGSHOP.</h2>
+      <p class="proj-quote-text">실시간 데이터 시각화로<br>충전소를 통합 관리하다.</p>
+      <p class="proj-desc-text">다중 관리 대시보드. ag-Grid와 Chart.js 실시간 데이터 시각화.</p>
+      <div class="proj-tag-row">
+        <span class="proj-tag">Spring Boot</span><span class="proj-tag">Thymeleaf</span><span class="proj-tag">ag-Grid</span><span class="proj-tag">Chart.js</span><span class="proj-tag">MySQL</span>
+      </div>
+      <a class="proj-link" href="ggshop.html">자세히 보기 →</a>
+    </div>
+  </div>
 
-									<!-- Demo info -->
-									<div class="row text-center mt-4">
-										<div class="col-6 border-right">
-											<div class="h4 font-weight-bold mb-0">28%</div><span
-												class="small text-gray">Last week</span>
-										</div>
-										<div class="col-6">
-											<div class="h4 font-weight-bold mb-0">60%</div><span
-												class="small text-gray">Last month</span>
-										</div>
-									</div>
-									<!-- END -->
-								</div>
-							</div>
+</section>
 
-							<div class="col-lg-4 mb-4">
-								<div class="bg-white rounded-lg shadow p-4">
-									<h2 class="h5 font-weight-bold text-center mb-4">HTML</h2>
+<!-- ══ SKILLS ══ -->
+<section class="sec white-world" id="skills">
+  <div class="wrap">
+    <div class="up"><p class="eyebrow">Skills</p><h2 class="sec-title">기술 스택 요약</h2></div>
+    <div class="sgrid">
+      <div class="sg up d1"><p class="sg-t">Frontend</p><ul class="slist"><li class="si"><span class="sd" style="background:#a3e635"></span><span class="sn">React 19 / TypeScript</span></li><li class="si"><span class="sd" style="background:#06b6d4"></span><span class="sn">TailwindCSS / SCSS</span></li><li class="si"><span class="sd" style="background:#f59e0b"></span><span class="sn">JavaScript ES6+</span></li><li class="si"><span class="sd" style="background:#6366f1"></span><span class="sn">Zustand / TanStack Query</span></li></ul></div>
+      <div class="sg up d2"><p class="sg-t">Backend</p><ul class="slist"><li class="si"><span class="sd" style="background:#a3e635"></span><span class="sn">Spring Boot 3.5 / Java 17</span></li><li class="si"><span class="sd" style="background:#6366f1"></span><span class="sn">MyBatis / JPA</span></li><li class="si"><span class="sd" style="background:#a855f7"></span><span class="sn">Spring Security / JWT</span></li><li class="si"><span class="sd" style="background:#f97316"></span><span class="sn">FastAPI / Python</span></li></ul></div>
+      <div class="sg up d3"><p class="sg-t">Database & Infra</p><ul class="slist"><li class="si"><span class="sd" style="background:#06b6d4"></span><span class="sn">PostgreSQL / MySQL</span></li><li class="si"><span class="sd" style="background:#ef4444"></span><span class="sn">Redis</span></li><li class="si"><span class="sd" style="background:#f59e0b"></span><span class="sn">Docker / Docker Compose</span></li><li class="si"><span class="sd" style="background:#a3e635"></span><span class="sn">AWS S3 / RabbitMQ</span></li></ul></div>
+      <div class="sg up d1" style="transition-delay:.15s"><p class="sg-t">AI / Data</p><ul class="slist"><li class="si"><span class="sd" style="background:#a855f7"></span><span class="sn">LangChain / OpenAI API</span></li><li class="si"><span class="sd" style="background:#6366f1"></span><span class="sn">Scikit-learn / Pandas</span></li><li class="si"><span class="sd" style="background:#06b6d4"></span><span class="sn">RAG / 멀티모달 LLM</span></li><li class="si"><span class="sd" style="background:#a3e635"></span><span class="sn">Jupyter / NumPy</span></li></ul></div>
+    </div>
+  </div>
+</section>
 
-									<!-- Progress bar 1 -->
-									<div class="progress mx-auto" data-value='80'>
-										<span class="progress-left">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<span class="progress-right">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<div
-											class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-											<div class="h2 font-weight-bold">80<sup class="small">%</sup></div>
-										</div>
-									</div>
-									<!-- END -->
+<!-- ══ CONTACT ══ -->
+<section class="sec white-world" id="contact" style="background:#f8f8f8; text-align:center">
+  <div class="wrap" style="max-width:560px">
+    <div class="up"><p class="eyebrow">Contact</p><h2 class="sec-title">기술을 서비스로<br>설명하는 개발자</h2><p class="sec-sub" style="margin:0 auto">채용 문의나 프로젝트 협업은 언제든지 환영합니다.</p></div>
+    <div class="crow">
+      <a class="cc up d1" href="mailto:cookie00421@gmail.com"><div class="cc-ico">✉️</div><dl><dt>Email</dt><dd>cookie00421@gmail.com</dd></dl></a>
+      <div class="cc up d2"><div class="cc-ico">📍</div><dl><dt>Location</dt><dd>대한민국</dd></dl></div>
+      <div class="cc up d3"><div class="cc-ico">💼</div><dl><dt>Status</dt><dd>구직 중</dd></dl></div>
+    </div>
+  </div>
+</section>
 
-									<!-- Demo info -->
-									<div class="row text-center mt-4">
-										<div class="col-6 border-right">
-											<div class="h4 font-weight-bold mb-0">28%</div><span
-												class="small text-gray">Last week</span>
-										</div>
-										<div class="col-6">
-											<div class="h4 font-weight-bold mb-0">60%</div><span
-												class="small text-gray">Last month</span>
-										</div>
-									</div>
-									<!-- END -->
-								</div>
-							</div>
+<footer>
+  <span>© <span id="yr"></span> Jung Chan Ho · Developer Portfolio</span>
+  <span>Spring · React · FastAPI · AI</span>
+</footer>
 
-							<div class="col-lg-4 mb-4">
-								<div class="bg-white rounded-lg shadow p-4">
-									<h2 class="h5 font-weight-bold text-center mb-4">jQuery</h2>
+<!-- SKILL MODAL -->
+<div id="skillModal">
+  <div id="modalBackdrop"></div>
+  <div id="modalSheet">
+    <div class="modal-handle"></div>
+    <div id="modalContent"></div>
+  </div>
+</div>
 
-									<!-- Progress bar 1 -->
-									<div class="progress mx-auto" data-value='75'>
-										<span class="progress-left">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<span class="progress-right">
-											<span class="progress-bar border-primary"></span>
-										</span>
-										<div
-											class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-											<div class="h2 font-weight-bold">75<sup class="small">%</sup></div>
-										</div>
-									</div>
-									<!-- END -->
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-									<!-- Demo info -->
-									<div class="row text-center mt-4">
-										<div class="col-6 border-right">
-											<div class="h4 font-weight-bold mb-0">28%</div><span
-												class="small text-gray">Last week</span>
-										</div>
-										<div class="col-6">
-											<div class="h4 font-weight-bold mb-0">60%</div><span
-												class="small text-gray">Last month</span>
-										</div>
-									</div>
-									<!-- END -->
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>React</h3>
-									<div class="progress">
-										<div class="progress-bar color-1" role="progressbar" aria-valuenow="90"
-											aria-valuemin="0" aria-valuemax="100" style="width:90%">
-											<span>90%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>jQuery</h3>
-									<div class="progress">
-										<div class="progress-bar color-2" role="progressbar" aria-valuenow="85"
-											aria-valuemin="0" aria-valuemax="100" style="width:85%">
-											<span>85%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>HTML5</h3>
-									<div class="progress">
-										<div class="progress-bar color-3" role="progressbar" aria-valuenow="95"
-											aria-valuemin="0" aria-valuemax="100" style="width:95%">
-											<span>95%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>CSS3</h3>
-									<div class="progress">
-										<div class="progress-bar color-4" role="progressbar" aria-valuenow="90"
-											aria-valuemin="0" aria-valuemax="100" style="width:90%">
-											<span>90%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>WordPress</h3>
-									<div class="progress">
-										<div class="progress-bar color-5" role="progressbar" aria-valuenow="70"
-											aria-valuemin="0" aria-valuemax="100" style="width:70%">
-											<span>70%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 animate-box">
-								<div class="progress-wrap ftco-animate">
-									<h3>SEO</h3>
-									<div class="progress">
-										<div class="progress-bar color-6" role="progressbar" aria-valuenow="80"
-											aria-valuemin="0" aria-valuemax="100" style="width:80%">
-											<span>80%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="page-4" class="page four">
-						<h2 id="projects-section" class="heading">Projects</h2>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2019.09-2020.08</span>
-								<div class="d-flex">
-									<h2>웰리스 여행 상품 예약 플랫폼 개발</h2>
-									<div>&nbsp;<a class="btn btn-outline-secondary" target="_blank"
-											class="btn btn-outline-secondary"
-											href="https://github.com/congchu/portfolio-template-2">Github</a>&nbsp;<a
-											class="btn btn-outline-secondary" target="_blank"
-											href="/images/project_1_screenshot.png">스크린샷</a>&nbsp;<a
-											class="btn btn-outline-secondary" target="_blank"
-											href="https://www.wellytravel.com/">Link</a>
-									</div>
-								</div>
-								<span class="position">주식회사 더라피스</span>
-								<div> <b class="text-dark">기술 스택 : </b>React, Typescript, Next.js, Styled-Component,
-									MobX
-								</div>
-								<div> <b class="text-dark">주요 기능 : </b> 회원 관리 및 SNS 로그인, 상품 리스트 확인, 상품 상세 정보
-									확인, 예약 관리, 결제 </div>
-								<p> React </p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Top 5 LeaderShip Exellence Winner</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Top 4 Web Tester</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-						<div class="resume-wrap d-flex ftco-animate">
-							<div class="icon d-flex align-items-center justify-content-center">
-								<span class="flaticon-ideas"></span>
-							</div>
-							<div class="text pl-3">
-								<span class="date">2014-2015</span>
-								<h2>Art &amp; Creative Director</h2>
-								<span class="position">Cambridge University</span>
-								<p>A small river named Duden flows by their place and supplies it with the necessary
-									regelialia. It is a paradisematic country, in which roasted parts of sentences
-									fly
-									into your mouth.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+  /* ── 헤더 테마 전환 ── */
+  var hdr = document.getElementById('hdr');
+  var heroPin = document.getElementById('heroPin');
+  function updateHeader(){
+    var pinBottom = heroPin.getBoundingClientRect().bottom;
+    if(pinBottom <= 0){
+      hdr.classList.remove('dark-bg'); hdr.classList.add('light-bg');
+    } else {
+      hdr.classList.remove('light-bg'); hdr.classList.add('dark-bg');
+    }
+  }
 
+  /* ── 히어로 scroll-zoom ── */
+  var orbWrap    = document.getElementById('orbWrap');
+  var heroTxt    = document.getElementById('heroTxt');
+  var scrollHint = document.getElementById('scrollHint');
+  var heroOverlay= document.getElementById('heroOverlay');
 
-	<section class="ftco-section ftco-project">
-		<div class="container-fluid px-md-0">
-			<div class="row no-gutters justify-content-center pb-5">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Projects</h1>
-					<h2 id="side-projects-section" class="mb-4">Side Projects</h2>
-					<p>꾸준히 사이드 프로젝트를 진행하며, 다양한 분야의 기술 스택을 경험해왔습니다.</p>
-				</div>
-			</div>
-			<div class="row no-gutters">
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/side-project-1.png);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a target="_blank" href="https://qpi.kr/"> QPI - 소개팅 서비스 소개 페이지 개발</a></h3>
-							<span>UI/UX 디자인부터 웹 호스팅까지 전체 영역을 담당하였습니다.</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/work-2.jpg);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-							<span>Web Design</span>
-						</div>
-					</div>
-				</div>
+  /* 부드러운 easing */
+  function easeInOut(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function easeOut3(t){ return 1-Math.pow(1-t,3); }
 
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/work-3.jpg);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-							<span>Web Design</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/work-4.jpg);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-							<span>Web Design</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/work-5.jpg);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-							<span>Web Design</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center"
-						style="background-image: url(images/work-6.jpg);">
-						<div class="overlay"></div>
-						<div class="text text-center p-4">
-							<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-							<span>Web Design</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+  function onScroll(){
+    updateHeader();
+    var sy = window.scrollY;
+    var vh = window.innerHeight;
+    var ph = heroPin.offsetHeight;
+    var raw = Math.min(Math.max(sy/(ph-vh),0),1);
+    var p   = easeOut3(raw);
 
-	<section class="ftco-section" id="blog-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Blog</h1>
-					<h2 class="mb-4">My Blog</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-				</div>
-			</div>
-			<div class="row d-flex">
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a>
-							</h3>
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">Sept. 12, 2019</span>
-									<a href="#" class="mr-2">Admin</a>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-								</p>
-							</div>
-							<p>A small river named Duden flows by their place and supplies it with the necessary
-								regelialia.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a>
-							</h3>
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">Sept. 12, 2019</span>
-									<a href="#" class="mr-2">Admin</a>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-								</p>
-							</div>
-							<p>A small river named Duden flows by their place and supplies it with the necessary
-								regelialia.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a>
-							</h3>
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">Sept. 12, 2019</span>
-									<a href="#" class="mr-2">Admin</a>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-								</p>
-							</div>
-							<p>A small river named Duden flows by their place and supplies it with the necessary
-								regelialia.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+    /* 원: 최대 3배 확대 (더 자연스럽게) */
+    orbWrap.style.transform = 'scale('+(1+p*2.8)+')';
 
-	<section class="ftco-section ftco-hireme img" style="background-image: url(images/bg_1.jpg)">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-7 ftco-animate text-center">
-					<h2>함께할 <span>회사를 찾는 중</span> 입니다.</h2>
-					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-					<p class="mb-0"><a href="#" class="btn btn-primary py-3 px-5">연락주세요.</a></p>
-				</div>
-			</div>
-		</div>
-	</section>
+    /* 텍스트: 천천히 사라짐 */
+    var ta = Math.max(1-raw*3.5,0);
+    heroTxt.style.opacity   = ta;
+    heroTxt.style.transform = 'translateY('+(-raw*30)+'px)';
+    scrollHint.style.opacity = Math.max(1-raw*6,0);
 
-	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Contact</h1>
-					<h2 class="mb-4">Contact Me</h2>
-					<p>회사와 함께 성장하는 개발자가 되겠습니다. 연락주세요.</p>
-				</div>
-			</div>
+    /* 흰 오버레이 없음 */
+    heroOverlay.style.opacity = 0;
 
-			<div class="row d-flex contact-info mb-5">
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box text-center p-4 shadow">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-map-signs"></span>
-						</div>
-						<div>
-							<h3 class="mb-4">Address</h3>
-							<p>성남시 분당구 정자동</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box text-center p-4 shadow">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-phone2"></span>
-						</div>
-						<div>
-							<h3 class="mb-4">Contact Number</h3>
-							<p><a href="tel://1234567920">+ 010 4277 1234</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box text-center p-4 shadow">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-paper-plane"></span>
-						</div>
-						<div>
-							<h3 class="mb-4">Email Address</h3>
-							<p><a href="mailto:info@yoursite.com">cookie00421@gmail.com</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box text-center p-4 shadow">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-globe"></span>
-						</div>
-						<div>
-							<h3 class="mb-4">Website</h3>
-							<p><a href="#">yoursite.com</a></p>
-						</div>
-					</div>
-				</div>
-			</div>
+    /* 원이 시각적으로 완성되면 챕터 섹션 즉시 노출 트리거 */
+    if(raw >= 0.75){
+      var chEl = document.getElementById('chapterSticky');
+      if(chEl && chEl.style.opacity !== '1'){
+        chEl.style.opacity = '1';
+        chEl.style.pointerEvents = 'auto';
+        /* 카드·라벨 등장 */
+        var st = document.getElementById('globeStage');
+        var lw = document.getElementById('chSectionLabel');
+        var pw = document.getElementById('chProgress');
+        if(st && st.style.opacity !== '1'){
+          setTimeout(function(){
+            if(st) st.style.opacity = '1';
+            if(lw) lw.style.opacity = '1';
+            if(pw) pw.style.opacity = '1';
+          }, 200);
+        }
+      }
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
 
-		</div>
-	</section>
+  /* ── 3D 글로브 캐러셀 ── */
+  (function(){
+    var pin       = document.getElementById('chapterPin');
+    var chSticky  = document.getElementById('chapterSticky');
+    var stage     = document.getElementById('globeStage');
+    var scene     = document.getElementById('globeScene');
+    var labelWrap = document.getElementById('chSectionLabel');
+    var titleEl   = document.getElementById('chActiveTitle');
+    var progWrap  = document.getElementById('chProgress');
+    var gCanvas   = document.getElementById('globeCanvas');
+    var cards     = [0,1,2,3,4,5].map(function(i){ return document.getElementById('gc'+i); });
+    var N = 6;
 
+    var TITLES = [
+      'Spring Boot로 서비스 뼈대를 세우다',
+      '화면은 정보 구조에서 시작한다',
+      '채팅과 알림은 상태 관리가 핵심이다',
+      'AI 모델을 서비스 API로 연결하다',
+      '데이터 흐름을 알면 화면이 안정된다',
+      '데이터 분석으로 인사이트를 만들다'
+    ];
 
-	<footer class="ftco-footer ftco-section">
-		<div class="container">
+    /* 진행 도트 생성 */
+    for(var i=0;i<N;i++){
+      var dot = document.createElement('div');
+      dot.className='prog-dot'; dot.setAttribute('data-i',i);
+      progWrap.appendChild(dot);
+    }
+    var dots = progWrap.querySelectorAll('.prog-dot');
 
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-						is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+    /* ── Ring Carousel ── */
+    var CARD_W = 260, CARD_H = 185;
+    var activeIdx    = 0;   /* 소수 인덱스 (0–5) */
+    var animRaf      = null;
+    var chapterShown = false;
 
+    /* 별 배경 — 1페이지와 동일한 우주 느낌 */
+    function initStarBg(){
+      var sc=document.getElementById('starCanvas');
+      if(!sc) return;
+      var dpr=window.devicePixelRatio||1, W=window.innerWidth, H=window.innerHeight;
+      sc.width=W*dpr; sc.height=H*dpr;
+      sc.style.width=W+'px'; sc.style.height=H+'px';
+      var ctx=sc.getContext('2d');
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+      for(var i=0;i<260;i++){
+        var x=Math.random()*W, y=Math.random()*H, r=Math.random()*.8+.12;
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,255,255,'+(Math.random()*.55+.1)+')'; ctx.fill();
+      }
+    }
 
+    /* ══ 원기둥(Cylinder) 캐러셀 ══
+       카드 6장을 360°/6 = 60° 간격으로 실린더 표면에 배치
+       rotateY(cardAngle) translateZ(radius) — 진짜 원통 회전 */
+    var ANGLE_STEP = 60;   /* 360° / 6장 */
+    var ringAngle  = 0;    /* deg, 무한 증가/감소 가능 */
+    var spinVel    = 0.022; /* deg/ms 자동 회전 속도 */
+    var spinRaf    = null, spinLastT = 0;
 
-	<!-- loader -->
-	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-				stroke="#F96D00" />
-		</svg></div>
+    function getCW(){
+      var vw = window.innerWidth;
+      /* 뷰포트 기준 — 레퍼런스처럼 카드가 화면 크게 채움 */
+      return Math.min(500, Math.max(220, vw * 0.34));
+    }
 
+    function updateRing(angle){
+      var CW     = getCW();
+      /* 카드 높이: 뷰포트 78% 또는 카드 너비의 1.55배 중 작은 값 */
+      var CH     = Math.min(Math.round(window.innerHeight * 0.78), Math.round(CW * 1.55));
+      /* 카드 사이 8px 간격: r = (CW+8) / (2·tan(π/N)) */
+      var radius = Math.round((CW + 8) / (2 * Math.tan(Math.PI / N)));
+      CARD_W = CW; CARD_H = CH;
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/aos.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/scrollax.min.js"></script>
+      cards.forEach(function(card, i){
+        var cardAngle = angle + i * ANGLE_STEP;
+        /* -180 ~ +180 정규화 */
+        var norm = ((cardAngle % 360) + 360) % 360;
+        if(norm > 180) norm -= 360;
 
-	<script src="js/main.js"></script>
+          /* 뒷면 카드도 표시 — 원기둥 전체가 보이도록 */
+        card.style.visibility = 'visible';
 
+        var cosA  = Math.cos(norm * Math.PI / 180);
+        var depth = (cosA + 1) / 2; /* 0=뒷면 1=정면 */
+
+        card.style.width   = CW + 'px';
+        card.style.height  = CH + 'px';
+        card.style.left    = (-CW / 2) + 'px';
+        card.style.top     = (-CH / 2) + 'px';
+        card.style.zIndex  = Math.round(depth * 100 + 1);
+        /* 정면 1.0, 측면(60°) 0.72 — 원통 곡면 조명 효과 */
+        card.style.opacity = (0.55 + depth * 0.45).toFixed(3);
+        card.style.filter  = 'brightness(' + (0.55 + depth * 0.45).toFixed(2) + ')';
+        /* 진짜 원기둥: 카드가 실린더 표면에 붙어 휘어짐 */
+        card.style.transform =
+          'rotateY(' + cardAngle.toFixed(1) + 'deg) ' +
+          'translateZ(' + radius + 'px)';
+        card.classList.toggle('active', Math.abs(norm) < 30);
+      });
+
+      /* 활성 카드 인덱스 */
+      var fi  = ((-angle / ANGLE_STEP) % N + N) % N;
+      var idx = Math.round(fi) % N;
+      titleEl.textContent = TITLES[idx];
+      dots.forEach(function(d, di){ d.classList.toggle('on', di === idx); });
+    }
+
+    /* 관성 스핀 루프 — 항상 실행 */
+    function spinLoop(ts){
+      var dt = spinLastT ? Math.min(ts - spinLastT, 50) : 16;
+      spinLastT = ts;
+      if(!dragging){
+        var minV = 0.022;
+        spinVel = Math.abs(spinVel) > minV
+          ? spinVel * Math.pow(0.974, dt / 16)
+          : (spinVel < 0 ? -minV : minV);
+        ringAngle += spinVel * dt;
+        updateRing(ringAngle);
+      }
+      spinRaf = requestAnimationFrame(spinLoop);
+    }
+
+    /* 스크롤: 섹션 표시/숨김
+       easeOut3 곡선상 raw≥0.75이면 시각적으로 원이 다 커진 상태(99.7%) */
+    function onChapterScroll(){
+      var rect     = pin.getBoundingClientRect();
+      var ph       = pin.offsetHeight, vh = window.innerHeight;
+      var hPin     = document.getElementById('heroPin');
+      var hPh      = hPin.offsetHeight;
+      var orbRaw   = Math.min(Math.max(window.scrollY / (hPh - vh), 0), 1);
+      /* 원이 시각적으로 완성(raw≥0.75)되거나, 히어로가 완전히 지나간 경우 표시 */
+      var heroDone = orbRaw >= 0.75 || hPin.getBoundingClientRect().bottom <= vh;
+      var inChapter= rect.bottom > 0 && rect.top < window.innerHeight * 1.5;
+      var show     = heroDone && inChapter;
+      chSticky.style.opacity       = show ? '1' : '0';
+      chSticky.style.pointerEvents = show ? 'auto' : 'none';
+      if(show && !chapterShown){
+        chapterShown = true;
+        setTimeout(function(){
+          stage.style.opacity     = '1';
+          labelWrap.style.opacity = '1';
+          progWrap.style.opacity  = '1';
+        }, 200);
+      }
+    }
+
+    function setupScene(){
+      initStarBg();
+      gCanvas.style.display = 'none';
+      /* 원기둥 시점: perspective 크게 → 왜곡 최소화, 이어진 면이 자연스럽게 보임 */
+      scene.style.perspective       = '1800px';
+      scene.style.perspectiveOrigin = '50% 44%';
+      scene.style.transform         = 'translateY(50px) rotateX(16deg) rotateZ(-8deg)';
+      scene.style.transformStyle    = 'preserve-3d';
+      stage.style.transformStyle    = 'preserve-3d';
+      stage.style.width  = '0';
+      stage.style.height = '0';
+      updateRing(ringAngle);
+    }
+
+    setupScene();
+    onChapterScroll();
+    spinLastT = 0;
+    spinRaf   = requestAnimationFrame(spinLoop);
+    window.addEventListener('scroll', onChapterScroll, {passive:true});
+    window.addEventListener('resize', function(){ setupScene(); });
+
+    /* 마우스 / 터치 드래그 */
+    var dragging=false, didDrag=false, dragX0=0, dragAngle0=0;
+    var dragVelPx=0, dragPrevX=0, dragPrevT=0;
+    var DRAG_DEG = 0.38; /* 도/px — 드래그 반응속도 향상 */
+
+    function onDragStart(cx){
+      dragging=true; didDrag=false; dragX0=cx; dragAngle0=ringAngle;
+      dragVelPx=0; dragPrevX=cx; dragPrevT=performance.now();
+      spinVel=0; scene.style.cursor='grabbing';
+    }
+    function onDragMove(cx){
+      if(!dragging) return;
+      var now=performance.now(), dt=Math.max(now-dragPrevT,1);
+      if(Math.abs(cx-dragX0) > 4) didDrag=true;
+      dragVelPx=(cx-dragPrevX)/dt; dragPrevX=cx; dragPrevT=now;
+      ringAngle = dragAngle0 + (cx-dragX0)*DRAG_DEG;
+      updateRing(ringAngle);
+    }
+    function onDragEnd(){
+      if(!dragging) return;
+      dragging=false; scene.style.cursor='grab';
+      spinVel = Math.max(-0.7, Math.min(0.7, dragVelPx * DRAG_DEG));
+    }
+
+    scene.addEventListener('mousedown',  function(e){ e.preventDefault(); onDragStart(e.clientX); });
+    window.addEventListener('mousemove', function(e){ onDragMove(e.clientX); });
+    window.addEventListener('mouseup',   function(){ onDragEnd(); });
+    scene.addEventListener('touchstart', function(e){ onDragStart(e.touches[0].clientX); },{passive:true});
+    window.addEventListener('touchmove', function(e){
+      if(dragging && e.cancelable) e.preventDefault();
+      onDragMove(e.touches[0].clientX);
+    },{passive:false});
+    window.addEventListener('touchend', function(){ onDragEnd(); },{passive:true});
+
+    /* ── 스킬 모달 ── */
+    var CARD_DETAILS = [
+      {icon:'🖥️', bg:'linear-gradient(135deg,#0a0f1e,#0d2d6b,#1e4d9a)', title:'Spring Boot', sub:'Backend · Java 17 · JPA · MyBatis', desc:'RESTful API 설계부터 Security, JPA까지 백엔드 핵심 기술을 학습했습니다. 실전 프로젝트에서 인증·인가, ORM, 메시지 큐까지 end-to-end 구현을 경험했습니다.', items:['Spring Boot 3.5 · Java 17','Spring Security · JWT 인증','JPA · MyBatis ORM','RabbitMQ 메시지 큐','Swagger API 문서화']},
+      {icon:'⚛️', bg:'linear-gradient(135deg,#1a0530,#5b1a8a,#9333ea)', title:'React 19', sub:'Frontend · TypeScript · TailwindCSS', desc:'React 19의 최신 기능과 TypeScript로 타입 안전한 UI를 구현했습니다. 서버 상태와 클라이언트 상태를 분리해 유지보수성을 높이는 구조를 학습했습니다.', items:['React 19 · TypeScript','TailwindCSS · SCSS','Zustand 상태관리','TanStack Query','Vite 빌드 도구']},
+      {icon:'⚡', bg:'linear-gradient(135deg,#001a1c,#004d5e,#0891b2)', title:'Real-Time', sub:'WebSocket · RabbitMQ · SSE', desc:'실시간 양방향 통신과 이벤트 기반 아키텍처를 실전 프로젝트에 적용했습니다. 채팅, 알림, 경매 입찰 등 실시간 기능을 구현했습니다.', items:['WebSocket · STOMP 프로토콜','RabbitMQ 메시지 브로커','SSE (Server-Sent Events)','Redis Pub/Sub','Spring WebFlux']},
+      {icon:'🤖', bg:'linear-gradient(135deg,#1c0500,#7c1d0c,#ea580c)', title:'AI / FastAPI', sub:'LangChain · RAG · OpenAI API', desc:'LangChain과 OpenAI API를 활용해 RAG 파이프라인과 AI 서비스를 구축했습니다. FastAPI로 AI 모델을 REST API로 연결하는 구조를 설계했습니다.', items:['FastAPI · Python 3.11','LangChain · RAG 파이프라인','OpenAI API 연동','벡터 DB (ChromaDB)','멀티모달 LLM 활용']},
+      {icon:'🗄️', bg:'linear-gradient(135deg,#05071e,#1e1b6b,#4338ca)', title:'Database', sub:'PostgreSQL · Redis · Flyway', desc:'관계형 DB 설계부터 캐싱, 마이그레이션까지 데이터 계층 전반을 이해했습니다. 인덱스 최적화와 쿼리 튜닝으로 성능 개선을 경험했습니다.', items:['PostgreSQL · MySQL','Redis 캐싱 전략','Flyway DB 마이그레이션','인덱스 · 쿼리 최적화','Docker Compose 환경']},
+      {icon:'📊', bg:'linear-gradient(135deg,#021207,#14532d,#16a34a)', title:'Data Analysis', sub:'Pandas · Scikit-learn · Jupyter', desc:'Python 데이터 분석 도구로 데이터에서 인사이트를 추출하고 시각화했습니다. 머신러닝 모델을 학습시키고 서비스에 통합하는 과정을 경험했습니다.', items:['Pandas · NumPy 데이터 처리','Scikit-learn ML 모델링','Jupyter Notebook','Matplotlib · Seaborn 시각화','통계 분석 · A/B 테스트']},
+    ];
+
+    var skModal    = document.getElementById('skillModal');
+    var skBackdrop = document.getElementById('modalBackdrop');
+    var skContent  = document.getElementById('modalContent');
+
+    function openSkillModal(idx){
+      var d = CARD_DETAILS[idx];
+      skContent.innerHTML =
+        '<button class="modal-close" id="modalClose">✕</button>' +
+        '<div class="modal-head">' +
+          '<div class="modal-icon-wrap" style="background:'+d.bg+'">'+d.icon+'</div>' +
+          '<div><div class="modal-title">'+d.title+'</div><div class="modal-sub">'+d.sub+'</div></div>' +
+        '</div>' +
+        '<p class="modal-desc">'+d.desc+'</p>' +
+        '<ul class="modal-items">'+d.items.map(function(it){return '<li>'+it+'</li>';}).join('')+'</ul>';
+      skModal.classList.add('open');
+      document.getElementById('modalClose').addEventListener('click', closeSkillModal);
+    }
+    function closeSkillModal(){ skModal.classList.remove('open'); }
+    skBackdrop.addEventListener('click', closeSkillModal);
+
+    /* 카드 클릭 → 블로그 상세 페이지 이동 */
+    var BLOG_URLS = [
+      'blog-spring.html',
+      'blog-react.html',
+      'blog-realtime.html',
+      'blog-ai.html',
+      'blog-db.html',
+      'blog-data.html'
+    ];
+    cards.forEach(function(card, i){
+      card.addEventListener('click', function(){
+        if(didDrag) return;
+        var target = -i * ANGLE_STEP;
+        var diff   = target - ringAngle;
+        while(diff >  180) diff -= 360;
+        while(diff < -180) diff += 360;
+        if(Math.abs(diff) > 15){
+          /* 정면으로 이동 후 페이지 이동 */
+          spinVel = diff / 300;
+          setTimeout(function(){ window.location.href = BLOG_URLS[i]; }, 380);
+        } else {
+          window.location.href = BLOG_URLS[i];
+        }
+      });
+    });
+    dots.forEach(function(dot, i){
+      dot.addEventListener('click', function(){
+        var target = -i * ANGLE_STEP;
+        var diff   = target - ringAngle;
+        while(diff >  180) diff -= 360;
+        while(diff < -180) diff += 360;
+        spinVel = diff / 300;
+        setTimeout(function(){ spinVel = 0.022; }, 350);
+      });
+    });
+  })();
+
+  /* ── 일반 scroll reveal ── */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px 60px 0px'});
+  document.querySelectorAll('.up').forEach(function(el){ io.observe(el); });
+
+  /* ── 햄버거 ── */
+  var ham = document.getElementById('ham'), gnav = document.getElementById('gnav');
+  ham.addEventListener('click', function(){
+    gnav.classList.toggle('open');
+    var sp=ham.querySelectorAll('span'), o=gnav.classList.contains('open');
+    sp[0].style.transform=o?'translateY(6.5px) rotate(45deg)':'';
+    sp[1].style.opacity=o?'0':'';
+    sp[2].style.transform=o?'translateY(-6.5px) rotate(-45deg)':'';
+  });
+  gnav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      gnav.classList.remove('open');
+      ham.querySelectorAll('span').forEach(function(s){s.style.transform='';s.style.opacity='';});
+    });
+  });
+
+  /* ── 구 캔버스 (미사용) ── */
+  (function(){
+    var sc = document.getElementById('sideCanvas');
+    if(!sc) return;
+    var dpr = window.devicePixelRatio || 1;
+    var sz  = Math.min(280, window.innerWidth * 0.26);
+    sc.style.width  = sz + 'px';
+    sc.style.height = sz + 'px';
+    sc.width  = sz * dpr;
+    sc.height = sz * dpr;
+    var ctx = sc.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    var cx = sz/2, cy = sz/2;
+    var R  = sz * 0.46;
+    var rotY = 0;
+    var LAT  = 10;   /* 위도선 개수 */
+    var LON  = 14;   /* 경도선 개수 */
+    var SEG  = 80;   /* 선 분할 수 */
+
+    function draw() {
+      ctx.clearRect(0, 0, sz, sz);
+
+      /* ─ 위도선 ─ */
+      for (var i = 1; i < LAT; i++) {
+        var phi = (i / LAT) * Math.PI;
+        var yr  = -Math.cos(phi) * R;
+        var cr  =  Math.sin(phi) * R;
+
+        ctx.beginPath();
+        for (var j = 0; j <= SEG; j++) {
+          var theta = (j / SEG) * Math.PI * 2;
+          var x3 = Math.cos(theta) * cr;
+          var z3 = Math.sin(theta) * cr;
+          var xr = x3 * Math.cos(rotY) + z3 * Math.sin(rotY);
+          var zr = -x3 * Math.sin(rotY) + z3 * Math.cos(rotY);
+          var depth = (zr / R + 1) / 2;          /* 0=뒤 1=앞 */
+          var alpha = 0.04 + depth * 0.22;
+          if (j === 0) {
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0,0,0,' + alpha.toFixed(3) + ')';
+            ctx.lineWidth = 0.7 + depth * 0.5;
+            ctx.moveTo(cx + xr, cy + yr);
+          } else {
+            ctx.lineTo(cx + xr, cy + yr);
+          }
+        }
+        ctx.stroke();
+      }
+
+      /* ─ 경도선 ─ */
+      for (var i = 0; i < LON; i++) {
+        var lon = (i / LON) * Math.PI * 2;
+
+        ctx.beginPath();
+        for (var j = 0; j <= SEG; j++) {
+          var phi = (j / SEG) * Math.PI;
+          var sinP = Math.sin(phi);
+          var x3 = sinP * Math.cos(lon) * R;
+          var yr = -Math.cos(phi) * R;
+          var z3 = sinP * Math.sin(lon) * R;
+          var xr = x3 * Math.cos(rotY) + z3 * Math.sin(rotY);
+          var zr = -x3 * Math.sin(rotY) + z3 * Math.cos(rotY);
+          var depth = (zr / R + 1) / 2;
+          var alpha = 0.04 + depth * 0.22;
+          if (j === 0) {
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0,0,0,' + alpha.toFixed(3) + ')';
+            ctx.lineWidth = 0.7 + depth * 0.5;
+            ctx.moveTo(cx + xr, cy + yr);
+          } else {
+            ctx.lineTo(cx + xr, cy + yr);
+          }
+        }
+        ctx.stroke();
+      }
+
+      /* ─ 바깥 테두리 원 ─ */
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      rotY += 0.004;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* ── 프로젝트 원기둥 (연속 자동회전) ── */
+  (function(){
+    var pPin    = document.getElementById('projPin');
+    var pSticky = document.getElementById('projSticky');
+    var pStage  = document.getElementById('projStage');
+    var pLabel  = document.getElementById('projLabel');
+    var pTitle  = document.getElementById('projActiveTitle');
+    var pScene  = document.getElementById('projScene');
+    var pDots   = document.getElementById('projDots');
+    var pCards  = [0,1,2].map(function(i){ return document.getElementById('pj'+i); });
+    var PN = 3, P_W = 260, P_H = 185;
+
+    var PROJ_TITLES = [
+      'BIDEO — 영상 경매 거래 플랫폼',
+      'Clausion — AI 온라인 교육 플랫폼',
+      'GGSHOP — 자동차 충전 관리 시스템'
+    ];
+
+    /* 도트 생성 */
+    for(var di=0; di<PN; di++){
+      var dot = document.createElement('div');
+      dot.className = 'prog-dot';
+      pDots.appendChild(dot);
+    }
+    var pdots = pDots.querySelectorAll('.prog-dot');
+
+    /* 별 배경 */
+    function initProjStars(){
+      var sc = document.getElementById('projStarCanvas');
+      if(!sc) return;
+      var dpr=window.devicePixelRatio||1, W=window.innerWidth, H=window.innerHeight;
+      sc.width=W*dpr; sc.height=H*dpr;
+      sc.style.width=W+'px'; sc.style.height=H+'px';
+      var ctx=sc.getContext('2d');
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.fillStyle='#050510'; ctx.fillRect(0,0,W,H);
+      for(var i=0;i<320;i++){
+        var x=Math.random()*W, y=Math.random()*H, r=Math.random()*.9+.18;
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,255,255,'+(Math.random()*.75+.35)+')'; ctx.fill();
+      }
+    }
+
+    /* 프로젝트 팬 (3장, 학습 섹션과 동일한 CoverFlow) */
+    var P_STEP    = 55;
+    var P_STEP_R  = P_STEP * Math.PI / 180;
+    var projAngle = 0, projSpinVel = 0.014, projRaf = null, projShown = false;
+
+    function renderProj(angle){
+      var vw = window.innerWidth;
+      var CW = Math.min(460, Math.max(160, vw * 0.36));
+      var CH = Math.round(CW * 1.40);
+      var fi = angle / P_STEP;
+      P_W = CW; P_H = CH;
+      pCards.forEach(function(card, i){
+        card.style.width  = CW + 'px';
+        card.style.height = CH + 'px';
+        var off = i - fi;
+        off = ((off % PN) + PN) % PN;
+        if(off >= PN / 2) off -= PN;
+        var rotY = off * P_STEP;
+        if(Math.abs(rotY) >= 88){ card.style.visibility='hidden'; return; }
+        card.style.visibility='visible';
+        /* 끝-끝 붙임 tx */
+        var sign=off>=0?1:-1, absOff=Math.abs(off);
+        var intP=Math.floor(absOff), frac=absOff-intP, tx=0;
+        for(var j=0;j<intP;j++) tx+=CW*0.5*(Math.cos(j*P_STEP_R)+Math.cos((j+1)*P_STEP_R));
+        if(frac>0) tx+=frac*CW*0.5*(Math.cos(intP*P_STEP_R)+Math.cos((intP+1)*P_STEP_R));
+        tx*=sign;
+        var cosA=Math.cos(rotY*Math.PI/180), depth=(cosA+1)/2;
+        card.style.left  = (-CW/2)+'px';
+        card.style.top   = (-CH/2)+'px';
+        card.style.zIndex = Math.round(depth*100+1);
+        card.style.opacity = (0.45+depth*0.55).toFixed(3);
+        card.style.filter  = 'brightness('+(0.38+depth*0.62).toFixed(2)+')';
+        card.style.transform =
+          'translateX('+tx.toFixed(1)+'px)'+
+          ' rotateY('+rotY.toFixed(1)+'deg)'+
+          ' scale('+(0.72+depth*0.28).toFixed(3)+')';
+      });
+      var idx=(((Math.round(fi))%PN)+PN)%PN;
+      pTitle.textContent=PROJ_TITLES[idx];
+      pdots.forEach(function(d,di){ d.classList.toggle('on',di===idx); });
+    }
+
+    function startProjRot(){
+      if(projRaf) return;
+      var lt=0;
+      (function tick(ts){
+        var dt=lt?Math.min(ts-lt,50):16; lt=ts;
+        projAngle += projSpinVel * dt;
+        renderProj(projAngle);
+        projRaf=requestAnimationFrame(tick);
+      })();
+    }
+    function stopProjRot(){ if(projRaf){ cancelAnimationFrame(projRaf); projRaf=null; } }
+
+    /* 섹션 표시/숨김 */
+    function onProjScroll(){
+      if(!pPin) return;
+      var rect = pPin.getBoundingClientRect();
+      var ph   = pPin.offsetHeight;
+      var inP  = rect.bottom > 0 && rect.top < ph;
+      pSticky.style.opacity       = inP ? '1' : '0';
+      pSticky.style.pointerEvents = inP ? 'auto' : 'none';
+      if(inP && !projShown){
+        projShown = true;
+        initProjStars();
+        setTimeout(function(){
+          pStage.style.opacity = '1';
+          pLabel.style.opacity = '1';
+          pDots.style.opacity  = '1';
+          startProjRot();
+        }, 300);
+      }
+      if(!inP && projShown){ stopProjRot(); projShown=false; }
+    }
+
+    pScene.style.perspective       = '1400px';
+    pScene.style.perspectiveOrigin = '50% 50%';
+    pScene.style.transform         = 'rotateX(-28deg)';
+    pScene.style.transformStyle    = 'preserve-3d';
+    pStage.style.transformStyle    = 'preserve-3d';
+    pStage.style.width  = '0';
+    pStage.style.height = '0';
+    renderProj(0);
+
+    window.addEventListener('scroll', onProjScroll, {passive:true});
+    window.addEventListener('resize', function(){ initProjStars(); renderProj(projIdx); });
+    onProjScroll();
+  })();
+
+  /* ── 우주 캔버스 ── */
+  var canvas = document.getElementById('spaceCanvas');
+  var size = Math.min(520, window.innerWidth * 0.68);
+  canvas.width = canvas.height = size;
+  var ctx = canvas.getContext('2d'), R = size/2;
+  var stars=[], nebulae=[
+    {x:R*.5,y:R*.35,r:R*.55,c:'rgba(50,15,90,.22)'},
+    {x:R*1.35,y:R*.6,r:R*.5,c:'rgba(8,35,85,.18)'},
+    {x:R*.65,y:R*1.4,r:R*.45,c:'rgba(75,10,45,.15)'}
+  ];
+  for(var i=0;i<400;i++){
+    var a=Math.random()*Math.PI*2, r=Math.random()*R*.95;
+    stars.push({x:R+Math.cos(a)*r,y:R+Math.sin(a)*r,r:Math.random()*1.3+.2,a:Math.random()*.85+.15,spd:Math.random()*.007+.002,ph:Math.random()*Math.PI*2});
+  }
+  var tick=0;
+  (function draw(){
+    ctx.clearRect(0,0,size,size); ctx.save();
+    ctx.beginPath(); ctx.arc(R,R,R,0,Math.PI*2); ctx.clip();
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,size,size);
+    nebulae.forEach(function(n){
+      var g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+      g.addColorStop(0,n.c); g.addColorStop(1,'transparent');
+      ctx.fillStyle=g; ctx.fillRect(0,0,size,size);
+    });
+    var vig=ctx.createRadialGradient(R,R,R*.38,R,R,R);
+    vig.addColorStop(0,'transparent'); vig.addColorStop(.6,'rgba(0,0,0,.2)'); vig.addColorStop(1,'rgba(0,0,0,.88)');
+    ctx.fillStyle=vig; ctx.fillRect(0,0,size,size);
+    stars.forEach(function(s){
+      var f=Math.sin(tick*s.spd+s.ph)*.32+.68;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+(s.a*f)+')'; ctx.fill();
+      if(s.r>1.1){
+        ctx.strokeStyle='rgba(255,255,255,'+(s.a*f*.25)+')'; ctx.lineWidth=.4;
+        ctx.beginPath(); ctx.moveTo(s.x-s.r*2.8,s.y); ctx.lineTo(s.x+s.r*2.8,s.y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(s.x,s.y-s.r*2.8); ctx.lineTo(s.x,s.y+s.r*2.8); ctx.stroke();
+      }
+    });
+    ctx.restore(); tick++;
+    requestAnimationFrame(draw);
+  })();
+})();
+</script>
 </body>
-
 </html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring Boot — 백엔드 서비스 뼈대 세우기 | JCH Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <style>
+    .blog-hero {
+      min-height: 54vh;
+      background: linear-gradient(135deg, #0a0f1e, #0d2d6b, #1e4d9a);
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 6% 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(30, 77, 154, 0.5), transparent);
+    }
+    .hero-icon {
+      font-size: 5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+      filter: drop-shadow(0 0 40px rgba(163,230,53,.25));
+    }
+    .blog-hero-inner { position: relative; max-width: 740px; }
+    .blog-hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: .9rem;
+    }
+    .blog-hero-title span { color: var(--accent); }
+    .blog-hero-sub {
+      font-size: clamp(.85rem, 1.3vw, .95rem);
+      color: rgba(255,255,255,.65);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+    .blog-hero-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.4rem; }
+    .content-body { max-width: 860px; margin: 0 auto; padding: 4rem 6%; }
+    .content-section { margin-bottom: 4rem; }
+    .sec-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .7rem;
+      display: block;
+    }
+    .sec-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .sec-desc {
+      font-size: .88rem;
+      color: var(--txt2);
+      line-height: 1.9;
+      max-width: 640px;
+    }
+    .feat-grid { margin-top: 1.6rem; }
+    .code-wrap { margin: 1.6rem 0; }
+    .code-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      margin-bottom: .4rem;
+    }
+    .code { white-space: pre; }
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .lesson-list li {
+      display: flex;
+      gap: .8rem;
+      font-size: .83rem;
+      color: var(--txt2);
+      line-height: 1.75;
+    }
+    .lesson-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: .55rem;
+    }
+    .related-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.2rem;
+    }
+    .rel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-weight: 600;
+      transition: border-color .2s, color .2s;
+    }
+    .rel-link:hover { border-color: var(--accent); color: var(--accent); }
+    .back-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="hdr">
+  <a href="index.html" class="logo">JCH<em>.</em></a>
+  <nav class="gnav">
+    <a href="index.html">← 홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact" class="gnav-cta">Contact</a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <span class="hero-icon">🖥️</span>
+    <div class="blog-hero-tags">
+      <span class="badge">Spring Boot 3.5</span>
+      <span class="badge">Java 17</span>
+      <span class="badge">JPA</span>
+      <span class="badge">RabbitMQ</span>
+      <span class="badge">JWT</span>
+      <span class="badge">Swagger</span>
+    </div>
+    <h1 class="blog-hero-title">Spring Boot —<br><span>백엔드 서비스 뼈대 세우기</span></h1>
+    <p class="blog-hero-sub">RESTful API 설계부터 보안, 비동기 처리, DB 마이그레이션까지 — 실제 프로젝트에서 직접 적용하며 익힌 Spring Boot 핵심 개념을 정리합니다.</p>
+  </div>
+</section>
+
+<!-- 본문 -->
+<main class="content-body">
+
+  <!-- 뒤로가기 -->
+  <div class="back-row">
+    <a href="index.html" class="btn-back">← 포트폴리오로 돌아가기</a>
+    <div class="badge-row">
+      <span class="badge-gray badge">Backend</span>
+      <span class="badge-gray badge">2025</span>
+    </div>
+  </div>
+
+  <!-- 1. 개요 -->
+  <section class="content-section">
+    <span class="sec-label">Overview</span>
+    <h2 class="sec-title">Spring Boot 3.5 + Java 17 기반 RESTful API 백엔드 설계</h2>
+    <p class="sec-desc">
+      BIDEO(영상 경매 플랫폼)와 Clausion(AI 기반 교육 플랫폼) 두 프로젝트에서 Spring Boot를 직접 적용했습니다.
+      단순한 CRUD를 넘어 인증/인가, 비동기 메시징, DB 스키마 관리, API 문서화까지 실제 서비스 수준의 백엔드 구조를 설계하고 구현했습니다.
+      Java 17의 Record, Sealed Class, Pattern Matching 등 최신 문법과 Spring Boot 3.x의 개선된 자동 구성을 활용하여
+      가독성과 유지보수성을 높이는 데 초점을 맞췄습니다.
+    </p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 2. 핵심 학습 주제 -->
+  <section class="content-section">
+    <span class="sec-label">Core Topics</span>
+    <h2 class="sec-title">핵심 학습 주제</h2>
+    <div class="feat-grid">
+      <div class="feat-item">
+        <div class="feat-icon">🔐</div>
+        <div>
+          <div class="feat-title">Spring Security + JWT</div>
+          <div class="feat-desc">
+            인증/인가 파이프라인을 SecurityFilterChain 기반으로 설계했습니다. Access Token(15분)과 Refresh Token(7일) 전략을 적용해
+            탈취 위험을 최소화했고, Redis에 Refresh Token을 저장하여 서버 측 만료 처리와 Token Rotation을 구현했습니다.
+            CORS는 CorsConfigurationSource 빈으로 도메인별 허용 정책을 명시적으로 관리했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🗄️</div>
+        <div>
+          <div class="feat-title">JPA vs MyBatis — ORM 비교 적용</div>
+          <div class="feat-desc">
+            연관관계가 복잡한 도메인(사용자-영상-경매-입찰)은 JPA의 엔티티 그래프와 Fetch Join으로 처리했고,
+            통계 쿼리나 대량 데이터 배치 처리처럼 SQL 제어가 중요한 경우 MyBatis를 선택했습니다.
+            두 기술을 같은 프로젝트에서 병행 사용하며 각 ORM의 장단점을 체감했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🐇</div>
+        <div>
+          <div class="feat-title">RabbitMQ — 메시지 큐 비동기 처리</div>
+          <div class="feat-desc">
+            영상 업로드 후처리(인코딩, 썸네일 생성), 입찰 알림 발송, 이메일 전송을 RabbitMQ 메시지 큐로 분리했습니다.
+            Exchange/Queue/Binding 구조를 직접 설계하고, Dead Letter Queue로 처리 실패 메시지를 추적했습니다.
+            API 응답 속도가 평균 340ms에서 80ms로 단축되는 효과를 확인했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">⚡</div>
+        <div>
+          <div class="feat-title">Spring WebFlux — 비동기 논블로킹</div>
+          <div class="feat-desc">
+            AI API(OpenAI, Claude)처럼 응답이 느린 외부 API를 호출할 때 WebFlux의 WebClient를 활용해
+            스레드 블로킹 없이 처리했습니다. Mono/Flux 타입으로 리액티브 파이프라인을 구성하고,
+            SSE(Server-Sent Events)로 AI 스트리밍 응답을 클라이언트에 전달하는 구조를 구현했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🔄</div>
+        <div>
+          <div class="feat-title">Flyway — DB 마이그레이션 버전 관리</div>
+          <div class="feat-desc">
+            팀 협업 환경에서 스키마 변경을 SQL 파일로 버전 관리했습니다. V1__init.sql부터 순번을 부여하여
+            어떤 환경에서도 동일한 스키마를 재현할 수 있게 했습니다. 롤백 전략(Undo Migration)과
+            체크섬 검증으로 배포 사고를 예방했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📝</div>
+        <div>
+          <div class="feat-title">Swagger / SpringDoc — API 문서 자동화</div>
+          <div class="feat-desc">
+            springdoc-openapi로 컨트롤러 어노테이션에서 API 스펙을 자동 생성했습니다.
+            @Operation, @ApiResponse, @Schema로 상세 설명을 추가하여 프론트엔드 팀이 별도 문서 없이도
+            API를 파악하고 테스트할 수 있는 환경을 만들었습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 3. 코드 개념 -->
+  <section class="content-section">
+    <span class="sec-label">Code Concepts</span>
+    <h2 class="sec-title">핵심 코드 개념</h2>
+
+    <div class="code-wrap">
+      <div class="code-label">JWT 토큰 생성 — JwtTokenProvider.java</div>
+      <div class="code"><span class="cmt">// JWT 토큰 생성 예시</span>
+<span class="kw">@Component</span>
+<span class="kw">public class</span> <span class="cls">JwtTokenProvider</span> {
+
+    <span class="kw">@Value</span>(<span class="str">"${jwt.expiration}"</span>)
+    <span class="kw">private long</span> expiration;
+
+    <span class="kw">private final</span> <span class="cls">SecretKey</span> secretKey = <span class="cls">Keys</span>.<span class="fn">secretKeyFor</span>(<span class="cls">SignatureAlgorithm</span>.HS256);
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">generateToken</span>(<span class="cls">UserDetails</span> user) {
+        <span class="kw">return</span> <span class="cls">Jwts</span>.<span class="fn">builder</span>()
+            .<span class="fn">setSubject</span>(user.<span class="fn">getUsername</span>())
+            .<span class="fn">setIssuedAt</span>(<span class="kw">new</span> <span class="cls">Date</span>())
+            .<span class="fn">setExpiration</span>(<span class="kw">new</span> <span class="cls">Date</span>(<span class="cls">System</span>.currentTimeMillis() + expiration))
+            .<span class="fn">signWith</span>(secretKey, <span class="cls">SignatureAlgorithm</span>.HS256)
+            .<span class="fn">compact</span>();
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">validateToken</span>(<span class="cls">String</span> token) {
+        <span class="kw">try</span> {
+            <span class="cls">Jwts</span>.<span class="fn">parserBuilder</span>().<span class="fn">setSigningKey</span>(secretKey).<span class="fn">build</span>().<span class="fn">parseClaimsJws</span>(token);
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (<span class="cls">JwtException</span> e) {
+            <span class="kw">return false</span>;
+        }
+    }
+}</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">RabbitMQ 메시지 발행 — VideoUploadService.java</div>
+      <div class="code"><span class="cmt">// RabbitMQ 메시지 발행</span>
+<span class="kw">@Service</span>
+<span class="kw">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> <span class="cls">VideoUploadService</span> {
+
+    <span class="kw">private final</span> <span class="cls">RabbitTemplate</span> rabbitTemplate;
+    <span class="kw">private final</span> <span class="cls">S3Client</span> s3Client;
+
+    <span class="kw">public</span> <span class="cls">UploadResponse</span> <span class="fn">processUpload</span>(<span class="cls">MultipartFile</span> file, <span class="cls">Long</span> userId) {
+        <span class="cls">String</span> fileKey = <span class="fn">uploadToS3</span>(file, userId);
+
+        <span class="cmt">// 비동기 인코딩 작업 발행</span>
+        rabbitTemplate.<span class="fn">convertAndSend</span>(
+            <span class="str">"video.exchange"</span>,
+            <span class="str">"upload.key"</span>,
+            <span class="kw">new</span> <span class="cls">VideoUploadMessage</span>(fileKey, userId)
+        );
+
+        <span class="kw">return new</span> <span class="cls">UploadResponse</span>(fileKey, <span class="str">"PROCESSING"</span>);
+    }
+}
+
+<span class="cmt">// 메시지 수신 처리</span>
+<span class="kw">@Component</span>
+<span class="kw">public class</span> <span class="cls">VideoUploadConsumer</span> {
+
+    <span class="kw">@RabbitListener</span>(queues = <span class="str">"video.upload.queue"</span>)
+    <span class="kw">public void</span> <span class="fn">handleUpload</span>(<span class="cls">VideoUploadMessage</span> msg) {
+        <span class="cmt">// 인코딩, 썸네일 생성, 메타데이터 저장</span>
+        videoEncoder.<span class="fn">encode</span>(msg.<span class="fn">getFileKey</span>());
+        thumbnailGenerator.<span class="fn">generate</span>(msg.<span class="fn">getFileKey</span>());
+    }
+}</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">Spring Security 설정 — SecurityConfig.java</div>
+      <div class="code"><span class="kw">@Configuration</span>
+<span class="kw">@EnableWebSecurity</span>
+<span class="kw">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> <span class="cls">SecurityConfig</span> {
+
+    <span class="kw">private final</span> <span class="cls">JwtTokenProvider</span> jwtProvider;
+
+    <span class="kw">@Bean</span>
+    <span class="kw">public</span> <span class="cls">SecurityFilterChain</span> <span class="fn">filterChain</span>(<span class="cls">HttpSecurity</span> http) <span class="kw">throws</span> <span class="cls">Exception</span> {
+        <span class="kw">return</span> http
+            .<span class="fn">csrf</span>(<span class="cls">AbstractHttpConfigurer</span>::<span class="fn">disable</span>)
+            .<span class="fn">sessionManagement</span>(s -> s.<span class="fn">sessionCreationPolicy</span>(<span class="cls">STATELESS</span>))
+            .<span class="fn">authorizeHttpRequests</span>(auth -> auth
+                .<span class="fn">requestMatchers</span>(<span class="str">"/api/auth/**"</span>, <span class="str">"/api/public/**"</span>).<span class="fn">permitAll</span>()
+                .<span class="fn">anyRequest</span>().<span class="fn">authenticated</span>()
+            )
+            .<span class="fn">addFilterBefore</span>(<span class="kw">new</span> <span class="cls">JwtAuthFilter</span>(jwtProvider), <span class="cls">UsernamePasswordAuthenticationFilter</span>.<span class="kw">class</span>)
+            .<span class="fn">build</span>();
+    }
+}</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 4. 실제 적용 -->
+  <section class="content-section">
+    <span class="sec-label">Real-World Application</span>
+    <h2 class="sec-title">실제 적용 사례</h2>
+    <div class="grid2" style="margin-top:1.2rem; gap:1rem;">
+      <div class="hl-box">
+        <div class="hl-t">🎬 BIDEO — 실시간 입찰 API</div>
+        <p>WebSocket + STOMP 기반 실시간 입찰 처리 API 설계. 동시 입찰 충돌 방지를 위해 Redis 분산 락(Redisson)을 적용했습니다. 경매 종료 시 RabbitMQ로 낙찰 알림과 정산 프로세스를 비동기로 처리했습니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">🤖 Clausion — AI 챗봇 엔드포인트</div>
+        <p>Spring WebFlux + WebClient로 OpenAI Streaming API를 연동했습니다. SSE(Server-Sent Events)로 토큰이 생성되는 즉시 클라이언트에 스트리밍하여 체감 응답 속도를 크게 개선했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 5. 배운 점 -->
+  <section class="content-section">
+    <span class="sec-label">Lessons Learned</span>
+    <h2 class="sec-title">개발하며 배운 것들</h2>
+    <ul class="lesson-list">
+      <li><div class="lesson-dot"></div><span><strong>Spring Security 설정의 복잡성</strong> — 필터 체인 순서, 예외 처리 흐름, SecurityContext 전파 방식을 한 번씩 직접 트러블슈팅하며 동작 원리를 완전히 이해했습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>JPA N+1 문제 해결</strong> — 연관 엔티티를 Lazy Loading 기본으로 설정하고, 필요한 경우에만 Fetch Join(@EntityGraph)을 적용하는 패턴을 정착시켰습니다. @BatchSize를 컬렉션에 적용해 IN 쿼리로 최적화했습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>비동기 처리의 중요성</strong> — 동기 방식으로 AI API를 호출하면 스레드가 수십 초씩 블로킹됩니다. WebFlux + Virtual Thread(Java 21)를 통해 처리량을 3배 이상 향상시킨 경험을 했습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>Flyway 마이그레이션 규칙</strong> — 이미 적용된 마이그레이션 파일을 수정하면 체크섬 오류가 발생합니다. 절대로 기존 파일을 수정하지 않고 새 버전 파일을 추가하는 규칙을 팀 내에서 정착시켰습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>트랜잭션 경계 설계</strong> — @Transactional 범위가 너무 넓으면 DB 커넥션을 오래 점유하고, 너무 좁으면 데이터 정합성이 깨집니다. 서비스 레이어 단위로 트랜잭션 경계를 명확히 설계하는 습관을 들였습니다.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 연관 프로젝트 -->
+  <section class="content-section">
+    <span class="sec-label">Related</span>
+    <h2 class="sec-title">연관 프로젝트 및 학습</h2>
+    <div class="related-row">
+      <a href="bideo.html" class="rel-link">🎬 BIDEO 프로젝트</a>
+      <a href="clausion.html" class="rel-link">🤖 Clausion 프로젝트</a>
+      <a href="blog-realtime.html" class="rel-link">⚡ Real-Time 시스템</a>
+      <a href="blog-db.html" class="rel-link">🗄️ Database 설계</a>
+      <a href="blog-ai.html" class="rel-link">🤖 AI / FastAPI</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="pf-footer">
+  <span>© 2025 Jung Chan Ho</span>
+  <div style="display:flex;gap:1.2rem;">
+    <a href="index.html">홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

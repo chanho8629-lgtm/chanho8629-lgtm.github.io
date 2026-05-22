@@ -1,0 +1,78 @@
+/* ══ 정찬호 포트폴리오 — 공통 스타일 ══ */
+:root{--accent:#a3e635;--bg:#000;--bg2:#0d0d0d;--bg3:#141414;--border:#1e1e1e;--txt:#fff;--txt2:#888;--txt3:#444;--r:14px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+
+/* ── 헤더 ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(0,0,0,.88);border-bottom:1px solid #111;backdrop-filter:blur(16px);}
+.logo{font-weight:900;font-size:1.15rem;letter-spacing:-.04em;}
+.logo em{color:var(--accent);font-style:normal;}
+.gnav{display:flex;align-items:center;gap:2rem;}
+.gnav a{font-size:.82rem;font-weight:500;color:var(--txt2);transition:color .2s;}
+.gnav a:hover{color:var(--accent);}
+.gnav-cta{background:#fff!important;color:#000!important;padding:.38rem 1.1rem;border-radius:50px;font-weight:700!important;transition:background .2s!important;}
+.gnav-cta:hover{background:var(--accent)!important;color:#000!important;}
+
+/* ── 푸터 ── */
+.pf-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:var(--txt3);}
+.pf-footer a:hover{color:var(--accent);}
+
+/* ── 레이아웃 ── */
+.wrap{max-width:920px;margin:0 auto;padding:0 6%;}
+.wrap-lg{max-width:1100px;margin:0 auto;padding:0 6%;}
+.section{padding:5rem 0;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:768px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* ── 타이포 ── */
+h1,h2,h3{font-weight:900;line-height:1.1;letter-spacing:-.03em;}
+.eyebrow{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.page-hero{padding:120px 6% 60px;position:relative;overflow:hidden;}
+.page-hero-inner{max-width:740px;}
+.page-hero-title{font-size:clamp(2.4rem,6vw,4rem);color:var(--accent);margin-bottom:1rem;text-shadow:0 0 80px rgba(163,230,53,.12);}
+.page-hero-sub{font-size:clamp(.88rem,1.4vw,1rem);color:var(--txt2);line-height:1.8;max-width:580px;}
+.page-hero-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0;}
+.sec-head{margin-bottom:2.2rem;}
+.sec-head h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:.5rem;}
+.sec-head p{font-size:.88rem;color:var(--txt2);line-height:1.85;max-width:580px;}
+
+/* ── 컴포넌트 ── */
+.badge{display:inline-flex;align-items:center;background:rgba(163,230,53,.07);border:1px solid rgba(163,230,53,.2);color:var(--accent);padding:.2rem .65rem;border-radius:50px;font-size:.6rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;}
+.badge-gray{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:var(--txt2);}
+.badge-row{display:flex;flex-wrap:wrap;gap:.35rem;}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;transition:border-color .2s;}
+.card:hover{border-color:#303030;}
+.card-l{border-left:3px solid var(--accent);}
+.divider{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+.btn-back{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--border);color:var(--txt2);padding:.42rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;transition:border-color .2s,color .2s;}
+.btn-back:hover{border-color:var(--accent);color:var(--accent);}
+.btn-main{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:#000;padding:.6rem 1.5rem;border-radius:50px;font-weight:800;font-size:.82rem;transition:opacity .2s;}
+.btn-main:hover{opacity:.85;}
+
+/* ── 피처 리스트 ── */
+.feat-item{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid var(--border);}
+.feat-item:last-child{border-bottom:none;}
+.feat-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.feat-title{font-size:.88rem;font-weight:700;margin-bottom:.22rem;}
+.feat-desc{font-size:.78rem;color:var(--txt2);line-height:1.7;}
+
+/* ── 하이라이트 박스 ── */
+.hl-box{background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.15);border-radius:var(--r);padding:1.4rem 1.6rem;}
+.hl-box .hl-t{font-size:.88rem;font-weight:800;color:var(--accent);margin-bottom:.5rem;}
+.hl-box p{font-size:.8rem;color:var(--txt2);line-height:1.8;}
+
+/* ── 코드 블록 ── */
+.code{background:#0a0a0a;border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;font-family:'Courier New',monospace;font-size:.76rem;color:#c9d1d9;line-height:1.9;overflow-x:auto;}
+.kw{color:#ff7b72;}.str{color:#a5d6ff;}.cmt{color:#555;}.fn{color:#d2a8ff;}.cls{color:#ffa657;}.num-c{color:#79c0ff;}
+
+/* ── 스텝 넘버 ── */
+.step-list{list-style:none;display:flex;flex-direction:column;gap:.8rem;}
+.step-list li{display:flex;gap:.9rem;font-size:.82rem;color:var(--txt2);line-height:1.7;}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:rgba(163,230,53,.12);color:var(--accent);font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.12rem;}
+
+/* ── 스택 섹션 ── */
+.stack-section{display:flex;flex-direction:column;gap:.5rem;}
+.stack-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:.25rem;}

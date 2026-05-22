@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI / FastAPI — LLM을 서비스에 연결하다 | JCH Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <style>
+    .blog-hero {
+      min-height: 54vh;
+      background: linear-gradient(135deg, #1c0500, #7c1d0c, #ea580c);
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 6% 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(234,88,12,.4), transparent);
+    }
+    .hero-icon {
+      font-size: 5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+      filter: drop-shadow(0 0 40px rgba(163,230,53,.25));
+    }
+    .blog-hero-inner { position: relative; max-width: 740px; }
+    .blog-hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: .9rem;
+    }
+    .blog-hero-title span { color: var(--accent); }
+    .blog-hero-sub {
+      font-size: clamp(.85rem, 1.3vw, .95rem);
+      color: rgba(255,255,255,.65);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+    .blog-hero-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.4rem; }
+    .content-body { max-width: 860px; margin: 0 auto; padding: 4rem 6%; }
+    .content-section { margin-bottom: 4rem; }
+    .sec-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .7rem;
+      display: block;
+    }
+    .sec-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .sec-desc {
+      font-size: .88rem;
+      color: var(--txt2);
+      line-height: 1.9;
+      max-width: 640px;
+    }
+    .code-wrap { margin: 1.6rem 0; }
+    .code-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      margin-bottom: .4rem;
+    }
+    .code { white-space: pre; }
+    .pipeline-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      align-items: center;
+      margin-top: 1.2rem;
+    }
+    .pipe-step {
+      background: rgba(234,88,12,.08);
+      border: 1px solid rgba(234,88,12,.2);
+      color: #fb923c;
+      padding: .35rem .85rem;
+      border-radius: 8px;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+    .pipe-arrow { color: var(--txt3); font-size: 1rem; }
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .lesson-list li {
+      display: flex;
+      gap: .8rem;
+      font-size: .83rem;
+      color: var(--txt2);
+      line-height: 1.75;
+    }
+    .lesson-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: .55rem;
+    }
+    .related-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.2rem;
+    }
+    .rel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-weight: 600;
+      transition: border-color .2s, color .2s;
+    }
+    .rel-link:hover { border-color: var(--accent); color: var(--accent); }
+    .back-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="hdr">
+  <a href="index.html" class="logo">JCH<em>.</em></a>
+  <nav class="gnav">
+    <a href="index.html">← 홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact" class="gnav-cta">Contact</a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <span class="hero-icon">🤖</span>
+    <div class="blog-hero-tags">
+      <span class="badge">FastAPI</span>
+      <span class="badge">LangChain</span>
+      <span class="badge">OpenAI</span>
+      <span class="badge">RAG</span>
+      <span class="badge">ChromaDB</span>
+      <span class="badge">LCEL</span>
+    </div>
+    <h1 class="blog-hero-title">AI / FastAPI —<br><span>LLM을 서비스에 연결하다</span></h1>
+    <p class="blog-hero-sub">LangChain + OpenAI로 RAG 파이프라인을 구축하고, FastAPI로 AI 모델을 REST API로 노출했습니다. BIDEO 추천 시스템과 Clausion AI 챗봇에 직접 적용한 AI 엔지니어링 경험을 정리합니다.</p>
+  </div>
+</section>
+
+<!-- 본문 -->
+<main class="content-body">
+
+  <!-- 뒤로가기 -->
+  <div class="back-row">
+    <a href="index.html" class="btn-back">← 포트폴리오로 돌아가기</a>
+    <div class="badge-row">
+      <span class="badge-gray badge">AI / ML</span>
+      <span class="badge-gray badge">2025</span>
+    </div>
+  </div>
+
+  <!-- 1. 개요 -->
+  <section class="content-section">
+    <span class="sec-label">Overview</span>
+    <h2 class="sec-title">LangChain + OpenAI API로 RAG 파이프라인 구축</h2>
+    <p class="sec-desc">
+      단순히 OpenAI API를 호출하는 것을 넘어, 도메인 특화 지식을 LLM에 주입하는 RAG(Retrieval-Augmented Generation) 파이프라인을 설계했습니다.
+      FastAPI로 AI 모델을 REST 엔드포인트로 노출하여 Spring Boot 백엔드와 연동했습니다.
+      BIDEO에서는 영상 메타데이터를 임베딩하여 유사 영상 추천·가격 예측에 활용했고,
+      Clausion에서는 강의 자료를 벡터화하여 학습 맥락을 인식하는 AI 튜터를 구현했습니다.
+    </p>
+
+    <!-- RAG 파이프라인 -->
+    <div class="pipeline-steps">
+      <span class="pipe-step">문서 로드</span>
+      <span class="pipe-arrow">→</span>
+      <span class="pipe-step">텍스트 청킹</span>
+      <span class="pipe-arrow">→</span>
+      <span class="pipe-step">임베딩 생성</span>
+      <span class="pipe-arrow">→</span>
+      <span class="pipe-step">벡터 저장 (ChromaDB)</span>
+      <span class="pipe-arrow">→</span>
+      <span class="pipe-step">유사도 검색</span>
+      <span class="pipe-arrow">→</span>
+      <span class="pipe-step">LLM 답변 생성</span>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 2. 핵심 학습 -->
+  <section class="content-section">
+    <span class="sec-label">Core Topics</span>
+    <h2 class="sec-title">핵심 학습 주제</h2>
+    <div>
+      <div class="feat-item">
+        <div class="feat-icon">⚡</div>
+        <div>
+          <div class="feat-title">FastAPI — Python 비동기 웹 프레임워크</div>
+          <div class="feat-desc">
+            Pydantic 모델로 요청/응답 타입을 정의하면 자동으로 OpenAPI 문서가 생성됩니다.
+            async/await 기반으로 동시에 여러 AI API 호출을 병렬 처리하여 응답 시간을 단축했습니다.
+            BackgroundTasks로 느린 작업(임베딩 인덱싱)을 응답 후 비동기로 처리하는 패턴을 적용했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🦜</div>
+        <div>
+          <div class="feat-title">LangChain — LLM 오케스트레이션</div>
+          <div class="feat-desc">
+            여러 LLM, 도구, 메모리를 조합하는 체인과 에이전트를 구성했습니다.
+            ConversationBufferMemory로 대화 맥락을 유지하고, Tool을 정의하여 LLM이 검색·계산·API 호출을 스스로 선택하도록 했습니다.
+            LangSmith로 체인 실행 과정을 추적하고 디버깅했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🔍</div>
+        <div>
+          <div class="feat-title">RAG 파이프라인 — 검색 증강 생성</div>
+          <div class="feat-desc">
+            문서를 RecursiveCharacterTextSplitter로 청킹하고, OpenAI text-embedding-3-small로 임베딩을 생성합니다.
+            청킹 크기(chunk_size)와 중복(overlap)을 조정하며 검색 정확도와 비용의 균형을 맞췄습니다.
+            Hybrid Search(키워드 + 벡터)로 검색 정확도를 향상시켰습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🗃️</div>
+        <div>
+          <div class="feat-title">ChromaDB — 벡터 데이터베이스</div>
+          <div class="feat-desc">
+            임베딩 벡터를 저장하고 코사인 유사도 기반으로 유사 문서를 검색합니다.
+            Collection에 메타데이터(카테고리, 날짜, 작성자)를 함께 저장하여 필터링 검색을 지원했습니다.
+            Persistent Client로 서버 재시작 후에도 인덱스를 유지하고, Docker로 독립 서버로 배포했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🎨</div>
+        <div>
+          <div class="feat-title">멀티모달 — GPT-4V 이미지 + 텍스트 분석</div>
+          <div class="feat-desc">
+            BIDEO의 영상 썸네일과 제목을 함께 분석하여 카테고리를 자동 태깅했습니다.
+            base64로 인코딩한 이미지를 메시지에 포함하고, GPT-4o Vision으로 이미지 내용을 설명하고 분류했습니다.
+            멀티모달 입력을 표준화하는 어댑터 클래스를 설계하여 모델 변경 시 영향 범위를 최소화했습니다.
+          </div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🔗</div>
+        <div>
+          <div class="feat-title">LCEL — LangChain Expression Language</div>
+          <div class="feat-desc">
+            파이프(|) 연산자로 프롬프트 → LLM → 파서 → 후처리를 선언적으로 연결합니다.
+            각 단계가 Runnable 인터페이스를 구현하므로 병렬 실행(RunnableParallel), 분기 처리, 스트리밍이 간단합니다.
+            invoke/ainvoke/stream/astream으로 동기·비동기·스트리밍 실행을 동일한 인터페이스로 처리했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 3. 코드 개념 -->
+  <section class="content-section">
+    <span class="sec-label">Code Concepts</span>
+    <h2 class="sec-title">핵심 코드 개념</h2>
+
+    <div class="code-wrap">
+      <div class="code-label">FastAPI 엔드포인트 — 영상 추천 API</div>
+      <div class="code"><span class="cmt"># FastAPI 엔드포인트</span>
+<span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI, BackgroundTasks
+<span class="kw">from</span> langchain_openai <span class="kw">import</span> ChatOpenAI
+<span class="kw">from</span> langchain_core.output_parsers <span class="kw">import</span> StrOutputParser
+
+app = <span class="fn">FastAPI</span>(title=<span class="str">"BIDEO AI Service"</span>, version=<span class="str">"1.0.0"</span>)
+llm = <span class="fn">ChatOpenAI</span>(model=<span class="str">"gpt-4o"</span>, temperature=<span class="num-c">0.3</span>)
+
+<span class="kw">@app</span>.<span class="fn">post</span>(<span class="str">"/recommend"</span>, response_model=<span class="cls">RecommendResponse</span>)
+<span class="kw">async def</span> <span class="fn">recommend_videos</span>(query: <span class="cls">RecommendRequest</span>):
+    <span class="cmt"># 유사 영상 벡터 검색</span>
+    docs = vectorstore.<span class="fn">similarity_search</span>(query.text, k=<span class="num-c">5</span>)
+
+    <span class="cmt"># LCEL 파이프라인으로 추천 이유 생성</span>
+    chain = prompt | llm | <span class="fn">StrOutputParser</span>()
+    reason = <span class="kw">await</span> chain.<span class="fn">ainvoke</span>({<span class="str">"docs"</span>: docs, <span class="str">"query"</span>: query.text})
+
+    <span class="kw">return</span> <span class="cls">RecommendResponse</span>(
+        video_ids=[doc.metadata[<span class="str">"video_id"</span>] <span class="kw">for</span> doc <span class="kw">in</span> docs],
+        reason=reason
+    )
+
+<span class="kw">@app</span>.<span class="fn">post</span>(<span class="str">"/embed"</span>)
+<span class="kw">async def</span> <span class="fn">embed_video</span>(video: <span class="cls">VideoData</span>, bg: <span class="cls">BackgroundTasks</span>):
+    <span class="cmt"># 응답 즉시 반환, 임베딩은 백그라운드 처리</span>
+    bg.<span class="fn">add_task</span>(index_video_embedding, video)
+    <span class="kw">return</span> {<span class="str">"status"</span>: <span class="str">"accepted"</span>}</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">RAG 파이프라인 — RetrievalQA 구성</div>
+      <div class="code"><span class="cmt"># RAG 파이프라인 구성</span>
+<span class="kw">from</span> langchain_openai <span class="kw">import</span> OpenAIEmbeddings, ChatOpenAI
+<span class="kw">from</span> langchain_chroma <span class="kw">import</span> Chroma
+<span class="kw">from</span> langchain.chains <span class="kw">import</span> RetrievalQA
+<span class="kw">from</span> langchain.text_splitter <span class="kw">import</span> RecursiveCharacterTextSplitter
+
+<span class="cmt"># 1. 문서 청킹</span>
+splitter = <span class="fn">RecursiveCharacterTextSplitter</span>(
+    chunk_size=<span class="num-c">500</span>,
+    chunk_overlap=<span class="num-c">50</span>,
+    separators=[<span class="str">"\n\n"</span>, <span class="str">"\n"</span>, <span class="str">" "</span>]
+)
+chunks = splitter.<span class="fn">split_documents</span>(documents)
+
+<span class="cmt"># 2. 벡터스토어 생성</span>
+vectorstore = <span class="fn">Chroma</span>.<span class="fn">from_documents</span>(
+    documents=chunks,
+    embedding=<span class="fn">OpenAIEmbeddings</span>(model=<span class="str">"text-embedding-3-small"</span>),
+    persist_directory=<span class="str">"./chroma_db"</span>
+)
+
+<span class="cmt"># 3. QA 체인 구성</span>
+qa_chain = <span class="fn">RetrievalQA</span>.<span class="fn">from_chain_type</span>(
+    llm=<span class="fn">ChatOpenAI</span>(model=<span class="str">"gpt-4o"</span>),
+    retriever=vectorstore.<span class="fn">as_retriever</span>(search_kwargs={<span class="str">"k"</span>: <span class="num-c">4</span>}),
+    chain_type=<span class="str">"stuff"</span>,
+    return_source_documents=<span class="kw">True</span>
+)</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-label">LCEL 스트리밍 파이프라인 — Clausion 챗봇</div>
+      <div class="code"><span class="cmt"># LCEL 스트리밍 챗봇 파이프라인</span>
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+<span class="kw">from</span> langchain_core.runnables <span class="kw">import</span> RunnablePassthrough
+<span class="kw">from</span> fastapi.responses <span class="kw">import</span> StreamingResponse
+
+prompt = <span class="fn">ChatPromptTemplate</span>.<span class="fn">from_template</span>(<span class="str">"""
+You are an expert tutor for the following course material.
+Context: {context}
+Question: {question}
+Answer in Korean, concisely and accurately.
+"""</span>)
+
+chain = (
+    {<span class="str">"context"</span>: retriever, <span class="str">"question"</span>: <span class="fn">RunnablePassthrough</span>()}
+    | prompt
+    | llm
+    | <span class="fn">StrOutputParser</span>()
+)
+
+<span class="kw">@app</span>.<span class="fn">post</span>(<span class="str">"/chat/stream"</span>)
+<span class="kw">async def</span> <span class="fn">chat_stream</span>(request: <span class="cls">ChatRequest</span>):
+    <span class="kw">async def</span> <span class="fn">generate</span>():
+        <span class="kw">async for</span> chunk <span class="kw">in</span> chain.<span class="fn">astream</span>(request.message):
+            <span class="kw">yield</span> <span class="str">f"data: {chunk}\n\n"</span>
+    <span class="kw">return</span> <span class="fn">StreamingResponse</span>(<span class="fn">generate</span>(), media_type=<span class="str">"text/event-stream"</span>)</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 4. BIDEO RAG 시스템 -->
+  <section class="content-section">
+    <span class="sec-label">Case Study — BIDEO</span>
+    <h2 class="sec-title">BIDEO RAG 추천 시스템</h2>
+    <div class="grid2" style="margin-top:1.2rem; gap:1rem;">
+      <div class="hl-box">
+        <div class="hl-t">🎬 영상 메타데이터 임베딩</div>
+        <p>영상 제목, 설명, 태그, 카테고리를 하나의 문서로 구성하고 OpenAI Embeddings로 벡터화했습니다. 신규 영상 업로드 시 RabbitMQ 이벤트를 수신하여 자동으로 ChromaDB에 인덱싱합니다.</p>
+      </div>
+      <div class="hl-box">
+        <div class="hl-t">💰 경매 낙찰가 예측</div>
+        <p>유사한 영상의 과거 낙찰 데이터를 검색하고, LLM이 시장 트렌드와 영상 특성을 종합하여 예상 낙찰가 범위를 제시합니다. 판매자가 시작가를 설정할 때 참고 지표로 활용됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 5. Clausion AI 챗봇 -->
+  <section class="content-section">
+    <span class="sec-label">Case Study — Clausion</span>
+    <h2 class="sec-title">Clausion AI 튜터 챗봇</h2>
+    <div class="hl-box" style="margin-top:1rem;">
+      <div class="hl-t">🤖 학습 맥락 인식 AI 튜터</div>
+      <p>수강 중인 강의 자료(PDF, 영상 자막, 코드 파일)를 ChromaDB에 인덱싱하고, 학습자의 질문에 강의 내용 기반으로 정확한 답변을 제공합니다. 대화 히스토리를 ConversationBufferWindowMemory에 저장하여 이전 질문의 맥락을 이어받습니다. 코드 질문 시 CodeInterpreter Tool을 호출하여 실행 결과와 함께 설명합니다.</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 6. 배운 점 -->
+  <section class="content-section">
+    <span class="sec-label">Lessons Learned</span>
+    <h2 class="sec-title">개발하며 배운 것들</h2>
+    <ul class="lesson-list">
+      <li><div class="lesson-dot"></div><span><strong>프롬프트 엔지니어링</strong> — 프롬프트 하나가 응답 품질을 결정합니다. Few-shot 예시 추가, 역할 부여(System Prompt), 출력 형식 지정으로 응답 일관성을 크게 향상시켰습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>토큰 비용 최적화</strong> — text-embedding-3-small이 large보다 5배 저렴하면서 성능 차이가 미미합니다. 불필요한 컨텍스트를 줄이고 청킹 크기를 최적화하여 API 비용을 60% 절감했습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>청킹 전략의 중요성</strong> — 청크가 너무 크면 관련 없는 내용이 포함되고, 너무 작으면 맥락이 끊깁니다. 도메인에 맞는 구분자(헤더, 코드 블록)를 기준으로 청킹하는 것이 가장 효과적이었습니다.</span></li>
+      <li><div class="lesson-dot"></div><span><strong>환각(Hallucination) 방지</strong> — RAG로 사실 기반 답변을 유도하고, 프롬프트에 "모르면 모른다고 답해라"를 명시했습니다. 검색된 문서 없이 LLM만으로 답변하는 경우를 사전에 차단했습니다.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 연관 프로젝트 -->
+  <section class="content-section">
+    <span class="sec-label">Related</span>
+    <h2 class="sec-title">연관 프로젝트 및 학습</h2>
+    <div class="related-row">
+      <a href="bideo.html" class="rel-link">🎬 BIDEO 프로젝트</a>
+      <a href="clausion.html" class="rel-link">🤖 Clausion 프로젝트</a>
+      <a href="blog-spring.html" class="rel-link">🖥️ Spring Boot 백엔드</a>
+      <a href="blog-data.html" class="rel-link">📊 Data Analysis</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="pf-footer">
+  <span>© 2025 Jung Chan Ho</span>
+  <div style="display:flex;gap:1.2rem;">
+    <a href="index.html">홈</a>
+    <a href="index.html#projects">프로젝트</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
