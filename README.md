@@ -28,6 +28,11 @@
 
 상세 내용은 `curriculum.html`에서 확인할 수 있습니다.
 
+## 이미지 출처
+
+- 지구 이미지: NASA/NOAA Blue Marble Eastern Hemisphere, Public Domain
+- 학습 Archive 이미지: 로컬 수업 코드, ERD, 플로우차트, 데이터 시각화 및 생성형 AI 실습 결과
+
 ## 실행
 
 별도 빌드 없이 `index.html`을 브라우저에서 열거나 GitHub Pages로 배포합니다.
