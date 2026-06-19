@@ -292,7 +292,7 @@
 
 <!-- HEADER -->
 <header class="hdr" id="hdr">
-  <a class="logo" href="#">JCH<em>.</em></a>
+  <a class="logo" href="#home">JCH<em>.</em></a>
   <nav class="gnav" id="gnav">
     <a href="#chapters">학습</a>
     <a href="#projects">프로젝트</a>
@@ -338,12 +338,12 @@
         <canvas id="globeCanvas"></canvas>
         <!-- 3D 카드 stage: 구 그리기 완료 후 등장 -->
         <div id="globeStage" style="position:relative;transform-style:preserve-3d;opacity:0;transition:opacity 1s ease;">
-          <div class="g-card" id="gc0"><div class="g-panel-bg">🖥️</div><div class="g-panel-fg"><div class="g-panel-cat">BACKEND</div><div class="g-panel-title">Spring Boot</div><div class="g-panel-sub">Java 17 · JPA · MyBatis</div></div></div>
-          <div class="g-card" id="gc1"><div class="g-panel-bg">⚛️</div><div class="g-panel-fg"><div class="g-panel-cat">FRONTEND</div><div class="g-panel-title">React 19</div><div class="g-panel-sub">TypeScript · TailwindCSS</div></div></div>
-          <div class="g-card" id="gc2"><div class="g-panel-bg">⚡</div><div class="g-panel-fg"><div class="g-panel-cat">REAL-TIME</div><div class="g-panel-title">WebSocket</div><div class="g-panel-sub">RabbitMQ · SSE</div></div></div>
-          <div class="g-card" id="gc3"><div class="g-panel-bg">🤖</div><div class="g-panel-fg"><div class="g-panel-cat">AI / API</div><div class="g-panel-title">FastAPI</div><div class="g-panel-sub">LangChain · RAG · OpenAI</div></div></div>
-          <div class="g-card" id="gc4"><div class="g-panel-bg">🗄️</div><div class="g-panel-fg"><div class="g-panel-cat">DATABASE</div><div class="g-panel-title">PostgreSQL</div><div class="g-panel-sub">Redis · Flyway</div></div></div>
-          <div class="g-card" id="gc5"><div class="g-panel-bg">📊</div><div class="g-panel-fg"><div class="g-panel-cat">DATA</div><div class="g-panel-title">Analysis</div><div class="g-panel-sub">Pandas · Scikit-learn</div></div></div>
+          <div class="g-card" id="gc0"><div class="g-panel-bg">🌐</div><div class="g-panel-fg"><div class="g-panel-cat">WEB FOUNDATION</div><div class="g-panel-title">Web</div><div class="g-panel-sub">HTML · CSS · JavaScript</div></div></div>
+          <div class="g-card" id="gc1"><div class="g-panel-bg">☕</div><div class="g-panel-fg"><div class="g-panel-cat">PROGRAMMING</div><div class="g-panel-title">Java</div><div class="g-panel-sub">OOP · Collection · JDBC</div></div></div>
+          <div class="g-card" id="gc2"><div class="g-panel-bg">🗄️</div><div class="g-panel-fg"><div class="g-panel-cat">SERVER & DATA</div><div class="g-panel-title">DB / JSP</div><div class="g-panel-sub">SQL · Servlet · MyBatis</div></div></div>
+          <div class="g-card" id="gc3"><div class="g-panel-bg">🖥️</div><div class="g-panel-fg"><div class="g-panel-cat">BACKEND</div><div class="g-panel-title">Spring</div><div class="g-panel-sub">REST · Security · AWS S3</div></div></div>
+          <div class="g-card" id="gc4"><div class="g-panel-bg">📊</div><div class="g-panel-fg"><div class="g-panel-cat">PYTHON & DATA</div><div class="g-panel-title">Data / ML</div><div class="g-panel-sub">Pandas · ML · Recommendation</div></div></div>
+          <div class="g-card" id="gc5"><div class="g-panel-bg">🤖</div><div class="g-panel-fg"><div class="g-panel-cat">AI & DEPLOY</div><div class="g-panel-title">AI / API</div><div class="g-panel-sub">LLM · FastAPI · AWS · Git</div></div></div>
         </div>
       </div>
 
@@ -353,6 +353,25 @@
     </div>
   </div>
 </div>
+
+<!-- ══ FULL CURRICULUM ══ -->
+<section class="sec white-world" style="padding-top:5rem;padding-bottom:5rem;">
+  <div class="wrap">
+    <div class="up">
+      <p class="eyebrow">Full Learning Archive</p>
+      <h2 class="sec-title">수업 자료 14개 영역 전체 정리</h2>
+      <p class="sec-sub">기초 웹부터 Java·DB·Spring·Python·머신러닝·LLM·FastAPI·AWS·Git까지 실제 실습 파일을 기준으로 학습 순서와 대표 내용을 정리했습니다.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.55rem;margin:1.8rem 0 2rem;">
+      <span class="proj-tag">01 Web/HTML</span><span class="proj-tag">02 CSS</span><span class="proj-tag">03 JavaScript</span>
+      <span class="proj-tag">04 Java</span><span class="proj-tag">05 DBMS</span><span class="proj-tag">06 JSP/Servlet</span>
+      <span class="proj-tag">07 Spring Boot</span><span class="proj-tag">08 Python</span><span class="proj-tag">09 Data Analysis</span>
+      <span class="proj-tag">10 Machine Learning</span><span class="proj-tag">11 LLM</span><span class="proj-tag">12 FastAPI</span>
+      <span class="proj-tag">13 Git/GitHub</span><span class="proj-tag">14 AWS/Deploy</span>
+    </div>
+    <a class="proj-link" href="curriculum.html">전체 수업 커리큘럼 보기 →</a>
+  </div>
+</section>
 
 <!-- ══ PROJECTS ══ -->
 <section class="proj-section" id="projects">
@@ -532,12 +551,12 @@
     var N = 6;
 
     var TITLES = [
-      'Spring Boot로 서비스 뼈대를 세우다',
-      '화면은 정보 구조에서 시작한다',
-      '채팅과 알림은 상태 관리가 핵심이다',
-      'AI 모델을 서비스 API로 연결하다',
-      '데이터 흐름을 알면 화면이 안정된다',
-      '데이터 분석으로 인사이트를 만들다'
+      '웹의 구조와 브라우저 동작부터 시작하다',
+      'Java 문법에서 객체지향과 JDBC까지 확장하다',
+      'SQL과 Servlet으로 데이터 흐름을 이해하다',
+      'Spring으로 계층형 백엔드 구조를 완성하다',
+      'Python 데이터 분석에서 머신러닝까지 학습하다',
+      'LLM과 API를 AWS 환경에 연결하다'
     ];
 
     /* 진행 도트 생성 */
@@ -723,12 +742,12 @@
 
     /* ── 스킬 모달 ── */
     var CARD_DETAILS = [
-      {icon:'🖥️', bg:'linear-gradient(135deg,#0a0f1e,#0d2d6b,#1e4d9a)', title:'Spring Boot', sub:'Backend · Java 17 · JPA · MyBatis', desc:'RESTful API 설계부터 Security, JPA까지 백엔드 핵심 기술을 학습했습니다. 실전 프로젝트에서 인증·인가, ORM, 메시지 큐까지 end-to-end 구현을 경험했습니다.', items:['Spring Boot 3.5 · Java 17','Spring Security · JWT 인증','JPA · MyBatis ORM','RabbitMQ 메시지 큐','Swagger API 문서화']},
-      {icon:'⚛️', bg:'linear-gradient(135deg,#1a0530,#5b1a8a,#9333ea)', title:'React 19', sub:'Frontend · TypeScript · TailwindCSS', desc:'React 19의 최신 기능과 TypeScript로 타입 안전한 UI를 구현했습니다. 서버 상태와 클라이언트 상태를 분리해 유지보수성을 높이는 구조를 학습했습니다.', items:['React 19 · TypeScript','TailwindCSS · SCSS','Zustand 상태관리','TanStack Query','Vite 빌드 도구']},
-      {icon:'⚡', bg:'linear-gradient(135deg,#001a1c,#004d5e,#0891b2)', title:'Real-Time', sub:'WebSocket · RabbitMQ · SSE', desc:'실시간 양방향 통신과 이벤트 기반 아키텍처를 실전 프로젝트에 적용했습니다. 채팅, 알림, 경매 입찰 등 실시간 기능을 구현했습니다.', items:['WebSocket · STOMP 프로토콜','RabbitMQ 메시지 브로커','SSE (Server-Sent Events)','Redis Pub/Sub','Spring WebFlux']},
-      {icon:'🤖', bg:'linear-gradient(135deg,#1c0500,#7c1d0c,#ea580c)', title:'AI / FastAPI', sub:'LangChain · RAG · OpenAI API', desc:'LangChain과 OpenAI API를 활용해 RAG 파이프라인과 AI 서비스를 구축했습니다. FastAPI로 AI 모델을 REST API로 연결하는 구조를 설계했습니다.', items:['FastAPI · Python 3.11','LangChain · RAG 파이프라인','OpenAI API 연동','벡터 DB (ChromaDB)','멀티모달 LLM 활용']},
-      {icon:'🗄️', bg:'linear-gradient(135deg,#05071e,#1e1b6b,#4338ca)', title:'Database', sub:'PostgreSQL · Redis · Flyway', desc:'관계형 DB 설계부터 캐싱, 마이그레이션까지 데이터 계층 전반을 이해했습니다. 인덱스 최적화와 쿼리 튜닝으로 성능 개선을 경험했습니다.', items:['PostgreSQL · MySQL','Redis 캐싱 전략','Flyway DB 마이그레이션','인덱스 · 쿼리 최적화','Docker Compose 환경']},
-      {icon:'📊', bg:'linear-gradient(135deg,#021207,#14532d,#16a34a)', title:'Data Analysis', sub:'Pandas · Scikit-learn · Jupyter', desc:'Python 데이터 분석 도구로 데이터에서 인사이트를 추출하고 시각화했습니다. 머신러닝 모델을 학습시키고 서비스에 통합하는 과정을 경험했습니다.', items:['Pandas · NumPy 데이터 처리','Scikit-learn ML 모델링','Jupyter Notebook','Matplotlib · Seaborn 시각화','통계 분석 · A/B 테스트']},
+      {icon:'🌐', bg:'linear-gradient(135deg,#0a0f1e,#0d2d6b,#1e4d9a)', title:'Web Foundation', sub:'HTML · CSS · JavaScript', desc:'웹 요청과 응답, 문서 구조, 스타일링과 브라우저 이벤트 처리의 기초를 순서대로 학습했습니다.', items:['HTTP/HTTPS · DNS · 웹 표준','HTML 요소와 폼','CSS 선택자 · Position · 반응형','JavaScript DOM · Event · Fetch','모달 · 배너 · API 실습']},
+      {icon:'☕', bg:'linear-gradient(135deg,#1a0530,#5b1a8a,#9333ea)', title:'Java', sub:'Syntax · OOP · JDBC', desc:'기본 문법에서 객체지향 설계, 컬렉션, 예외 처리와 데이터베이스 연결까지 단계적으로 실습했습니다.', items:['제어문 · 배열 · 메서드','상속 · 다형성 · 인터페이스','Lambda · Stream · Exception','Collection · Thread · File I/O','JDBC · DAO · DTO · VO']},
+      {icon:'🗄️', bg:'linear-gradient(135deg,#001a1c,#004d5e,#0891b2)', title:'DB / JSP', sub:'SQL · Servlet · MyBatis', desc:'관계형 데이터 모델과 SQL을 학습하고 JSP/Servlet MVC 구조로 회원 기능을 구현했습니다.', items:['DDL · DML · JOIN · VIEW','정규화 · PK/FK','PostgreSQL · Redis 기초','Servlet · GET/POST','Front Controller · MyBatis']},
+      {icon:'🖥️', bg:'linear-gradient(135deg,#1c0500,#7c1d0c,#ea580c)', title:'Spring Boot', sub:'MVC · Security · REST', desc:'DI부터 계층형 CRUD, 인증과 외부 인프라 연동까지 단계별 Spring 실습을 진행했습니다.', items:['DI · IoC · Bean · MVC','Three-tier · MyBatis · REST','Interceptor · Exception','Security · JWT · OAuth2 · Redis','S3 · Swagger · AOP · Mail/SMS']},
+      {icon:'📊', bg:'linear-gradient(135deg,#05071e,#1e1b6b,#4338ca)', title:'Python / Data / ML', sub:'Pandas · Visualization · ML', desc:'Python 문법과 데이터 처리부터 분류·회귀·추천 시스템의 평가 과정까지 Jupyter로 실습했습니다.', items:['Python Collection · Function · Class','NumPy · Pandas','Matplotlib · Seaborn · RFM','Decision Tree · Naive Bayes','Regression · TF-IDF 추천']},
+      {icon:'🤖', bg:'linear-gradient(135deg,#021207,#14532d,#16a34a)', title:'AI / API / Deploy', sub:'LLM · FastAPI · AWS · Git', desc:'생성형 AI를 API로 구성하고 버전 관리와 Linux 서버 배포까지 연결하는 과정을 학습했습니다.', items:['Multimodal · LCEL · RAG','RAG-Anything · Gemini','FastAPI · ASGI · Pydantic','Git Branch · Merge · PR','EC2 · Docker · Nginx · DB 설치']},
     ];
 
     var skModal    = document.getElementById('skillModal');
@@ -753,12 +772,12 @@
 
     /* 카드 클릭 → 블로그 상세 페이지 이동 */
     var BLOG_URLS = [
-      'blog-spring.html',
-      'blog-react.html',
-      'blog-realtime.html',
-      'blog-ai.html',
-      'blog-db.html',
-      'blog-data.html'
+      'curriculum.html#web',
+      'curriculum.html#java',
+      'curriculum.html#db',
+      'curriculum.html#spring',
+      'curriculum.html#data',
+      'curriculum.html#ai'
     ];
     cards.forEach(function(card, i){
       card.addEventListener('click', function(){

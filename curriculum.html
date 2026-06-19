@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 수업 커리큘럼 | JCH Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <style>
+    .curr-hero{padding:130px 6% 70px;background:radial-gradient(circle at 80% 20%,#18310a 0,transparent 34%),#050505;border-bottom:1px solid var(--border)}
+    .curr-hero-inner,.curr-main{max-width:1080px;margin:auto}
+    .curr-hero h1{font-size:clamp(2.4rem,7vw,5.5rem);margin:.5rem 0 1.2rem}
+    .curr-hero h1 span{color:var(--accent)}
+    .curr-hero p{max-width:720px;color:var(--txt2);line-height:1.9}
+    .curr-nav{position:sticky;top:64px;z-index:20;background:rgba(5,5,5,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 6%}
+    .curr-nav div{max-width:1080px;margin:auto;display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none}
+    .curr-nav a{white-space:nowrap;border:1px solid var(--border);padding:.35rem .8rem;border-radius:50px;color:var(--txt2);font-size:.72rem}
+    .curr-nav a:hover{border-color:var(--accent);color:var(--accent)}
+    .curr-main{padding:5rem 6%}
+    .phase{scroll-margin-top:125px;margin-bottom:5rem}
+    .phase-head{display:grid;grid-template-columns:90px 1fr;gap:1.5rem;align-items:start;margin-bottom:1.6rem}
+    .phase-num{font-size:2.6rem;font-weight:900;color:var(--accent);line-height:1}
+    .phase h2{font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:.55rem}
+    .phase-intro{color:var(--txt2);font-size:.88rem;line-height:1.85;max-width:720px}
+    .subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .subject{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+    .subject-top{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-bottom:1rem}
+    .subject h3{font-size:1.1rem}
+    .subject-id{color:var(--accent);font-size:.65rem;font-weight:800;letter-spacing:.15em}
+    .subject ul{list-style:none;display:grid;gap:.48rem}
+    .subject li{font-size:.78rem;color:var(--txt2);padding-left:1rem;position:relative;line-height:1.65}
+    .subject li::before{content:'•';position:absolute;left:0;color:var(--accent)}
+    .evidence{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.68rem;color:#666;word-break:break-all}
+    .evidence strong{color:#999}
+    .note{margin-top:1rem;background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.15);border-radius:12px;padding:1rem 1.2rem;color:var(--txt2);font-size:.78rem;line-height:1.7}
+    @media(max-width:720px){.subject-grid{grid-template-columns:1fr}.phase-head{grid-template-columns:1fr;gap:.5rem}.phase-num{font-size:1.4rem}}
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="index.html" class="logo">JCH<em>.</em></a>
+    <nav class="gnav">
+      <a href="index.html">홈</a>
+      <a href="index.html#projects">프로젝트</a>
+      <a href="index.html#contact" class="gnav-cta">Contact</a>
+    </nav>
+  </header>
+
+  <section class="curr-hero">
+    <div class="curr-hero-inner">
+      <span class="eyebrow">Learning Archive · 14 Subjects</span>
+      <h1>기초부터 배포까지,<br><span>수업 학습 기록.</span></h1>
+      <p>2026년 수업 폴더에 남아 있는 메모, 소스 코드, SQL과 Jupyter Notebook을 기준으로 정리했습니다. 프로젝트 결과와 분리하여 어떤 순서로 개념을 익히고 실습했는지 보여줍니다.</p>
+    </div>
+  </section>
+
+  <nav class="curr-nav">
+    <div>
+      <a href="#web">Web</a><a href="#java">Java</a><a href="#db">DB/JSP</a>
+      <a href="#spring">Spring</a><a href="#data">Python/Data/ML</a><a href="#ai">AI/API/AWS/Git</a>
+    </div>
+  </nav>
+
+  <main class="curr-main">
+    <section class="phase" id="web">
+      <div class="phase-head"><div class="phase-num">01–03</div><div><h2>웹 화면과 브라우저 기초</h2><p class="phase-intro">웹 요청·응답 구조를 이해하고 HTML 문서, CSS 레이아웃, JavaScript 이벤트와 비동기 통신 순서로 학습했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>Web / HTML</h3><span class="subject-id">SUBJECT 01</span></div><ul><li>클라이언트·서버, HTTP/HTTPS, IP, DNS, 웹 표준</li><li>HTML 요소·속성, 블록·인라인·인라인 블록</li><li>폼과 회원가입 페이지의 문서 구조</li><li>HTML·CSS·JavaScript·XML 역할 구분</li></ul><div class="evidence"><strong>학습 증빙</strong> · html/memo/html.txt</div></article>
+        <article class="subject"><div class="subject-top"><h3>CSS</h3><span class="subject-id">SUBJECT 02</span></div><ul><li>전체·태그·클래스·아이디·그룹 선택자</li><li>Cascading, 상속, 명시도와 선언 순서</li><li>박스 모델, Flex 정렬, Font, Position, Z-index</li><li>Overflow, Transition, Media Query, Clone 실습</li></ul><div class="evidence"><strong>학습 증빙</strong> · css/workspace/a-intro ~ k-clone · 29개 HTML/CSS 파일</div></article>
+        <article class="subject"><div class="subject-top"><h3>JavaScript</h3><span class="subject-id">SUBJECT 03</span></div><ul><li>변수·상수·Scope, 연산자, 함수, 객체, 배열</li><li>ES Module, Date, Promise와 Fetch API</li><li>DOM 탐색·변경, 브라우저 이벤트 처리</li><li>Service·Layout·Event 분리, Todo·Modal·Banner 실습</li><li>Kakao API와 결제 API 호출 실습</li></ul><div class="evidence"><strong>학습 증빙</strong> · js/workspace/a-intro ~ o-api · 73개 JS/HTML/CSS 파일</div></article>
+      </div>
+    </section>
+
+    <section class="phase" id="java">
+      <div class="phase-head"><div class="phase-num">04</div><div><h2>Java와 객체지향 프로그래밍</h2><p class="phase-intro">기본 문법에서 시작해 객체 간 관계를 설계하고, 컬렉션·스레드·파일 처리와 JDBC까지 확장했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>Java</h3><span class="subject-id">SUBJECT 04</span></div><ul><li>출력, 변수, 형변환, 입력, 연산자, 제어문</li><li>배열, 메서드, 클래스, Static</li><li>상속, 다형성, 업·다운캐스팅</li><li>추상 클래스, 인터페이스, 익명 클래스</li><li>Lambda·Stream, 사용자 정의 예외, 날짜와 API</li><li>equals·hashCode·toString, List·Set·Map</li><li>Thread, String, File I/O, JDBC</li><li>DAO·DTO·VO를 이용한 회원·게시글 처리</li></ul><div class="evidence"><strong>학습 증빙</strong> · java/workspace/a_print ~ y_jdbc · Java 소스 161개</div></article>
+      </div>
+    </section>
+
+    <section class="phase" id="db">
+      <div class="phase-head"><div class="phase-num">05–06</div><div><h2>데이터베이스와 Java 웹 서버</h2><p class="phase-intro">관계형 데이터 구조를 SQL로 다룬 뒤 JSP/Servlet과 MyBatis로 요청부터 DB까지 이어지는 흐름을 실습했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>DBMS</h3><span class="subject-id">SUBJECT 05</span></div><ul><li>MySQL DDL·DML, 자료형과 제약조건</li><li>PK·FK, 데이터 모델링, 정규화와 이상 현상</li><li>JOIN과 VIEW, 회원·파일·게시글 SQL</li><li>PostgreSQL 사용자·DB, 자료형, ENUM, Identity</li><li>Redis Key-Value, TTL, 세션·토큰·캐시 활용</li></ul><div class="evidence"><strong>학습 증빙</strong> · dbms/mysql/workspace · dbms/postgres/memo · dbms/redis/memo</div></article>
+        <article class="subject"><div class="subject-top"><h3>JSP / Servlet</h3><span class="subject-id">SUBJECT 06</span></div><ul><li>Apache·Tomcat·WAS와 Servlet 생명주기</li><li>GET·POST, Forward·Redirect</li><li>JSP 표현식과 요청 데이터 처리</li><li>MVC Model 1·2와 Front Controller</li><li>MyBatis Mapper를 통한 회원가입·로그인</li></ul><div class="evidence"><strong>학습 증빙</strong> · jsp/workspace/b-mvc · Java/JSP/XML 핵심 파일 16개</div></article>
+      </div>
+    </section>
+
+    <section class="phase" id="spring">
+      <div class="phase-head"><div class="phase-num">07</div><div><h2>Spring Boot 백엔드 심화</h2><p class="phase-intro">의존성 주입부터 계층형 CRUD, 인증·인가, 파일과 외부 인프라 연동까지 기능을 누적하는 방식으로 학습했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>Spring Boot</h3><span class="subject-id">SUBJECT 07</span></div><ul><li>POJO, IoC·DI, Bean, Qualifier, Spring MVC</li><li>Controller·REST Controller와 요청·응답 DTO</li><li>MyBatis·MySQL, Three-tier Architecture</li><li>회원·게시글·댓글 CRUD, 파일·태그·검색·페이징</li><li>예외 처리, Interceptor, 메일·SMS</li><li>Spring Security·JWT 인증/인가</li><li>OAuth2 카카오 로그인과 Redis 연동</li><li>AWS S3, Swagger, HTTPS, AOP·Proxy</li><li>Spring AI 스트리밍 기초</li></ul><div class="evidence"><strong>학습 증빙</strong> · spring/workspace/dependency ~ app_day05_https_aop · 프로젝트 제외 관련 파일 약 498개</div></article>
+      </div>
+    </section>
+
+    <section class="phase" id="data">
+      <div class="phase-head"><div class="phase-num">08–10</div><div><h2>Python, 데이터 분석과 머신러닝</h2><p class="phase-intro">Python 문법을 익힌 뒤 데이터 정제·시각화·고객 분석을 거쳐 분류·회귀·추천 모델의 학습과 평가를 실습했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>Python</h3><span class="subject-id">SUBJECT 08</span></div><ul><li>변수, 연산자, 조건문과 반복문</li><li>List·Tuple·Dictionary, Comprehension·Generator</li><li>함수, 기본값·키워드 인자, Packing, Lambda</li><li>Class·Magic Method, 상속과 Module</li></ul><div class="evidence"><strong>학습 증빙</strong> · python/workspace/python · Python 실습 27개</div></article>
+        <article class="subject"><div class="subject-top"><h3>Data Analysis</h3><span class="subject-id">SUBJECT 09</span></div><ul><li>기초 통계와 데이터 구조 이해</li><li>NumPy ndarray와 벡터 연산</li><li>Pandas DataFrame, 정제·결측치·중복 처리</li><li>Matplotlib·Seaborn 시각화</li><li>행복 지수·수면 건강 데이터 분석</li><li>Recency·Frequency·Monetary 기반 RFM 분석</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/data-analysis · 일반 수업 Notebook 11개</div></article>
+        <article class="subject"><div class="subject-top"><h3>Machine Learning</h3><span class="subject-id">SUBJECT 10</span></div><ul><li>Feature·Label·학습·검증 데이터 개념</li><li>Decision Tree 분류와 다중 분류</li><li>Cross Validation과 과적합 확인</li><li>Confusion Matrix, Accuracy·Precision·Recall·F1</li><li>Naive Bayes 감정 분류</li><li>선형·다변량 회귀와 Decision Tree Regression</li><li>TF-IDF·Cosine Similarity 추천 시스템</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/machine-learning · 분류/회귀/추천 Notebook</div></article>
+      </div>
+    </section>
+
+    <section class="phase" id="ai">
+      <div class="phase-head"><div class="phase-num">11–14</div><div><h2>생성형 AI, API, 협업과 배포</h2><p class="phase-intro">LLM 활용법을 FastAPI 서비스 구조로 연결하고 Git 협업과 Linux/AWS 배포 과정까지 학습했습니다.</p></div></div>
+      <div class="subject-grid">
+        <article class="subject"><div class="subject-top"><h3>LLM / Generative AI</h3><span class="subject-id">SUBJECT 11</span></div><ul><li>Chat Model과 Prompt 구성</li><li>이미지·텍스트를 함께 처리하는 Multimodal</li><li>LCEL을 이용한 Chain 구성</li><li>이미지 생성 API</li><li>문서 Load·Split·Retrieve·Generate 기반 RAG</li><li>RAG-Anything·LightRAG와 Google Gemini 연동</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/llm/a_LLM ~ f-Google-Generative-AI</div></article>
+        <article class="subject"><div class="subject-top"><h3>FastAPI</h3><span class="subject-id">SUBJECT 12</span></div><ul><li>Uvicorn·ASGI와 동기·비동기 요청 처리</li><li>Pydantic 요청·응답 모델과 Swagger</li><li>Router·Service·Repository·Domain 구조</li><li>PostgreSQL CRUD API</li><li>감정 분석·스팸 판별·추천 API</li><li>LLM Streaming, Cache와 pickle 모델 로딩</li></ul><div class="evidence"><strong>학습 증빙</strong> · fastapi/workspaes/module · feeling · spam · stream · reconstruction</div></article>
+        <article class="subject"><div class="subject-top"><h3>Git / GitHub</h3><span class="subject-id">SUBJECT 13</span></div><ul><li>로컬·원격 저장소와 Git 기본 설정</li><li>init·add·commit·status·log</li><li>Branch 생성과 버전 이동</li><li>Fast-forward·Merge·Conflict 해결</li><li>fetch·pull·push·clone</li><li>Organization·Fork·Pull Request 협업 흐름</li></ul><div class="evidence"><strong>학습 증빙</strong> · git/memo/git.txt</div></article>
+        <article class="subject"><div class="subject-top"><h3>AWS / Deployment</h3><span class="subject-id">SUBJECT 14</span></div><ul><li>Ubuntu 계정·시간대·패키지 설정</li><li>EC2에 Java 17 설치와 Gradle Build</li><li>Spring Boot JAR 실행과 포트 리다이렉션</li><li>MySQL·PostgreSQL·Redis 서버 구성</li><li>Docker 설치와 컨테이너 실행</li><li>Swap Memory 구성</li><li>Nginx Reverse Proxy와 Load Balancing</li><li>Cloudflare Tunnel 기초</li></ul><div class="evidence"><strong>학습 증빙</strong> · aws/memo/mysql.txt · nginx.txt · sprign_aws.txt</div></article>
+      </div>
+      <div class="note">React·TypeScript·WebSocket·RabbitMQ·LiveKit 등은 독립 수업 자료가 아니라 프로젝트에서 사용한 기술이므로 프로젝트 페이지에서 별도로 설명합니다.</div>
+    </section>
+
+    <a href="index.html" class="btn-back">← 포트폴리오 메인으로</a>
+  </main>
+
+  <footer class="pf-footer"><span>© 2026 Jung Chan Ho</span><span>Learning Archive · 14 Subjects</span></footer>
+</body>
+</html>
