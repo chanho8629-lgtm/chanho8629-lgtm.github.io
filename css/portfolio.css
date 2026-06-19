@@ -14,6 +14,11 @@ a{text-decoration:none;color:inherit;}
 .gnav a:hover{color:var(--accent);}
 .gnav-cta{background:#fff!important;color:#000!important;padding:.38rem 1.1rem;border-radius:50px;font-weight:700!important;transition:background .2s!important;}
 .gnav-cta:hover{background:var(--accent)!important;color:#000!important;}
+@media(max-width:640px){
+  .hdr{padding:0 7%;}
+  .hdr .gnav{gap:0;}
+  .hdr .gnav a:not(:first-child){display:none;}
+}
 
 /* ── 푸터 ── */
 .pf-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:var(--txt3);}
