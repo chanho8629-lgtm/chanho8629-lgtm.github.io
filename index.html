@@ -322,12 +322,12 @@
 <!-- ══ 3D 글로브 챕터 ══ -->
 <div id="chapters" style="background:#fff;">
   <div id="chapterPin" style="height:220vh;position:relative;">
-    <div id="chapterSticky" style="position:fixed;top:0;left:0;right:0;height:100vh;overflow:visible;background:#000;opacity:0;pointer-events:none;z-index:15;transition:opacity .15s;">
+    <div id="chapterSticky" style="position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);overflow:hidden;background:#000;opacity:0;pointer-events:none;z-index:15;transition:opacity .15s;">
       <canvas id="starCanvas" style="position:absolute;inset:0;z-index:0;"></canvas>
       <div class="ch-deco"><span>J</span><span>CH</span></div>
 
       <!-- 상단 레이블 -->
-      <div id="chSectionLabel" style="position:absolute;top:48px;left:50%;transform:translateX(-50%);text-align:center;z-index:20;opacity:0;transition:opacity 1s ease;">
+      <div id="chSectionLabel" style="position:absolute;top:18px;left:50%;transform:translateX(-50%);text-align:center;z-index:20;opacity:0;transition:opacity 1s ease;width:90%;">
         <p style="font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#a3e635;margin-bottom:.4rem;">Learning Curriculum</p>
         <h2 id="chActiveTitle" style="font-size:clamp(1rem,2vw,1.4rem);font-weight:700;color:#fff;letter-spacing:-.02em;min-height:1.6em;transition:opacity .4s ease;"></h2>
       </div>
@@ -348,7 +348,7 @@
       </div>
 
       <!-- 하단 진행 인디케이터 -->
-      <div id="chProgress" style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.6rem;z-index:20;opacity:0;transition:opacity 1s ease;"></div>
+      <div id="chProgress" style="position:absolute;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;gap:.6rem;z-index:20;opacity:0;transition:opacity 1s ease;"></div>
 
     </div>
   </div>
@@ -600,14 +600,15 @@
 
     function getCW(){
       var vw = window.innerWidth;
-      /* 뷰포트 기준 — 레퍼런스처럼 카드가 화면 크게 채움 */
-      return Math.min(500, Math.max(220, vw * 0.34));
+      /* 헤더와 진행 표시를 포함해 카드 전체가 한 화면에 들어오도록 제한 */
+      return Math.min(420, Math.max(210, vw * 0.28));
     }
 
     function updateRing(angle){
       var CW     = getCW();
-      /* 카드 높이: 뷰포트 78% 또는 카드 너비의 1.55배 중 작은 값 */
-      var CH     = Math.min(Math.round(window.innerHeight * 0.78), Math.round(CW * 1.55));
+      /* 회전 시 생기는 대각선 높이까지 고려해 사용 가능 화면의 64%로 제한 */
+      var usableHeight = Math.max(420, window.innerHeight - 64);
+      var CH     = Math.min(Math.round(usableHeight * 0.64), Math.round(CW * 1.35));
       /* 카드 사이 8px 간격: r = (CW+8) / (2·tan(π/N)) */
       var radius = Math.round((CW + 8) / (2 * Math.tan(Math.PI / N)));
       CARD_W = CW; CARD_H = CH;
@@ -690,8 +691,8 @@
       gCanvas.style.display = 'none';
       /* 원기둥 시점: perspective 크게 → 왜곡 최소화, 이어진 면이 자연스럽게 보임 */
       scene.style.perspective       = '1800px';
-      scene.style.perspectiveOrigin = '50% 44%';
-      scene.style.transform         = 'translateY(50px) rotateX(16deg) rotateZ(-8deg)';
+      scene.style.perspectiveOrigin = '50% 48%';
+      scene.style.transform         = 'translateY(24px) rotateX(8deg) rotateZ(-4deg)';
       scene.style.transformStyle    = 'preserve-3d';
       stage.style.transformStyle    = 'preserve-3d';
       stage.style.width  = '0';
