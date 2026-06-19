@@ -12,17 +12,19 @@
     .nav{position:fixed;inset:0 0 auto;height:66px;z-index:100;display:flex;align-items:center;background:rgba(5,5,5,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
     .nav-in{width:92%;margin:auto;display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.25rem;font-weight:900}.logo i{color:var(--green);font-style:normal}.menu{display:flex;gap:2rem;font-size:.75rem;font-weight:700}.menu a:hover{color:var(--green)}
     .intro{height:100vh;min-height:700px;display:grid;place-items:center;position:relative;overflow:hidden}
-    .blob{position:absolute;width:min(650px,70vw);aspect-ratio:1;border-radius:43% 57% 62% 38%/45% 42% 58% 55%;background:#000;box-shadow:0 0 90px 45px rgba(255,255,255,.25);filter:blur(3px);animation:morph 8s ease-in-out infinite alternate}
+    .blob{position:absolute;width:min(650px,70vw);aspect-ratio:1;border-radius:43% 57% 62% 38%/45% 42% 58% 55%;background:#000;box-shadow:0 0 90px 45px rgba(255,255,255,.25);filter:blur(3px);animation:morph 8s ease-in-out infinite alternate;will-change:transform}
     .intro::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#686868 0,transparent 35%),#050505;opacity:.7}
     @keyframes morph{to{border-radius:60% 40% 42% 58%/38% 60% 40% 62%;transform:rotate(8deg) scale(1.05)}}
     .intro-copy{position:relative;text-align:center;z-index:2;padding:0 6%}.intro-copy .small{font-size:.65rem;letter-spacing:.24em;color:#bbb;text-transform:uppercase;margin-bottom:1rem}.intro h1{font-size:clamp(2.3rem,5.2vw,5.2rem);line-height:1.12;letter-spacing:-.055em}.intro h1 span{color:var(--green)}.intro p{color:#aaa;margin:1.3rem auto 0;max-width:640px;font-size:.9rem}.down{position:absolute;bottom:2rem;z-index:3;font-size:1.7rem;color:#888;animation:bob 1.4s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(8px)}}
+    .intro-orbit{position:absolute;width:min(760px,82vw);aspect-ratio:1;z-index:1;transform:rotate(-90deg);pointer-events:none}.intro-orbit circle{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1;stroke-dasharray:1257;stroke-dashoffset:1257}.intro-orbit circle.draw{animation:drawCircle 2.4s cubic-bezier(.65,0,.35,1) forwards}.intro-orbit .orbit-dot{fill:#fff;stroke:none;opacity:0}.intro-orbit .orbit-dot.show{animation:dotIn .35s forwards}@keyframes drawCircle{to{stroke-dashoffset:0}}@keyframes dotIn{to{opacity:1}}.intro-copy>*{opacity:0;transform:translateY(20px)}.intro-copy.ready>*{animation:copyIn .8s forwards}.intro-copy.ready h1{animation-delay:.18s}.intro-copy.ready p{animation-delay:.35s}@keyframes copyIn{to{opacity:1;transform:none}}
     .orbit-section{height:100vh;min-height:760px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 40%,#143e76 0,#071627 25%,#02060b 57%,#000 80%)}
     .orbit-head{position:absolute;top:90px;left:50%;transform:translateX(-50%);text-align:center;z-index:20;width:90%}.orbit-head small{color:var(--green);letter-spacing:.2em;font-size:.62rem}.orbit-head h2{font-size:clamp(1.5rem,3vw,2.6rem);margin-top:.5rem}
     .planet{position:absolute;width:min(600px,55vw);aspect-ratio:1;border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);background:radial-gradient(circle at 34% 28%,#72b4e7 0 4%,#276aa5 19%,#123e6d 42%,#071a32 72%);box-shadow:inset -55px -20px 90px #01050a,0 0 80px rgba(60,140,220,.35)}
     .planet::before{content:'';position:absolute;inset:7%;border-radius:50%;background:repeating-radial-gradient(ellipse at 35% 40%,transparent 0 14px,rgba(255,255,255,.04) 15px 18px);mix-blend-mode:screen}
-    .ring{position:absolute;left:50%;top:52%;width:min(1100px,92vw);height:430px;transform:translate(-50%,-50%) perspective(1200px) rotateX(9deg);transform-style:preserve-3d;animation:ringFloat 8s ease-in-out infinite alternate}@keyframes ringFloat{to{transform:translate(-50%,-52%) perspective(1200px) rotateX(5deg)}}
-    .poster{position:absolute;width:230px;height:315px;border:8px solid rgba(255,255,255,.92);background:#111;box-shadow:0 25px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;overflow:hidden}
+    .ring{position:absolute;left:50%;top:52%;width:min(1100px,92vw);height:430px;transform:translate(-50%,-50%) perspective(1200px) rotateX(9deg);transform-style:preserve-3d;cursor:grab;touch-action:none;will-change:transform}.ring.dragging{cursor:grabbing}
+    .poster{position:absolute;width:230px;height:315px;border:8px solid rgba(255,255,255,.92);background:#111;box-shadow:0 25px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;overflow:hidden;transition:filter .2s,opacity .2s;will-change:transform}
     .poster::before{content:'';position:absolute;inset:0;background:var(--poster-bg);z-index:0}.poster>*{position:relative;z-index:1}.poster small{font-size:.55rem;letter-spacing:.17em}.poster h3{font-size:1.25rem;line-height:1.08;margin:.35rem 0}.poster p{font-size:.62rem;opacity:.72}
+    .ring.enhanced .poster{left:50%;right:auto;top:50%;margin-left:-115px;margin-top:-158px}
     .p1{left:3%;top:95px;transform:rotateY(24deg) rotateZ(-8deg);--poster-bg:linear-gradient(145deg,#0d2474,#3893e8 52%,#0c1634)}
     .p2{left:23%;top:10px;transform:rotateY(10deg) rotateZ(-2deg);--poster-bg:linear-gradient(145deg,#40135e,#b02fd0 55%,#17101d)}
     .p3{left:50%;top:-5px;transform:translateX(-50%) translateZ(90px);--poster-bg:linear-gradient(145deg,#08331a,#2acb68 56%,#08140d)}
@@ -30,10 +32,10 @@
     .p5{right:3%;top:100px;transform:rotateY(-24deg) rotateZ(9deg);--poster-bg:linear-gradient(145deg,#101010,#555 50%,#090909)}
     .orbit-link{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:20;border:1px solid rgba(255,255,255,.35);padding:.7rem 1.4rem;border-radius:999px;font-size:.72rem;background:rgba(0,0,0,.45)}
     .editorial{background:#000}.story{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #111}.story:nth-child(even) .visual{order:2}.story:nth-child(even) .copy{order:1}
-    .visual{position:relative;overflow:hidden;min-height:560px;display:grid;place-items:center}.copy{display:flex;flex-direction:column;justify-content:center;padding:8vw 6vw;background:#050505}
+    .visual{position:relative;overflow:hidden;min-height:560px;display:grid;place-items:center}.copy{display:flex;flex-direction:column;justify-content:center;padding:8vw 6vw;background:#050505}.story .visual,.story .copy{opacity:0;transition:opacity .9s ease,transform 1.1s cubic-bezier(.16,1,.3,1)}.story .visual{transform:translateX(-70px)}.story .copy{transform:translateX(70px)}.story:nth-child(even) .visual{transform:translateX(70px)}.story:nth-child(even) .copy{transform:translateX(-70px)}.story.visible .visual,.story.visible .copy{opacity:1;transform:none}
     .copy .label{font-size:.6rem;color:#888;letter-spacing:.18em;text-transform:uppercase}.copy h2{font-size:clamp(2rem,4.2vw,4.6rem);line-height:1.05;letter-spacing:-.05em;color:var(--green);margin:1.2rem 0}.copy p{max-width:560px;color:#aaa;font-size:.88rem;line-height:1.85}.copy a{margin-top:2rem;font-size:.76rem;font-weight:800;border-bottom:1px solid var(--green);width:max-content;padding-bottom:.25rem}
     .visual-bideo{background:linear-gradient(145deg,#0c0f2d,#1a2db8)}.visual-cla{background:linear-gradient(145deg,#042210,#087c37)}.visual-gg{background:linear-gradient(145deg,#26082e,#76228d)}
-    .browser{width:78%;aspect-ratio:16/10;background:#efefef;border-radius:8px;box-shadow:0 35px 80px rgba(0,0,0,.5);transform:rotate(-5deg);overflow:hidden;color:#111}.story:nth-child(even) .browser{transform:rotate(5deg)}
+    .browser{width:78%;aspect-ratio:16/10;background:#efefef;border-radius:8px;box-shadow:0 35px 80px rgba(0,0,0,.5);transform:rotate(-5deg);overflow:hidden;color:#111;will-change:transform}.story:nth-child(even) .browser{transform:rotate(5deg)}
     .browser-bar{height:28px;background:#ddd;display:flex;align-items:center;gap:5px;padding:0 10px}.browser-bar i{width:7px;height:7px;border-radius:50%;background:#aaa}
     .mock{height:calc(100% - 28px);padding:1.4rem;display:grid;gap:.8rem}.mock-top{display:flex;justify-content:space-between;font-weight:900}.mock-hero{border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:900}.visual-bideo .mock-hero{background:#15249a}.visual-cla .mock-hero{background:#087e3b}.visual-gg .mock-hero{background:#6f2385}
     .mock-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.mock-row span{background:#ddd;border-radius:5px}.mock-foot{display:grid;grid-template-columns:2fr 1fr;gap:.6rem}.mock-foot span{background:#d5d5d5;border-radius:5px}
@@ -41,14 +43,14 @@
     .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#bbb;border:1px solid #bbb}.learn-card{background:var(--white);min-height:270px;padding:1.6rem;display:flex;flex-direction:column}.learn-card b{font-size:.65rem;color:#777}.learn-card h3{font-size:1.3rem;margin-top:auto}.learn-card p{font-size:.72rem;color:#777;margin-top:.45rem}.learn-card:hover{background:#111;color:#fff}.learn-card:hover p,.learn-card:hover b{color:#aaa}
     .contact{min-height:65vh;display:grid;place-items:center;text-align:center;background:#050505;padding:6rem}.contact h2{font-size:clamp(2.4rem,6vw,6rem);letter-spacing:-.06em;line-height:1}.contact h2 span{color:var(--green)}.contact a{display:inline-block;margin-top:2rem;background:var(--green);color:#050505;padding:.8rem 1.6rem;border-radius:999px;font-weight:900;font-size:.76rem}
     footer{padding:1.5rem 4%;display:flex;justify-content:space-between;color:#666;font-size:.68rem}
-    @media(max-width:800px){.menu a:not(:last-child){display:none}.intro{min-height:680px}.orbit-section{height:auto;min-height:900px}.planet{width:520px;max-width:100vw}.ring{top:55%;height:650px}.poster{width:155px;height:215px;border-width:5px;padding:.7rem}.poster h3{font-size:.8rem}.p1{left:3%;top:230px}.p2{left:12%;top:20px}.p3{top:180px}.p4{right:12%;top:20px}.p5{right:3%;top:230px}.story,.story:nth-child(even){grid-template-columns:1fr}.story:nth-child(even) .visual,.story:nth-child(even) .copy{order:initial}.visual{min-height:430px}.copy{padding:4rem 7%}.learn-head{align-items:start;flex-direction:column}.learn-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:520px){.intro-copy{width:100%;padding:0 5%}.intro h1{font-size:2.05rem;line-height:1.16;word-break:keep-all}.intro h1 span{display:block}.intro p{font-size:.76rem;max-width:340px;word-break:keep-all}.poster{width:130px;height:180px}.poster p{display:none}.planet{width:420px}.learn-grid{grid-template-columns:1fr}.browser{width:88%}.visual{min-height:350px}.contact{padding:5rem 6%}}
+    @media(max-width:800px){.menu a:not(:last-child){display:none}.intro{min-height:680px}.orbit-section{height:auto;min-height:900px}.planet{width:520px;max-width:100vw}.ring{top:55%;height:650px}.poster{width:155px;height:215px;border-width:5px;padding:.7rem}.ring.enhanced .poster{margin-left:-77px;margin-top:-108px}.poster h3{font-size:.8rem}.p1{left:3%;top:230px}.p2{left:12%;top:20px}.p3{top:180px}.p4{right:12%;top:20px}.p5{right:3%;top:230px}.story,.story:nth-child(even){grid-template-columns:1fr}.story:nth-child(even) .visual,.story:nth-child(even) .copy{order:initial}.visual{min-height:430px}.copy{padding:4rem 7%}.learn-head{align-items:start;flex-direction:column}.learn-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.intro-copy{width:100%;padding:0 5%}.intro h1{font-size:2.05rem;line-height:1.16;word-break:keep-all}.intro h1 span{display:block}.intro p{font-size:.76rem;max-width:340px;word-break:keep-all}.poster{width:130px;height:180px}.ring.enhanced .poster{margin-left:-65px;margin-top:-90px}.poster p{display:none}.planet{width:420px}.learn-grid{grid-template-columns:1fr}.browser{width:88%}.visual{min-height:350px}.contact{padding:5rem 6%}}
   </style>
 </head>
 <body>
   <header class="nav"><div class="nav-in"><a class="logo" href="#home">JCH<i>.</i></a><nav class="menu"><a href="#orbit">Experience</a><a href="#projects">Projects</a><a href="#learning">Learning</a><a href="#contact">Contact</a></nav></div></header>
   <main>
-    <section class="intro" id="home"><div class="blob"></div><div class="intro-copy"><p class="small">Backend · Data · AI · Deployment</p><h1>배운 기술로<br><span>동작하는 서비스를 만듭니다.</span></h1><p>Java와 Spring Boot에서 시작해 데이터 분석, 머신러닝, FastAPI와 생성형 AI까지 연결한 개발 과정입니다.</p></div><a class="down" href="#orbit">⌄</a></section>
+    <section class="intro" id="home"><div class="blob"></div><svg class="intro-orbit" viewBox="0 0 420 420" aria-hidden="true"><circle cx="210" cy="210" r="200"></circle><circle class="orbit-dot" cx="210" cy="10" r="4"></circle></svg><div class="intro-copy"><p class="small">Backend · Data · AI · Deployment</p><h1>배운 기술로<br><span>동작하는 서비스를 만듭니다.</span></h1><p>Java와 Spring Boot에서 시작해 데이터 분석, 머신러닝, FastAPI와 생성형 AI까지 연결한 개발 과정입니다.</p></div><a class="down" href="#orbit">⌄</a></section>
 
     <section class="orbit-section" id="orbit">
       <div class="orbit-head"><small>OUR EXPERIENCE</small><h2>기초부터 배포까지 이어지는 기술 궤도</h2></div><div class="planet"></div>
@@ -73,4 +75,83 @@
     <section class="contact" id="contact"><div><h2>기술을 연결해<br><span>서비스를 만듭니다.</span></h2><a href="https://github.com/chanho8629-lgtm">GitHub에서 코드 보기 →</a></div></section>
   </main>
   <footer><span>© 2026 Jung Chan Ho</span><span>Backend · Data · AI · Deploy</span></footer>
+  <script>
+  (() => {
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const intro = document.querySelector('.intro');
+    const blob = document.querySelector('.blob');
+    const orbitLine = document.querySelector('.intro-orbit circle');
+    const orbitDot = document.querySelector('.orbit-dot');
+    const introCopy = document.querySelector('.intro-copy');
+
+    if (reduceMotion) {
+      introCopy.classList.add('ready');
+      orbitLine.style.strokeDashoffset = '0';
+      orbitDot.style.opacity = '1';
+    } else {
+      setTimeout(() => orbitLine.classList.add('draw'), 180);
+      setTimeout(() => orbitDot.classList.add('show'), 2050);
+      setTimeout(() => introCopy.classList.add('ready'), 1100);
+      intro.addEventListener('pointermove', e => {
+        const x = (e.clientX / innerWidth - .5) * 24;
+        const y = (e.clientY / innerHeight - .5) * 18;
+        blob.style.transform = `translate3d(${x}px,${y}px,0)`;
+      });
+      intro.addEventListener('pointerleave', () => blob.style.transform = '');
+    }
+
+    const ring = document.querySelector('.ring');
+    const posters = [...document.querySelectorAll('.poster')];
+    ring.classList.add('enhanced');
+    const base = [
+      {x:-455,y:55,r:-8,ry:24},{x:-225,y:-30,r:-2,ry:10},
+      {x:0,y:-45,r:0,ry:0},{x:225,y:-25,r:3,ry:-10},{x:455,y:60,r:9,ry:-24}
+    ];
+    let angle = 0, velocity = .012, dragging = false, lastX = 0, lastT = 0;
+    function layout(){
+      const scale = Math.min(1, innerWidth / 1180);
+      posters.forEach((card,i) => {
+        const a = angle + i * (Math.PI * 2 / posters.length);
+        const shift = Math.sin(a) * 75;
+        const depth = (Math.cos(a) + 1) / 2;
+        const b = base[i];
+        card.style.transform = `translate3d(${(b.x + shift)*scale}px,${b.y*scale}px,${depth*120}px) rotateY(${b.ry + Math.sin(a)*14}deg) rotateZ(${b.r}deg)`;
+        card.style.zIndex = String(Math.round(depth * 20));
+        card.style.filter = `brightness(${.58 + depth*.42})`;
+        card.style.opacity = String(.58 + depth*.42);
+      });
+    }
+    function animate(){
+      if(!dragging){ angle += velocity; velocity *= .985; if(Math.abs(velocity)<.003) velocity = .003; }
+      layout(); requestAnimationFrame(animate);
+    }
+    ring.addEventListener('pointerdown', e => { dragging=true; lastX=e.clientX; lastT=performance.now(); velocity=0; ring.classList.add('dragging'); ring.setPointerCapture(e.pointerId); });
+    ring.addEventListener('pointermove', e => {
+      if(!dragging) return; const now=performance.now(), dx=e.clientX-lastX, dt=Math.max(now-lastT,1);
+      angle += dx*.004; velocity=dx/dt*.018; lastX=e.clientX; lastT=now;
+    });
+    const release = () => { dragging=false; ring.classList.remove('dragging'); };
+    ring.addEventListener('pointerup',release); ring.addEventListener('pointercancel',release);
+    addEventListener('resize',layout); layout(); if(!reduceMotion) animate();
+
+    const stories = document.querySelectorAll('.story');
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    }), {threshold:.18});
+    stories.forEach(story => observer.observe(story));
+
+    if(!reduceMotion){
+      addEventListener('scroll', () => {
+        stories.forEach(story => {
+          const rect=story.getBoundingClientRect();
+          if(rect.bottom<0 || rect.top>innerHeight) return;
+          const progress=(innerHeight-rect.top)/(innerHeight+rect.height);
+          const browser=story.querySelector('.browser');
+          const direction=story.matches(':nth-child(even)')?1:-1;
+          browser.style.transform=`translateY(${(progress-.5)*-45}px) rotate(${direction*5}deg)`;
+        });
+      }, {passive:true});
+    }
+  })();
+  </script>
 </body></html>
