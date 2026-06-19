@@ -1,158 +1,76 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Spring Boot, FastAPI, AI 프로젝트와 14개 수업 과정을 정리한 정찬호 개발 포트폴리오">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="정찬호 Backend & AI Developer Portfolio">
   <title>정찬호 | Backend & AI Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#080808;--panel:#111;--panel2:#161616;--line:#252525;--text:#f5f5f5;--muted:#8b8b8b;--accent:#a3e635;--max:1120px}
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    .wrap{width:min(var(--max),88%);margin:auto}
-    .header{position:fixed;inset:0 0 auto;height:68px;z-index:100;display:flex;align-items:center;background:rgba(8,8,8,.88);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(18px)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between}
-    .logo{font-size:1.25rem;font-weight:900;letter-spacing:-.05em}.logo span{color:var(--accent)}
-    .nav{display:flex;gap:2rem;align-items:center}.nav a{font-size:.8rem;color:#aaa}.nav a:hover{color:var(--accent)}
-    .nav .contact-link{padding:.48rem 1.15rem;border-radius:999px;background:var(--accent);color:#080808;font-weight:800}
-    .hero{min-height:100vh;display:flex;align-items:center;padding:118px 0 70px;position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;right:-180px;top:40px;background:radial-gradient(circle,rgba(163,230,53,.15),transparent 67%);filter:blur(10px)}
-    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:5rem;align-items:end;position:relative}
-    .kicker,.eyebrow{font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
-    .hero h1{font-size:clamp(3.2rem,7.4vw,7.2rem);line-height:.98;letter-spacing:-.065em;margin:1.2rem 0 1.6rem}
-    .hero h1 em{color:var(--accent);font-style:normal}
-    .mobile-break{display:none}
-    .hero-copy{max-width:660px;color:#aaa;font-size:clamp(.92rem,1.4vw,1.08rem)}
-    .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.2rem}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.65rem 1.35rem;border-radius:999px;font-size:.78rem;font-weight:800;border:1px solid var(--line)}
-    .btn-primary{background:var(--accent);border-color:var(--accent);color:#080808}.btn-secondary{background:#111;color:#ddd}
-    .hero-side{border-left:1px solid var(--line);padding-left:2rem;display:grid;gap:1.5rem}
-    .metric strong{display:block;font-size:2rem;letter-spacing:-.05em}.metric span{font-size:.72rem;color:var(--muted)}
-    .section{padding:105px 0;border-top:1px solid var(--line)}
-    .section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;margin-bottom:2.8rem;align-items:end}
-    .section-head h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1.08;letter-spacing:-.045em;margin-top:.65rem}
-    .section-head p{color:var(--muted);max-width:580px;justify-self:end}
-    .learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-    .learning-card{min-height:250px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:1.6rem;display:flex;flex-direction:column;transition:.25s}
-    .learning-card:hover,.project-card:hover{transform:translateY(-5px);border-color:#454545}
-    .learning-num{font-size:.65rem;font-weight:800;color:var(--accent);letter-spacing:.15em}
-    .learning-icon{font-size:2rem;margin:2rem 0 1.2rem}
-    .learning-card h3{font-size:1.2rem;margin-bottom:.45rem}.learning-card p{font-size:.78rem;color:var(--muted)}
-    .learning-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto;padding-top:1.4rem}
-    .tag{font-size:.62rem;color:#aaa;border:1px solid var(--line);background:#0c0c0c;border-radius:999px;padding:.25rem .58rem}
-    .archive{margin-top:1rem;padding:1.5rem 1.7rem;border-radius:18px;background:linear-gradient(120deg,rgba(163,230,53,.13),rgba(163,230,53,.03));border:1px solid rgba(163,230,53,.25);display:flex;align-items:center;justify-content:space-between;gap:2rem}
-    .archive h3{font-size:1rem}.archive p{font-size:.75rem;color:#aaa;margin-top:.25rem}
-    .archive a{color:var(--accent);font-size:.78rem;font-weight:800;white-space:nowrap}
-    .projects{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:1rem}
-    .project-card{min-height:430px;border-radius:24px;border:1px solid var(--line);overflow:hidden;background:var(--panel);display:flex;flex-direction:column;transition:.25s}
-    .project-visual{height:205px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
-    .bideo .project-visual{background:linear-gradient(145deg,#111544,#2836b7)}.clausion .project-visual{background:linear-gradient(145deg,#072312,#168844)}.ggshop .project-visual{background:linear-gradient(145deg,#24072e,#722692)}
-    .project-body{padding:1.45rem;display:flex;flex:1;flex-direction:column}
-    .project-type{font-size:.6rem;color:var(--accent);font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    .project-card h3{font-size:1.55rem;letter-spacing:-.04em;margin:.55rem 0}.project-card p{font-size:.78rem;color:var(--muted)}
-    .project-stack{display:flex;flex-wrap:wrap;gap:.35rem;margin:1rem 0 1.25rem}
-    .project-link{margin-top:auto;font-size:.76rem;font-weight:800;color:var(--accent)}
-    .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-    .skill{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:1.4rem}
-    .skill h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:1rem}
-    .skill ul{list-style:none;display:grid;gap:.55rem}.skill li{font-size:.78rem;color:#aaa}
-    .contact{padding:110px 0;background:var(--accent);color:#080808}
-    .contact-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:4rem;align-items:end}
-    .contact h2{font-size:clamp(2.2rem,5vw,4.8rem);line-height:1.02;letter-spacing:-.055em;margin-top:.65rem}
-    .contact p{color:rgba(8,8,8,.62);margin-bottom:1.5rem}.contact .btn{background:#080808;color:#fff;border-color:#080808}
-    footer{padding:1.8rem 0;color:#666;font-size:.72rem;border-top:1px solid var(--line)}
-    .footer-inner{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-    @media(max-width:900px){
-      .hero-grid,.section-head,.contact-grid{grid-template-columns:1fr}.hero-grid{gap:3rem}.hero-side{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line);padding:1.5rem 0 0}.section-head p{justify-self:start}
-      .learning-grid{grid-template-columns:repeat(2,1fr)}.projects{grid-template-columns:1fr 1fr}.bideo{grid-column:1/-1}.skills{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:620px){
-      .nav{display:none}.header{height:62px}.hero{min-height:auto;padding-top:120px}.hero h1{font-size:2.65rem;line-height:1.04;letter-spacing:-.055em}
-      .mobile-break{display:block}.hero-copy{font-size:.84rem;word-break:keep-all}
-      .hero-side{grid-template-columns:1fr 1fr}.learning-grid,.projects,.skills{grid-template-columns:1fr}.bideo{grid-column:auto}.section{padding:78px 0}.section-head{gap:1.2rem}.archive{align-items:flex-start;flex-direction:column;gap:1rem}
-      .project-card{min-height:390px}.contact{padding:78px 0}
-    }
+    :root{--black:#050505;--white:#f6f6f2;--green:#27ff42;--lime:#a3e635;--line:#252525}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--black);color:#fff;overflow-x:hidden}a{color:inherit;text-decoration:none}
+    .nav{position:fixed;inset:0 0 auto;height:66px;z-index:100;display:flex;align-items:center;background:rgba(5,5,5,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-in{width:92%;margin:auto;display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.25rem;font-weight:900}.logo i{color:var(--green);font-style:normal}.menu{display:flex;gap:2rem;font-size:.75rem;font-weight:700}.menu a:hover{color:var(--green)}
+    .intro{height:100vh;min-height:700px;display:grid;place-items:center;position:relative;overflow:hidden}
+    .blob{position:absolute;width:min(650px,70vw);aspect-ratio:1;border-radius:43% 57% 62% 38%/45% 42% 58% 55%;background:#000;box-shadow:0 0 90px 45px rgba(255,255,255,.25);filter:blur(3px);animation:morph 8s ease-in-out infinite alternate}
+    .intro::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#686868 0,transparent 35%),#050505;opacity:.7}
+    @keyframes morph{to{border-radius:60% 40% 42% 58%/38% 60% 40% 62%;transform:rotate(8deg) scale(1.05)}}
+    .intro-copy{position:relative;text-align:center;z-index:2;padding:0 6%}.intro-copy .small{font-size:.65rem;letter-spacing:.24em;color:#bbb;text-transform:uppercase;margin-bottom:1rem}.intro h1{font-size:clamp(2.3rem,5.2vw,5.2rem);line-height:1.12;letter-spacing:-.055em}.intro h1 span{color:var(--green)}.intro p{color:#aaa;margin:1.3rem auto 0;max-width:640px;font-size:.9rem}.down{position:absolute;bottom:2rem;z-index:3;font-size:1.7rem;color:#888;animation:bob 1.4s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(8px)}}
+    .orbit-section{height:100vh;min-height:760px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 40%,#143e76 0,#071627 25%,#02060b 57%,#000 80%)}
+    .orbit-head{position:absolute;top:90px;left:50%;transform:translateX(-50%);text-align:center;z-index:20;width:90%}.orbit-head small{color:var(--green);letter-spacing:.2em;font-size:.62rem}.orbit-head h2{font-size:clamp(1.5rem,3vw,2.6rem);margin-top:.5rem}
+    .planet{position:absolute;width:min(600px,55vw);aspect-ratio:1;border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);background:radial-gradient(circle at 34% 28%,#72b4e7 0 4%,#276aa5 19%,#123e6d 42%,#071a32 72%);box-shadow:inset -55px -20px 90px #01050a,0 0 80px rgba(60,140,220,.35)}
+    .planet::before{content:'';position:absolute;inset:7%;border-radius:50%;background:repeating-radial-gradient(ellipse at 35% 40%,transparent 0 14px,rgba(255,255,255,.04) 15px 18px);mix-blend-mode:screen}
+    .ring{position:absolute;left:50%;top:52%;width:min(1100px,92vw);height:430px;transform:translate(-50%,-50%) perspective(1200px) rotateX(9deg);transform-style:preserve-3d;animation:ringFloat 8s ease-in-out infinite alternate}@keyframes ringFloat{to{transform:translate(-50%,-52%) perspective(1200px) rotateX(5deg)}}
+    .poster{position:absolute;width:230px;height:315px;border:8px solid rgba(255,255,255,.92);background:#111;box-shadow:0 25px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;overflow:hidden}
+    .poster::before{content:'';position:absolute;inset:0;background:var(--poster-bg);z-index:0}.poster>*{position:relative;z-index:1}.poster small{font-size:.55rem;letter-spacing:.17em}.poster h3{font-size:1.25rem;line-height:1.08;margin:.35rem 0}.poster p{font-size:.62rem;opacity:.72}
+    .p1{left:3%;top:95px;transform:rotateY(24deg) rotateZ(-8deg);--poster-bg:linear-gradient(145deg,#0d2474,#3893e8 52%,#0c1634)}
+    .p2{left:23%;top:10px;transform:rotateY(10deg) rotateZ(-2deg);--poster-bg:linear-gradient(145deg,#40135e,#b02fd0 55%,#17101d)}
+    .p3{left:50%;top:-5px;transform:translateX(-50%) translateZ(90px);--poster-bg:linear-gradient(145deg,#08331a,#2acb68 56%,#08140d)}
+    .p4{right:23%;top:15px;transform:rotateY(-10deg) rotateZ(3deg);--poster-bg:linear-gradient(145deg,#6d1e0c,#ff7a26 52%,#1b0c05)}
+    .p5{right:3%;top:100px;transform:rotateY(-24deg) rotateZ(9deg);--poster-bg:linear-gradient(145deg,#101010,#555 50%,#090909)}
+    .orbit-link{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:20;border:1px solid rgba(255,255,255,.35);padding:.7rem 1.4rem;border-radius:999px;font-size:.72rem;background:rgba(0,0,0,.45)}
+    .editorial{background:#000}.story{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #111}.story:nth-child(even) .visual{order:2}.story:nth-child(even) .copy{order:1}
+    .visual{position:relative;overflow:hidden;min-height:560px;display:grid;place-items:center}.copy{display:flex;flex-direction:column;justify-content:center;padding:8vw 6vw;background:#050505}
+    .copy .label{font-size:.6rem;color:#888;letter-spacing:.18em;text-transform:uppercase}.copy h2{font-size:clamp(2rem,4.2vw,4.6rem);line-height:1.05;letter-spacing:-.05em;color:var(--green);margin:1.2rem 0}.copy p{max-width:560px;color:#aaa;font-size:.88rem;line-height:1.85}.copy a{margin-top:2rem;font-size:.76rem;font-weight:800;border-bottom:1px solid var(--green);width:max-content;padding-bottom:.25rem}
+    .visual-bideo{background:linear-gradient(145deg,#0c0f2d,#1a2db8)}.visual-cla{background:linear-gradient(145deg,#042210,#087c37)}.visual-gg{background:linear-gradient(145deg,#26082e,#76228d)}
+    .browser{width:78%;aspect-ratio:16/10;background:#efefef;border-radius:8px;box-shadow:0 35px 80px rgba(0,0,0,.5);transform:rotate(-5deg);overflow:hidden;color:#111}.story:nth-child(even) .browser{transform:rotate(5deg)}
+    .browser-bar{height:28px;background:#ddd;display:flex;align-items:center;gap:5px;padding:0 10px}.browser-bar i{width:7px;height:7px;border-radius:50%;background:#aaa}
+    .mock{height:calc(100% - 28px);padding:1.4rem;display:grid;gap:.8rem}.mock-top{display:flex;justify-content:space-between;font-weight:900}.mock-hero{border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:900}.visual-bideo .mock-hero{background:#15249a}.visual-cla .mock-hero{background:#087e3b}.visual-gg .mock-hero{background:#6f2385}
+    .mock-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.mock-row span{background:#ddd;border-radius:5px}.mock-foot{display:grid;grid-template-columns:2fr 1fr;gap:.6rem}.mock-foot span{background:#d5d5d5;border-radius:5px}
+    .learning{background:var(--white);color:#111;padding:110px 6%}.learn-in{max-width:1200px;margin:auto}.learn-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:3rem}.learn-head h2{font-size:clamp(2.5rem,6vw,6rem);line-height:.95;letter-spacing:-.06em}.learn-head p{max-width:420px;color:#777;font-size:.85rem}
+    .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#bbb;border:1px solid #bbb}.learn-card{background:var(--white);min-height:270px;padding:1.6rem;display:flex;flex-direction:column}.learn-card b{font-size:.65rem;color:#777}.learn-card h3{font-size:1.3rem;margin-top:auto}.learn-card p{font-size:.72rem;color:#777;margin-top:.45rem}.learn-card:hover{background:#111;color:#fff}.learn-card:hover p,.learn-card:hover b{color:#aaa}
+    .contact{min-height:65vh;display:grid;place-items:center;text-align:center;background:#050505;padding:6rem}.contact h2{font-size:clamp(2.4rem,6vw,6rem);letter-spacing:-.06em;line-height:1}.contact h2 span{color:var(--green)}.contact a{display:inline-block;margin-top:2rem;background:var(--green);color:#050505;padding:.8rem 1.6rem;border-radius:999px;font-weight:900;font-size:.76rem}
+    footer{padding:1.5rem 4%;display:flex;justify-content:space-between;color:#666;font-size:.68rem}
+    @media(max-width:800px){.menu a:not(:last-child){display:none}.intro{min-height:680px}.orbit-section{height:auto;min-height:900px}.planet{width:520px;max-width:100vw}.ring{top:55%;height:650px}.poster{width:155px;height:215px;border-width:5px;padding:.7rem}.poster h3{font-size:.8rem}.p1{left:3%;top:230px}.p2{left:12%;top:20px}.p3{top:180px}.p4{right:12%;top:20px}.p5{right:3%;top:230px}.story,.story:nth-child(even){grid-template-columns:1fr}.story:nth-child(even) .visual,.story:nth-child(even) .copy{order:initial}.visual{min-height:430px}.copy{padding:4rem 7%}.learn-head{align-items:start;flex-direction:column}.learn-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.intro-copy{width:100%;padding:0 5%}.intro h1{font-size:2.05rem;line-height:1.16;word-break:keep-all}.intro h1 span{display:block}.intro p{font-size:.76rem;max-width:340px;word-break:keep-all}.poster{width:130px;height:180px}.poster p{display:none}.planet{width:420px}.learn-grid{grid-template-columns:1fr}.browser{width:88%}.visual{min-height:350px}.contact{padding:5rem 6%}}
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="wrap header-inner">
-      <a class="logo" href="#home">JCH<span>.</span></a>
-      <nav class="nav">
-        <a href="#learning">학습</a><a href="#projects">프로젝트</a><a href="#skills">기술</a><a class="contact-link" href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
+  <header class="nav"><div class="nav-in"><a class="logo" href="#home">JCH<i>.</i></a><nav class="menu"><a href="#orbit">Experience</a><a href="#projects">Projects</a><a href="#learning">Learning</a><a href="#contact">Contact</a></nav></div></header>
   <main>
-    <section class="hero" id="home">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="kicker">Backend · AI · Service Engineering</p>
-          <h1>배운 기술을<br><em>서비스로<br class="mobile-break"> 연결합니다.</em></h1>
-          <p class="hero-copy">Java와 Spring Boot 백엔드에서 시작해 데이터 분석, 머신러닝, FastAPI와 생성형 AI까지 확장했습니다. 수업에서 배운 구조를 프로젝트 기능으로 구현한 과정을 정리했습니다.</p>
-          <div class="hero-actions"><a class="btn btn-primary" href="#projects">프로젝트 보기</a><a class="btn btn-secondary" href="curriculum.html">전체 학습 기록</a></div>
-        </div>
-        <aside class="hero-side">
-          <div class="metric"><strong>14</strong><span>수업 학습 영역</span></div>
-          <div class="metric"><strong>3</strong><span>주요 프로젝트</span></div>
-          <div class="metric"><strong>Full Stack</strong><span>Backend · Data · AI · Deploy</span></div>
-        </aside>
-      </div>
+    <section class="intro" id="home"><div class="blob"></div><div class="intro-copy"><p class="small">Backend · Data · AI · Deployment</p><h1>배운 기술로<br><span>동작하는 서비스를 만듭니다.</span></h1><p>Java와 Spring Boot에서 시작해 데이터 분석, 머신러닝, FastAPI와 생성형 AI까지 연결한 개발 과정입니다.</p></div><a class="down" href="#orbit">⌄</a></section>
+
+    <section class="orbit-section" id="orbit">
+      <div class="orbit-head"><small>OUR EXPERIENCE</small><h2>기초부터 배포까지 이어지는 기술 궤도</h2></div><div class="planet"></div>
+      <div class="ring">
+        <a class="poster p1" href="curriculum.html#web"><small>01—03</small><h3>WEB<br>FOUNDATION</h3><p>HTML · CSS · JavaScript</p></a>
+        <a class="poster p2" href="curriculum.html#java"><small>04</small><h3>JAVA<br>PROGRAMMING</h3><p>OOP · Collection · JDBC</p></a>
+        <a class="poster p3" href="curriculum.html#spring"><small>07</small><h3>SPRING<br>BACKEND</h3><p>MVC · Security · REST</p></a>
+        <a class="poster p4" href="curriculum.html#data"><small>08—10</small><h3>DATA<br>& ML</h3><p>Pandas · Scikit-learn</p></a>
+        <a class="poster p5" href="curriculum.html#ai"><small>11—14</small><h3>AI · API<br>DEPLOY</h3><p>RAG · FastAPI · AWS</p></a>
+      </div><a class="orbit-link" href="curriculum.html">14개 수업 전체 보기 →</a>
     </section>
 
-    <section class="section" id="learning">
-      <div class="wrap">
-        <div class="section-head">
-          <div><p class="eyebrow">Learning Journey</p><h2>기초부터 배포까지<br>이어지는 학습 과정</h2></div>
-          <p>단순 기술 목록이 아니라 웹 구조, Java 객체지향, 데이터베이스, Spring 백엔드, 데이터·AI, 서버 배포가 어떻게 연결되는지 순서대로 보여줍니다.</p>
-        </div>
-        <div class="learning-grid">
-          <a class="learning-card" href="curriculum.html#web"><span class="learning-num">01–03</span><div class="learning-icon">🌐</div><h3>Web Foundation</h3><p>웹 요청과 응답, 문서 구조, 스타일과 브라우저 동작을 학습했습니다.</p><div class="learning-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></a>
-          <a class="learning-card" href="curriculum.html#java"><span class="learning-num">04</span><div class="learning-icon">☕</div><h3>Java Programming</h3><p>문법에서 객체지향, 컬렉션, 예외와 JDBC까지 확장했습니다.</p><div class="learning-tags"><span class="tag">OOP</span><span class="tag">Collection</span><span class="tag">JDBC</span></div></a>
-          <a class="learning-card" href="curriculum.html#db"><span class="learning-num">05–06</span><div class="learning-icon">🗄️</div><h3>DB & Java Web</h3><p>관계형 데이터와 SQL을 Servlet·JSP·MyBatis 웹 흐름에 연결했습니다.</p><div class="learning-tags"><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">JSP</span></div></a>
-          <a class="learning-card" href="curriculum.html#spring"><span class="learning-num">07</span><div class="learning-icon">🖥️</div><h3>Spring Backend</h3><p>DI, MVC, REST, 인증, 파일과 외부 인프라 연동을 단계적으로 실습했습니다.</p><div class="learning-tags"><span class="tag">Spring Boot</span><span class="tag">Security</span><span class="tag">S3</span></div></a>
-          <a class="learning-card" href="curriculum.html#data"><span class="learning-num">08–10</span><div class="learning-icon">📊</div><h3>Python · Data · ML</h3><p>Python 문법부터 데이터 분석, 분류·회귀·추천 모델까지 학습했습니다.</p><div class="learning-tags"><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">TF-IDF</span></div></a>
-          <a class="learning-card" href="curriculum.html#ai"><span class="learning-num">11–14</span><div class="learning-icon">🤖</div><h3>AI · API · Deploy</h3><p>LLM과 RAG를 FastAPI로 구성하고 Git과 AWS 배포 과정까지 연결했습니다.</p><div class="learning-tags"><span class="tag">RAG</span><span class="tag">FastAPI</span><span class="tag">AWS</span></div></a>
-        </div>
-        <div class="archive"><div><h3>수업 자료 14개 영역 전체 반영</h3><p>실제 메모·소스 코드·SQL·Notebook을 기준으로 대표 실습과 학습 증빙을 정리했습니다.</p></div><a href="curriculum.html">전체 커리큘럼 보기 →</a></div>
-      </div>
+    <section class="editorial" id="projects">
+      <article class="story"><div class="visual visual-bideo"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="mock"><div class="mock-top"><span>BIDEO</span><span>AUCTION</span></div><div class="mock-hero">ART × AUCTION</div><div class="mock-row"><span></span><span></span><span></span></div><div class="mock-foot"><span></span><span></span></div></div></div></div><div class="copy"><span class="label">Flagship Team Project · 01</span><h2>작품과 경매를<br>하나의 흐름으로.</h2><p>작품·예술관 CRUD, 경매 입찰과 낙찰, Bootpay 결제 검증, AWS S3 파일 저장과 FastAPI AI 기능을 연결했습니다.</p><a href="bideo.html">BIDEO 자세히 보기 →</a></div></article>
+      <article class="story"><div class="visual visual-cla"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="mock"><div class="mock-top"><span>CLAUSION</span><span>LEARNING</span></div><div class="mock-hero">AI CLASSROOM</div><div class="mock-row"><span></span><span></span><span></span></div><div class="mock-foot"><span></span><span></span></div></div></div></div><div class="copy"><span class="label">Team Project · 02</span><h2>학습 경험에<br>AI를 더하다.</h2><p>Spring Boot와 React 기반 교육 플랫폼에서 실시간 강의, 학습 상태와 AI 기능이 결합되는 팀 개발 구조를 경험했습니다.</p><a href="clausion.html">Clausion 자세히 보기 →</a></div></article>
+      <article class="story"><div class="visual visual-gg"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="mock"><div class="mock-top"><span>GGSHOP</span><span>ENERGY</span></div><div class="mock-hero">EV × V2G</div><div class="mock-row"><span></span><span></span><span></span></div><div class="mock-foot"><span></span><span></span></div></div></div></div><div class="copy"><span class="label">Team Learning Project · 03</span><h2>데이터를 관리하고<br>거래로 연결하다.</h2><p>충전소·V2G 거래·P2P 게시판을 구현하며 Spring MVC, MyBatis, OAuth, 파일·검색·페이징의 기본기를 익혔습니다.</p><a href="ggshop.html">GGShop 자세히 보기 →</a></div></article>
     </section>
 
-    <section class="section" id="projects">
-      <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">Selected Projects</p><h2>학습을 기능으로<br>증명한 프로젝트</h2></div><p>역할과 구현 범위를 과장하지 않고, 실제 코드와 문서로 확인할 수 있는 기능을 중심으로 정리했습니다.</p></div>
-        <div class="projects">
-          <a class="project-card bideo" href="bideo.html"><div class="project-visual">🎬</div><div class="project-body"><span class="project-type">Flagship Team Project</span><h3>BIDEO</h3><p>작품·예술관 CRUD, 경매·결제 검증, S3 저장과 FastAPI AI 연동.</p><div class="project-stack"><span class="tag">Spring Boot</span><span class="tag">PostgreSQL</span><span class="tag">FastAPI</span><span class="tag">AWS S3</span></div><span class="project-link">상세 보기 →</span></div></a>
-          <a class="project-card clausion" href="clausion.html"><div class="project-visual">📚</div><div class="project-body"><span class="project-type">Team Project</span><h3>Clausion</h3><p>Spring Boot와 React 기반 AI 온라인 교육 플랫폼의 협업 구조.</p><div class="project-stack"><span class="tag">React</span><span class="tag">JPA</span><span class="tag">LiveKit</span></div><span class="project-link">상세 보기 →</span></div></a>
-          <a class="project-card ggshop" href="ggshop.html"><div class="project-visual">⚡</div><div class="project-body"><span class="project-type">Team Learning Project</span><h3>GGShop</h3><p>전기차 충전소·V2G 거래·P2P 게시판을 구현한 웹 서비스.</p><div class="project-stack"><span class="tag">MyBatis</span><span class="tag">MySQL</span><span class="tag">OAuth</span></div><span class="project-link">상세 보기 →</span></div></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="skills">
-      <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">Technical Stack</p><h2>서비스 흐름을 구성하는<br>기술 스택</h2></div><p>기술 이름보다 어떤 계층에서 무엇을 해결했는지를 기준으로 분류했습니다.</p></div>
-        <div class="skills">
-          <div class="skill"><h3>Backend</h3><ul><li>Java 17 · Spring Boot</li><li>Spring Security · JWT</li><li>MyBatis · JPA</li><li>FastAPI · Python</li></ul></div>
-          <div class="skill"><h3>Data</h3><ul><li>PostgreSQL · MySQL</li><li>Redis</li><li>Pandas · NumPy</li><li>Scikit-learn</li></ul></div>
-          <div class="skill"><h3>AI</h3><ul><li>LLM · Multimodal</li><li>LCEL · RAG</li><li>TF-IDF Recommendation</li><li>Classification · Regression</li></ul></div>
-          <div class="skill"><h3>Infra</h3><ul><li>AWS EC2 · S3</li><li>Docker · Nginx</li><li>RabbitMQ</li><li>Git · GitHub Actions</li></ul></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact" id="contact">
-      <div class="wrap contact-grid"><div><p class="eyebrow" style="color:#080808">Contact</p><h2>기술을 연결해<br>동작하는 서비스를 만듭니다.</h2></div><div><p>프로젝트 코드와 학습 과정은 GitHub에서 확인할 수 있습니다.</p><a class="btn" href="https://github.com/chanho8629-lgtm">GitHub 프로필 →</a></div></div>
-    </section>
+    <section class="learning" id="learning"><div class="learn-in"><div class="learn-head"><h2>LEARNING<br>ARCHIVE.</h2><p>수업 자료에 남아 있는 메모, 코드, SQL과 Notebook을 기준으로 학습 범위를 정리했습니다.</p></div><div class="learn-grid">
+      <a class="learn-card" href="curriculum.html#web"><b>01—03</b><h3>Web / HTML / CSS / JS</h3><p>웹 구조, 레이아웃, DOM, Event, Fetch</p></a><a class="learn-card" href="curriculum.html#java"><b>04</b><h3>Java</h3><p>객체지향, Collection, Thread, JDBC</p></a><a class="learn-card" href="curriculum.html#db"><b>05—06</b><h3>DBMS / JSP</h3><p>SQL, 정규화, Servlet, MyBatis</p></a><a class="learn-card" href="curriculum.html#spring"><b>07</b><h3>Spring Boot</h3><p>DI, MVC, REST, Security, S3</p></a><a class="learn-card" href="curriculum.html#data"><b>08—10</b><h3>Python / Data / ML</h3><p>Pandas, 시각화, 분류, 회귀, 추천</p></a><a class="learn-card" href="curriculum.html#ai"><b>11—14</b><h3>LLM / FastAPI / AWS / Git</h3><p>RAG, API, Docker, Nginx, 배포</p></a>
+    </div></div></section>
+    <section class="contact" id="contact"><div><h2>기술을 연결해<br><span>서비스를 만듭니다.</span></h2><a href="https://github.com/chanho8629-lgtm">GitHub에서 코드 보기 →</a></div></section>
   </main>
-
-  <footer><div class="wrap footer-inner"><span>© 2026 Jung Chan Ho</span><span>Backend · Data · AI · Deployment</span></div></footer>
-</body>
-</html>
+  <footer><span>© 2026 Jung Chan Ho</span><span>Backend · Data · AI · Deploy</span></footer>
+</body></html>
