@@ -22,15 +22,16 @@
     .planet{position:absolute;width:min(620px,57vw);aspect-ratio:1;border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);background:url('images/learning/earth-blue-marble.webp') center/cover no-repeat;box-shadow:inset -45px -25px 95px rgba(0,0,0,.7),0 0 95px rgba(59,154,255,.42);animation:earthBreathe 7s ease-in-out infinite alternate;overflow:hidden}
     .planet::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.18),transparent 26%),linear-gradient(105deg,transparent 53%,rgba(0,0,0,.58) 82%);mix-blend-mode:screen;pointer-events:none}
     @keyframes earthBreathe{to{transform:translate(-50%,-51%) scale(1.025);filter:saturate(1.08)}}
-    .ring{position:absolute;left:50%;top:52%;width:min(1100px,92vw);height:430px;transform:translate(-50%,-50%) perspective(1200px) rotateX(9deg);transform-style:preserve-3d;cursor:grab;touch-action:none;will-change:transform}.ring.dragging{cursor:grabbing}
-    .poster{position:absolute;width:230px;height:315px;border:8px solid rgba(255,255,255,.92);background:#111;box-shadow:0 25px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;overflow:hidden;transition:filter .2s,opacity .2s;will-change:transform}
-    .poster::before{content:'';position:absolute;inset:0;background:var(--poster-bg);z-index:0}.poster>*{position:relative;z-index:1}.poster small{font-size:.55rem;letter-spacing:.17em}.poster h3{font-size:1.25rem;line-height:1.08;margin:.35rem 0}.poster p{font-size:.62rem;opacity:.72}
-    .ring.enhanced .poster{left:50%;right:auto;top:50%;margin-left:-115px;margin-top:-158px}
-    .p1{left:3%;top:95px;transform:rotateY(24deg) rotateZ(-8deg);--poster-bg:linear-gradient(145deg,#0d2474,#3893e8 52%,#0c1634)}
-    .p2{left:23%;top:10px;transform:rotateY(10deg) rotateZ(-2deg);--poster-bg:linear-gradient(145deg,#40135e,#b02fd0 55%,#17101d)}
-    .p3{left:50%;top:-5px;transform:translateX(-50%) translateZ(90px);--poster-bg:linear-gradient(145deg,#08331a,#2acb68 56%,#08140d)}
-    .p4{right:23%;top:15px;transform:rotateY(-10deg) rotateZ(3deg);--poster-bg:linear-gradient(145deg,#6d1e0c,#ff7a26 52%,#1b0c05)}
-    .p5{right:3%;top:100px;transform:rotateY(-24deg) rotateZ(9deg);--poster-bg:linear-gradient(145deg,#101010,#555 50%,#090909)}
+    .ring{position:absolute;left:50%;top:52%;width:min(1250px,96vw);height:430px;transform:translate(-50%,-50%) perspective(1200px) rotateX(9deg);transform-style:preserve-3d;cursor:grab;touch-action:pan-y;will-change:transform}.ring.dragging{cursor:grabbing}
+    .poster{position:absolute;width:220px;height:305px;border:8px solid rgba(255,255,255,.92);background:#111;box-shadow:0 25px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;overflow:hidden;transition:filter .2s,opacity .2s,border-color .25s;will-change:transform}
+    .poster::before{content:'';position:absolute;inset:0;background:var(--poster-image) center/cover no-repeat;z-index:0;transform:scale(1.03);transition:transform .45s}.poster::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,12,.03) 12%,rgba(3,5,12,.36) 50%,var(--poster-tint) 100%);z-index:0}.poster:hover{border-color:var(--green)}.poster:hover::before{transform:scale(1.1)}.poster>*{position:relative;z-index:1;text-shadow:0 2px 12px rgba(0,0,0,.75)}.poster small{font-size:.55rem;letter-spacing:.17em}.poster h3{font-size:1.25rem;line-height:1.08;margin:.35rem 0}.poster p{font-size:.62rem;opacity:.82}
+    .ring.enhanced .poster{left:50%;right:auto;top:50%;margin-left:-110px;margin-top:-153px}
+    .p1{--poster-image:url('images/learning/web-learning.svg');--poster-tint:rgba(4,25,62,.96)}
+    .p2{--poster-image:url('images/learning/java-learning.svg');--poster-tint:rgba(68,15,18,.96)}
+    .p3{--poster-image:url('images/learning/db-learning.svg');--poster-tint:rgba(34,12,72,.96)}
+    .p4{--poster-image:url('images/learning/spring-learning.svg');--poster-tint:rgba(4,55,36,.96)}
+    .p5{--poster-image:url('images/learning/data-learning.svg');--poster-tint:rgba(4,54,70,.96)}
+    .p6{--poster-image:url('images/learning/ai-learning.svg');--poster-tint:rgba(26,12,76,.96)}
     .orbit-link{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:20;border:1px solid rgba(255,255,255,.35);padding:.7rem 1.4rem;border-radius:999px;font-size:.72rem;background:rgba(0,0,0,.45)}
     .editorial{background:#000}.story{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #111}.story:nth-child(even) .visual{order:2}.story:nth-child(even) .copy{order:1}
     .visual{position:relative;overflow:hidden;min-height:560px;display:grid;place-items:center}.copy{display:flex;flex-direction:column;justify-content:center;padding:8vw 6vw;background:#050505}.story .visual,.story .copy{opacity:0;transition:opacity .9s ease,transform 1.1s cubic-bezier(.16,1,.3,1)}.story .visual{transform:translateX(-70px)}.story .copy{transform:translateX(70px)}.story:nth-child(even) .visual{transform:translateX(70px)}.story:nth-child(even) .copy{transform:translateX(-70px)}.story.visible .visual,.story.visible .copy{opacity:1;transform:none}
@@ -58,9 +59,10 @@
       <div class="ring">
         <a class="poster p1" href="curriculum.html#web"><small>01—03</small><h3>WEB<br>FOUNDATION</h3><p>HTML · CSS · JavaScript</p></a>
         <a class="poster p2" href="curriculum.html#java"><small>04</small><h3>JAVA<br>PROGRAMMING</h3><p>OOP · Collection · JDBC</p></a>
-        <a class="poster p3" href="curriculum.html#spring"><small>07</small><h3>SPRING<br>BACKEND</h3><p>MVC · Security · REST</p></a>
-        <a class="poster p4" href="curriculum.html#data"><small>08—10</small><h3>DATA<br>& ML</h3><p>Pandas · Scikit-learn</p></a>
-        <a class="poster p5" href="curriculum.html#ai"><small>11—14</small><h3>AI · API<br>DEPLOY</h3><p>RAG · FastAPI · AWS</p></a>
+        <a class="poster p3" href="curriculum.html#db"><small>05—06</small><h3>DBMS<br>& JSP</h3><p>SQL · Servlet · MyBatis</p></a>
+        <a class="poster p4" href="curriculum.html#spring"><small>07</small><h3>SPRING<br>BACKEND</h3><p>MVC · Security · REST</p></a>
+        <a class="poster p5" href="curriculum.html#data"><small>08—10</small><h3>DATA<br>& ML</h3><p>Pandas · Scikit-learn</p></a>
+        <a class="poster p6" href="curriculum.html#ai"><small>11—14</small><h3>AI · API<br>DEPLOY</h3><p>RAG · FastAPI · AWS</p></a>
       </div><a class="orbit-link" href="curriculum.html">14개 수업 전체 보기 →</a>
     </section>
 
@@ -120,10 +122,11 @@
     const posters = [...document.querySelectorAll('.poster')];
     ring.classList.add('enhanced');
     const base = [
-      {x:-455,y:55,r:-8,ry:24},{x:-225,y:-30,r:-2,ry:10},
-      {x:0,y:-45,r:0,ry:0},{x:225,y:-25,r:3,ry:-10},{x:455,y:60,r:9,ry:-24}
+      {x:-520,y:70,r:-9,ry:25},{x:-315,y:-12,r:-5,ry:15},
+      {x:-105,y:-48,r:-1,ry:5},{x:105,y:-48,r:1,ry:-5},
+      {x:315,y:-12,r:5,ry:-15},{x:520,y:70,r:9,ry:-25}
     ];
-    let angle = 0, velocity = .012, dragging = false, lastX = 0, lastT = 0;
+    let angle = 0, velocity = .012, dragging = false, moved = false, startX = 0, lastX = 0, lastT = 0, activePointer = null;
     function layout(){
       const scale = Math.min(1, innerWidth / 1180);
       posters.forEach((card,i) => {
@@ -141,12 +144,16 @@
       if(!dragging){ angle += velocity; velocity *= .985; if(Math.abs(velocity)<.003) velocity = .003; }
       layout(); requestAnimationFrame(animate);
     }
-    ring.addEventListener('pointerdown', e => { dragging=true; lastX=e.clientX; lastT=performance.now(); velocity=0; ring.classList.add('dragging'); ring.setPointerCapture(e.pointerId); });
+    ring.addEventListener('pointerdown', e => { dragging=true; moved=false; startX=lastX=e.clientX; lastT=performance.now(); activePointer=e.pointerId; velocity=0; });
     ring.addEventListener('pointermove', e => {
-      if(!dragging) return; const now=performance.now(), dx=e.clientX-lastX, dt=Math.max(now-lastT,1);
+      if(!dragging) return;
+      if(!moved && Math.abs(e.clientX-startX)>6){ moved=true; ring.classList.add('dragging'); ring.setPointerCapture(activePointer); }
+      if(!moved) return;
+      const now=performance.now(), dx=e.clientX-lastX, dt=Math.max(now-lastT,1);
       angle += dx*.004; velocity=dx/dt*.018; lastX=e.clientX; lastT=now;
     });
-    const release = () => { dragging=false; ring.classList.remove('dragging'); };
+    posters.forEach(card => card.addEventListener('click', e => { if(moved) e.preventDefault(); }));
+    const release = () => { dragging=false; ring.classList.remove('dragging'); activePointer=null; setTimeout(()=>{moved=false},0); };
     ring.addEventListener('pointerup',release); ring.addEventListener('pointercancel',release);
     addEventListener('resize',layout); layout(); if(!reduceMotion) animate();
 
