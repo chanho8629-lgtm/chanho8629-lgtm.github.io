@@ -32,8 +32,12 @@
     .subject ul{list-style:none;display:grid;gap:.48rem}
     .subject li{font-size:.78rem;color:var(--txt2);padding-left:1rem;position:relative;line-height:1.65}
     .subject li::before{content:'•';position:absolute;left:0;color:var(--accent)}
-    .evidence{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.68rem;color:#666;word-break:break-all}
-    .evidence strong{color:#999}
+    .material{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--border)}
+    .material-label{display:flex;align-items:center;gap:.45rem;color:var(--accent);font-size:.62rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:.7rem}
+    .material-label::before{content:'</>';display:grid;place-items:center;width:27px;height:27px;border:1px solid rgba(163,230,53,.28);border-radius:7px;background:rgba(163,230,53,.06);font-size:.55rem;letter-spacing:0}
+    .material pre{margin:0;max-height:250px;overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#090d0a;padding:1rem;color:#d7e7d5;font:500 .67rem/1.65 Consolas,'Courier New',monospace;tab-size:2;white-space:pre}
+    .material p{margin-top:.72rem;color:#8c9689;font-size:.69rem;line-height:1.65}
+    .material p strong{color:#d7e7d5}
     .note{margin-top:1rem;background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.15);border-radius:12px;padding:1rem 1.2rem;color:var(--txt2);font-size:.78rem;line-height:1.7}
     @media(max-width:720px){.subject-grid{grid-template-columns:1fr}.phase-head{grid-template-columns:1fr;gap:.5rem}.phase-num{font-size:1.4rem}}
   </style>
@@ -52,7 +56,7 @@
     <div class="curr-hero-inner">
       <span class="eyebrow">Learning Archive · 14 Subjects</span>
       <h1>기초부터 배포까지,<br><span>수업 학습 기록.</span></h1>
-      <p>2026년 수업 폴더에 남아 있는 메모, 소스 코드, SQL과 Jupyter Notebook을 기준으로 정리했습니다. 프로젝트 결과와 분리하여 어떤 순서로 개념을 익히고 실습했는지 보여줍니다.</p>
+      <p>2026년 수업 폴더의 메모, 소스 코드, SQL과 Jupyter Notebook에서 실제 학습 내용을 가져왔습니다. 과목별 핵심 코드와 실행 흐름을 통해 무엇을 익히고 구현했는지 바로 확인할 수 있습니다.</p>
     </div>
   </section>
 
@@ -67,50 +71,182 @@
     <section class="phase" id="web">
       <div class="phase-head"><div class="phase-num">01–03</div><div><h2>웹 화면과 브라우저 기초</h2><p class="phase-intro">웹 요청·응답 구조를 이해하고 HTML 문서, CSS 레이아웃, JavaScript 이벤트와 비동기 통신 순서로 학습했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>Web / HTML</h3><span class="subject-id">SUBJECT 01</span></div><ul><li>클라이언트·서버, HTTP/HTTPS, IP, DNS, 웹 표준</li><li>HTML 요소·속성, 블록·인라인·인라인 블록</li><li>폼과 회원가입 페이지의 문서 구조</li><li>HTML·CSS·JavaScript·XML 역할 구분</li></ul><div class="evidence"><strong>학습 증빙</strong> · html/memo/html.txt</div></article>
-        <article class="subject"><div class="subject-top"><h3>CSS</h3><span class="subject-id">SUBJECT 02</span></div><ul><li>전체·태그·클래스·아이디·그룹 선택자</li><li>Cascading, 상속, 명시도와 선언 순서</li><li>박스 모델, Flex 정렬, Font, Position, Z-index</li><li>Overflow, Transition, Media Query, Clone 실습</li></ul><div class="evidence"><strong>학습 증빙</strong> · css/workspace/a-intro ~ k-clone · 29개 HTML/CSS 파일</div></article>
-        <article class="subject"><div class="subject-top"><h3>JavaScript</h3><span class="subject-id">SUBJECT 03</span></div><ul><li>변수·상수·Scope, 연산자, 함수, 객체, 배열</li><li>ES Module, Date, Promise와 Fetch API</li><li>DOM 탐색·변경, 브라우저 이벤트 처리</li><li>Service·Layout·Event 분리, Todo·Modal·Banner 실습</li><li>Kakao API와 결제 API 호출 실습</li></ul><div class="evidence"><strong>학습 증빙</strong> · js/workspace/a-intro ~ o-api · 73개 JS/HTML/CSS 파일</div></article>
+        <article class="subject"><div class="subject-top"><h3>Web / HTML</h3><span class="subject-id">SUBJECT 01</span></div><ul><li>클라이언트·서버, HTTP/HTTPS, IP, DNS, 웹 표준</li><li>HTML 요소·속성, 블록·인라인·인라인 블록</li><li>폼과 회원가입 페이지의 문서 구조</li><li>HTML·CSS·JavaScript·XML 역할 구분</li></ul><div class="material"><div class="material-label">수업자료 · 문서 구조</div><pre><code>&lt;form action="/members" method="post"&gt;
+  &lt;label for="email"&gt;이메일&lt;/label&gt;
+  &lt;input id="email" name="email" type="email" required&gt;
+  &lt;button type="submit"&gt;가입&lt;/button&gt;
+&lt;/form&gt;</code></pre><p><strong>학습 흐름</strong> · HTML은 화면의 골조와 데이터 의미를 정의하고, form의 action·method·name이 서버 요청 구조로 연결됩니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>CSS</h3><span class="subject-id">SUBJECT 02</span></div><ul><li>전체·태그·클래스·아이디·그룹 선택자</li><li>Cascading, 상속, 명시도와 선언 순서</li><li>박스 모델, Flex 정렬, Font, Position, Z-index</li><li>Overflow, Transition, Media Query, Clone 실습</li></ul><div class="material"><div class="material-label">수업자료 · 반응형 화면</div><pre><code>body {
+  background: #03cc2c;
+  font-size: 25px;
+}
+
+@media (max-width: 768px) {
+  body {
+    background: #ff4b4b;
+    font-size: 18px;
+  }
+}</code></pre><p><strong>학습 흐름</strong> · 같은 HTML을 유지하면서 viewport 너비에 따라 스타일을 재정의해 데스크톱과 모바일 레이아웃을 분리했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>JavaScript</h3><span class="subject-id">SUBJECT 03</span></div><ul><li>변수·상수·Scope, 연산자, 함수, 객체, 배열</li><li>ES Module, Date, Promise와 Fetch API</li><li>DOM 탐색·변경, 브라우저 이벤트 처리</li><li>Service·Layout·Event 분리, Todo·Modal·Banner 실습</li><li>Kakao API와 결제 API 호출 실습</li></ul><div class="material"><div class="material-label">수업자료 · 모달 이벤트</div><pre><code>const showWarnModal = (message) =&gt; {
+  document.querySelector("#content-wrap")
+    .innerHTML = message;
+  document.querySelector(".modal")
+    .style.display = "flex";
+};
+
+document.querySelector(".modal")
+  .addEventListener("click", closeModal);</code></pre><p><strong>학습 흐름</strong> · DOM 선택 → 내용 변경 → 이벤트 등록 → 애니메이션 종료 후 숨김 순서로 사용자 상호작용을 구현했습니다.</p></div></article>
       </div>
     </section>
 
     <section class="phase" id="java">
       <div class="phase-head"><div class="phase-num">04</div><div><h2>Java와 객체지향 프로그래밍</h2><p class="phase-intro">기본 문법에서 시작해 객체 간 관계를 설계하고, 컬렉션·스레드·파일 처리와 JDBC까지 확장했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>Java</h3><span class="subject-id">SUBJECT 04</span></div><ul><li>출력, 변수, 형변환, 입력, 연산자, 제어문</li><li>배열, 메서드, 클래스, Static</li><li>상속, 다형성, 업·다운캐스팅</li><li>추상 클래스, 인터페이스, 익명 클래스</li><li>Lambda·Stream, 사용자 정의 예외, 날짜와 API</li><li>equals·hashCode·toString, List·Set·Map</li><li>Thread, String, File I/O, JDBC</li><li>DAO·DTO·VO를 이용한 회원·게시글 처리</li></ul><div class="evidence"><strong>학습 증빙</strong> · java/workspace/a_print ~ y_jdbc · Java 소스 161개</div></article>
+        <article class="subject"><div class="subject-top"><h3>Java</h3><span class="subject-id">SUBJECT 04</span></div><ul><li>출력, 변수, 형변환, 입력, 연산자, 제어문</li><li>배열, 메서드, 클래스, Static</li><li>상속, 다형성, 업·다운캐스팅</li><li>추상 클래스, 인터페이스, 익명 클래스</li><li>Lambda·Stream, 사용자 정의 예외, 날짜와 API</li><li>equals·hashCode·toString, List·Set·Map</li><li>Thread, String, File I/O, JDBC</li><li>DAO·DTO·VO를 이용한 회원·게시글 처리</li></ul><div class="material"><div class="material-label">수업자료 · Stream API</div><pre><code>List&lt;Integer&gt; results = datas.stream()
+    .filter(data -&gt; data % 2 == 0)
+    .map(data -&gt; data * 2)
+    .sorted()
+    .collect(Collectors.toList());
+
+int total = results.stream()
+    .reduce(Integer::sum)
+    .orElse(0);</code></pre><p><strong>학습 흐름</strong> · 컬렉션을 filter·map·sorted로 변환하고 collect·reduce로 결과를 만드는 함수형 처리 흐름을 실습했습니다.</p></div></article>
       </div>
     </section>
 
     <section class="phase" id="db">
       <div class="phase-head"><div class="phase-num">05–06</div><div><h2>데이터베이스와 Java 웹 서버</h2><p class="phase-intro">관계형 데이터 구조를 SQL로 다룬 뒤 JSP/Servlet과 MyBatis로 요청부터 DB까지 이어지는 흐름을 실습했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>DBMS</h3><span class="subject-id">SUBJECT 05</span></div><ul><li>MySQL DDL·DML, 자료형과 제약조건</li><li>PK·FK, 데이터 모델링, 정규화와 이상 현상</li><li>JOIN과 VIEW, 회원·파일·게시글 SQL</li><li>PostgreSQL 사용자·DB, 자료형, ENUM, Identity</li><li>Redis Key-Value, TTL, 세션·토큰·캐시 활용</li></ul><div class="evidence"><strong>학습 증빙</strong> · dbms/mysql/workspace · dbms/postgres/memo · dbms/redis/memo</div></article>
-        <article class="subject"><div class="subject-top"><h3>JSP / Servlet</h3><span class="subject-id">SUBJECT 06</span></div><ul><li>Apache·Tomcat·WAS와 Servlet 생명주기</li><li>GET·POST, Forward·Redirect</li><li>JSP 표현식과 요청 데이터 처리</li><li>MVC Model 1·2와 Front Controller</li><li>MyBatis Mapper를 통한 회원가입·로그인</li></ul><div class="evidence"><strong>학습 증빙</strong> · jsp/workspace/b-mvc · Java/JSP/XML 핵심 파일 16개</div></article>
+        <article class="subject"><div class="subject-top"><h3>DBMS</h3><span class="subject-id">SUBJECT 05</span></div><ul><li>MySQL DDL·DML, 자료형과 제약조건</li><li>PK·FK, 데이터 모델링, 정규화와 이상 현상</li><li>JOIN과 VIEW, 회원·파일·게시글 SQL</li><li>PostgreSQL 사용자·DB, 자료형, ENUM, Identity</li><li>Redis Key-Value, TTL, 세션·토큰·캐시 활용</li></ul><div class="material"><div class="material-label">수업자료 · 회원 테이블</div><pre><code>CREATE TABLE tbl_member (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  member_email VARCHAR(255) UNIQUE NOT NULL,
+  member_password VARCHAR(255) NOT NULL,
+  member_name VARCHAR(255) NOT NULL,
+  member_status ENUM('disable','enable')
+    DEFAULT 'enable',
+  created_datetime DATETIME DEFAULT CURRENT_TIMESTAMP
+);</code></pre><p><strong>학습 흐름</strong> · PK·UNIQUE·NOT NULL·DEFAULT 제약조건으로 데이터 무결성을 정의하고 회원·파일·게시글 관계로 확장했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>JSP / Servlet</h3><span class="subject-id">SUBJECT 06</span></div><ul><li>Apache·Tomcat·WAS와 Servlet 생명주기</li><li>GET·POST, Forward·Redirect</li><li>JSP 표현식과 요청 데이터 처리</li><li>MVC Model 1·2와 Front Controller</li><li>MyBatis Mapper를 통한 회원가입·로그인</li></ul><div class="material"><div class="material-label">수업자료 · Front Controller</div><pre><code>String uri = req.getRequestURI();
+String target = uri.substring(0, uri.lastIndexOf("."));
+
+if (target.equals("/join")) {
+  result = new JoinController().execute(req, resp);
+} else if (target.equals("/login")) {
+  result = new LoginController().execute(req, resp);
+}
+
+req.getRequestDispatcher(result.getPath())
+   .forward(req, resp);</code></pre><p><strong>학습 흐름</strong> · 하나의 Servlet이 URL을 분석해 Controller로 위임하고, 처리 결과에 따라 forward 또는 redirect를 선택하도록 구성했습니다.</p></div></article>
       </div>
     </section>
 
     <section class="phase" id="spring">
       <div class="phase-head"><div class="phase-num">07</div><div><h2>Spring Boot 백엔드 심화</h2><p class="phase-intro">의존성 주입부터 계층형 CRUD, 인증·인가, 파일과 외부 인프라 연동까지 기능을 누적하는 방식으로 학습했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>Spring Boot</h3><span class="subject-id">SUBJECT 07</span></div><ul><li>POJO, IoC·DI, Bean, Qualifier, Spring MVC</li><li>Controller·REST Controller와 요청·응답 DTO</li><li>MyBatis·MySQL, Three-tier Architecture</li><li>회원·게시글·댓글 CRUD, 파일·태그·검색·페이징</li><li>예외 처리, Interceptor, 메일·SMS</li><li>Spring Security·JWT 인증/인가</li><li>OAuth2 카카오 로그인과 Redis 연동</li><li>AWS S3, Swagger, HTTPS, AOP·Proxy</li><li>Spring AI 스트리밍 기초</li></ul><div class="evidence"><strong>학습 증빙</strong> · spring/workspace/dependency ~ app_day05_https_aop · 프로젝트 제외 관련 파일 약 498개</div></article>
+        <article class="subject"><div class="subject-top"><h3>Spring Boot</h3><span class="subject-id">SUBJECT 07</span></div><ul><li>POJO, IoC·DI, Bean, Qualifier, Spring MVC</li><li>Controller·REST Controller와 요청·응답 DTO</li><li>MyBatis·MySQL, Three-tier Architecture</li><li>회원·게시글·댓글 CRUD, 파일·태그·검색·페이징</li><li>예외 처리, Interceptor, 메일·SMS</li><li>Spring Security·JWT 인증/인가</li><li>OAuth2 카카오 로그인과 Redis 연동</li><li>AWS S3, Swagger, HTTPS, AOP·Proxy</li><li>Spring AI 스트리밍 기초</li></ul><div class="material"><div class="material-label">수업자료 · Repository 계층</div><pre><code>@Repository
+@RequiredArgsConstructor
+public class PostDAO {
+  private final PostMapper postMapper;
+
+  public void save(PostDTO postDTO) {
+    postMapper.insert(postDTO);
+  }
+
+  public Optional&lt;PostDTO&gt; findById(Long id) {
+    return postMapper.selectById(id);
+  }
+}</code></pre><p><strong>학습 흐름</strong> · Controller → Service → Repository → Mapper로 책임을 나누고 DTO·VO·페이징·검색을 결합한 CRUD 구조를 만들었습니다.</p></div></article>
       </div>
     </section>
 
     <section class="phase" id="data">
       <div class="phase-head"><div class="phase-num">08–10</div><div><h2>Python, 데이터 분석과 머신러닝</h2><p class="phase-intro">Python 문법을 익힌 뒤 데이터 정제·시각화·고객 분석을 거쳐 분류·회귀·추천 모델의 학습과 평가를 실습했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>Python</h3><span class="subject-id">SUBJECT 08</span></div><ul><li>변수, 연산자, 조건문과 반복문</li><li>List·Tuple·Dictionary, Comprehension·Generator</li><li>함수, 기본값·키워드 인자, Packing, Lambda</li><li>Class·Magic Method, 상속과 Module</li></ul><div class="evidence"><strong>학습 증빙</strong> · python/workspace/python · Python 실습 27개</div></article>
-        <article class="subject"><div class="subject-top"><h3>Data Analysis</h3><span class="subject-id">SUBJECT 09</span></div><ul><li>기초 통계와 데이터 구조 이해</li><li>NumPy ndarray와 벡터 연산</li><li>Pandas DataFrame, 정제·결측치·중복 처리</li><li>Matplotlib·Seaborn 시각화</li><li>행복 지수·수면 건강 데이터 분석</li><li>Recency·Frequency·Monetary 기반 RFM 분석</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/data-analysis · 일반 수업 Notebook 11개</div></article>
-        <article class="subject"><div class="subject-top"><h3>Machine Learning</h3><span class="subject-id">SUBJECT 10</span></div><ul><li>Feature·Label·학습·검증 데이터 개념</li><li>Decision Tree 분류와 다중 분류</li><li>Cross Validation과 과적합 확인</li><li>Confusion Matrix, Accuracy·Precision·Recall·F1</li><li>Naive Bayes 감정 분류</li><li>선형·다변량 회귀와 Decision Tree Regression</li><li>TF-IDF·Cosine Similarity 추천 시스템</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/machine-learning · 분류/회귀/추천 Notebook</div></article>
+        <article class="subject"><div class="subject-top"><h3>Python</h3><span class="subject-id">SUBJECT 08</span></div><ul><li>변수, 연산자, 조건문과 반복문</li><li>List·Tuple·Dictionary, Comprehension·Generator</li><li>함수, 기본값·키워드 인자, Packing, Lambda</li><li>Class·Magic Method, 상속과 Module</li></ul><div class="material"><div class="material-label">수업자료 · Class와 Scope</div><pre><code>class A:
+    name = "A"
+
+    def __init__(self, data=0):
+        self.data = data
+
+    def print_name(self):
+        global name
+        name = "print_name"
+
+a1 = A()
+a2 = A(100)</code></pre><p><strong>학습 흐름</strong> · 전역·클래스·인스턴스·지역 변수의 범위를 비교하고 생성자와 self를 이용한 객체 상태 관리를 실습했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>Data Analysis</h3><span class="subject-id">SUBJECT 09</span></div><ul><li>기초 통계와 데이터 구조 이해</li><li>NumPy ndarray와 벡터 연산</li><li>Pandas DataFrame, 정제·결측치·중복 처리</li><li>Matplotlib·Seaborn 시각화</li><li>행복 지수·수면 건강 데이터 분석</li><li>Recency·Frequency·Monetary 기반 RFM 분석</li></ul><div class="material"><div class="material-label">수업자료 · RFM 전처리</div><pre><code>cp_df = pd.read_csv(
+    "./datasets/customer_personality_analysis.csv",
+    sep="\t"
+)
+
+cp_df.duplicated().sum()
+cp_df.isna().sum()
+cp_df["Income"] = cp_df["Income"].fillna(
+    cp_df["Income"].median()
+)</code></pre><p><strong>학습 흐름</strong> · CSV 로딩 → 구조 확인 → 중복·결측치 탐색 → 중앙값 대체 후 고객의 Recency·Frequency·Monetary 지표로 확장했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>Machine Learning</h3><span class="subject-id">SUBJECT 10</span></div><ul><li>Feature·Label·학습·검증 데이터 개념</li><li>Decision Tree 분류와 다중 분류</li><li>Cross Validation과 과적합 확인</li><li>Confusion Matrix, Accuracy·Precision·Recall·F1</li><li>Naive Bayes 감정 분류</li><li>선형·다변량 회귀와 Decision Tree Regression</li><li>TF-IDF·Cosine Similarity 추천 시스템</li></ul><div class="material"><div class="material-label">수업자료 · 모델 평가</div><pre><code>confusion = confusion_matrix(y_test, prediction)
+accuracy = accuracy_score(y_test, prediction)
+precision = precision_score(y_test, prediction)
+recall = recall_score(y_test, prediction)
+
+print(confusion)
+print(
+  f"정확도 {accuracy:.4f} / "
+  f"정밀도 {precision:.4f} / 재현율 {recall:.4f}"
+)</code></pre><p><strong>학습 흐름</strong> · 학습/검증 데이터 분리 후 오차행렬과 정확도·정밀도·재현율을 함께 비교해 모델을 단일 점수로만 판단하지 않았습니다.</p></div></article>
       </div>
     </section>
 
     <section class="phase" id="ai">
       <div class="phase-head"><div class="phase-num">11–14</div><div><h2>생성형 AI, API, 협업과 배포</h2><p class="phase-intro">LLM 활용법을 FastAPI 서비스 구조로 연결하고 Git 협업과 Linux/AWS 배포 과정까지 학습했습니다.</p></div></div>
       <div class="subject-grid">
-        <article class="subject"><div class="subject-top"><h3>LLM / Generative AI</h3><span class="subject-id">SUBJECT 11</span></div><ul><li>Chat Model과 Prompt 구성</li><li>이미지·텍스트를 함께 처리하는 Multimodal</li><li>LCEL을 이용한 Chain 구성</li><li>이미지 생성 API</li><li>문서 Load·Split·Retrieve·Generate 기반 RAG</li><li>RAG-Anything·LightRAG와 Google Gemini 연동</li></ul><div class="evidence"><strong>학습 증빙</strong> · ai/workspace/llm/a_LLM ~ f-Google-Generative-AI</div></article>
-        <article class="subject"><div class="subject-top"><h3>FastAPI</h3><span class="subject-id">SUBJECT 12</span></div><ul><li>Uvicorn·ASGI와 동기·비동기 요청 처리</li><li>Pydantic 요청·응답 모델과 Swagger</li><li>Router·Service·Repository·Domain 구조</li><li>PostgreSQL CRUD API</li><li>감정 분석·스팸 판별·추천 API</li><li>LLM Streaming, Cache와 pickle 모델 로딩</li></ul><div class="evidence"><strong>학습 증빙</strong> · fastapi/workspaes/module · feeling · spam · stream · reconstruction</div></article>
-        <article class="subject"><div class="subject-top"><h3>Git / GitHub</h3><span class="subject-id">SUBJECT 13</span></div><ul><li>로컬·원격 저장소와 Git 기본 설정</li><li>init·add·commit·status·log</li><li>Branch 생성과 버전 이동</li><li>Fast-forward·Merge·Conflict 해결</li><li>fetch·pull·push·clone</li><li>Organization·Fork·Pull Request 협업 흐름</li></ul><div class="evidence"><strong>학습 증빙</strong> · git/memo/git.txt</div></article>
-        <article class="subject"><div class="subject-top"><h3>AWS / Deployment</h3><span class="subject-id">SUBJECT 14</span></div><ul><li>Ubuntu 계정·시간대·패키지 설정</li><li>EC2에 Java 17 설치와 Gradle Build</li><li>Spring Boot JAR 실행과 포트 리다이렉션</li><li>MySQL·PostgreSQL·Redis 서버 구성</li><li>Docker 설치와 컨테이너 실행</li><li>Swap Memory 구성</li><li>Nginx Reverse Proxy와 Load Balancing</li><li>Cloudflare Tunnel 기초</li></ul><div class="evidence"><strong>학습 증빙</strong> · aws/memo/mysql.txt · nginx.txt · sprign_aws.txt</div></article>
+        <article class="subject"><div class="subject-top"><h3>LLM / Generative AI</h3><span class="subject-id">SUBJECT 11</span></div><ul><li>Chat Model과 Prompt 구성</li><li>이미지·텍스트를 함께 처리하는 Multimodal</li><li>LCEL을 이용한 Chain 구성</li><li>이미지 생성 API</li><li>문서 Load·Split·Retrieve·Generate 기반 RAG</li><li>RAG-Anything·LightRAG와 Google Gemini 연동</li></ul><div class="material"><div class="material-label">수업자료 · LCEL / RAG</div><pre><code>prompt = PromptTemplate.from_template(template)
+llm = ChatOpenAI(temperature=0.1)
+chain = prompt | llm | StrOutputParser()
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500,
+    chunk_overlap=50
+)
+chunks = splitter.split_documents(docs)
+vectorstore = FAISS.from_documents(chunks, embeddings)</code></pre><p><strong>학습 흐름</strong> · Prompt → Model → Parser 체인을 구성하고 문서를 Load·Split·Embed·Retrieve한 뒤 답변 생성에 연결했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>FastAPI</h3><span class="subject-id">SUBJECT 12</span></div><ul><li>Uvicorn·ASGI와 동기·비동기 요청 처리</li><li>Pydantic 요청·응답 모델과 Swagger</li><li>Router·Service·Repository·Domain 구조</li><li>PostgreSQL CRUD API</li><li>감정 분석·스팸 판별·추천 API</li><li>LLM Streaming, Cache와 pickle 모델 로딩</li></ul><div class="material"><div class="material-label">수업자료 · ML 추론 API</div><pre><code>class SpamCheckRequest(BaseModel):
+    message: str
+
+class SpamCheckResponse(BaseModel):
+    isSpam: bool
+
+@app.post("/api/spam-check",
+          response_model=SpamCheckResponse)
+async def check_spam(request: SpamCheckRequest):
+    model = joblib.load("spam_model.pkl")
+    prediction = model.predict([request.message])
+    return {"isSpam": bool(prediction[0])}</code></pre><p><strong>학습 흐름</strong> · Pydantic으로 요청·응답 계약을 정의하고 저장된 ML 모델을 로딩해 비동기 REST API의 추론 결과로 반환했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>Git / GitHub</h3><span class="subject-id">SUBJECT 13</span></div><ul><li>로컬·원격 저장소와 Git 기본 설정</li><li>init·add·commit·status·log</li><li>Branch 생성과 버전 이동</li><li>Fast-forward·Merge·Conflict 해결</li><li>fetch·pull·push·clone</li><li>Organization·Fork·Pull Request 협업 흐름</li></ul><div class="material"><div class="material-label">수업자료 · 협업 명령 흐름</div><pre><code>git checkout -b feature/member
+git add .
+git commit -m "회원 기능 구현"
+git push -u origin feature/member
+
+git fetch origin
+git diff --stat origin/main
+git merge origin/main
+
+# 충돌 취소
+git merge --abort</code></pre><p><strong>학습 흐름</strong> · 기능 브랜치 생성 → 커밋 → 원격 push → 최신 main 반영 → 충돌 해결 → Pull Request 순서로 협업했습니다.</p></div></article>
+        <article class="subject"><div class="subject-top"><h3>AWS / Deployment</h3><span class="subject-id">SUBJECT 14</span></div><ul><li>Ubuntu 계정·시간대·패키지 설정</li><li>EC2에 Java 17 설치와 Gradle Build</li><li>Spring Boot JAR 실행과 포트 리다이렉션</li><li>MySQL·PostgreSQL·Redis 서버 구성</li><li>Docker 설치와 컨테이너 실행</li><li>Swap Memory 구성</li><li>Nginx Reverse Proxy와 Load Balancing</li><li>Cloudflare Tunnel 기초</li></ul><div class="material"><div class="material-label">수업자료 · Nginx 분산</div><pre><code>upstream spring_app {
+  least_conn;
+  server app-01.internal:8080;
+  server app-02.internal:8080;
+}
+
+server {
+  listen 80;
+  location / {
+    proxy_pass http://spring_app;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+}</code></pre><p><strong>학습 흐름</strong> · EC2 서버 구성 → JAR·Docker 실행 → DB·Redis 연결 → Nginx Reverse Proxy와 Load Balancing으로 요청을 전달했습니다. 공개 화면에서는 키·IP·비밀번호를 제거했습니다.</p></div></article>
       </div>
       <div class="note">React·TypeScript·WebSocket·RabbitMQ·LiveKit 등은 독립 수업 자료가 아니라 프로젝트에서 사용한 기술이므로 프로젝트 페이지에서 별도로 설명합니다.</div>
     </section>
