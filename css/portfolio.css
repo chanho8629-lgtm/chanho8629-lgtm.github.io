@@ -1,5 +1,5 @@
 /* ══ 정찬호 포트폴리오 — 공통 스타일 ══ */
-:root{--accent:#a3e635;--bg:#000;--bg2:#0d0d0d;--bg3:#141414;--border:#1e1e1e;--txt:#fff;--txt2:#888;--txt3:#444;--r:14px;}
+:root{--accent:#a3e635;--bg:#000;--bg2:#090a09;--bg3:#101110;--border:#242524;--txt:#fff;--txt2:#929592;--txt3:#555955;--r:5px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6;}
@@ -47,7 +47,7 @@ h1,h2,h3{font-weight:900;line-height:1.1;letter-spacing:-.03em;}
 /* ── 컴포넌트 ── */
 .badge{display:inline-flex;align-items:center;background:rgba(163,230,53,.07);border:1px solid rgba(163,230,53,.2);color:var(--accent);padding:.2rem .65rem;border-radius:50px;font-size:.6rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;}
 .badge-gray{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:var(--txt2);}
-.badge-row{display:flex;flex-wrap:wrap;gap:.35rem;}
+.badge-row{display:flex;flex-wrap:wrap;gap:.35rem;max-width:100%;min-width:0;}
 .card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;transition:border-color .2s;}
 .card:hover{border-color:#303030;}
 .card-l{border-left:3px solid var(--accent);}
@@ -65,7 +65,7 @@ h1,h2,h3{font-weight:900;line-height:1.1;letter-spacing:-.03em;}
 .feat-desc{font-size:.78rem;color:var(--txt2);line-height:1.7;}
 
 /* ── 하이라이트 박스 ── */
-.hl-box{background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.15);border-radius:var(--r);padding:1.4rem 1.6rem;}
+.hl-box{background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.12);border-left:2px solid var(--accent);border-radius:var(--r);padding:1.4rem 1.6rem;}
 .hl-box .hl-t{font-size:.88rem;font-weight:800;color:var(--accent);margin-bottom:.5rem;}
 .hl-box p{font-size:.8rem;color:var(--txt2);line-height:1.8;}
 
