@@ -24,7 +24,7 @@
     .learning-bridge .eyebrow{display:block;margin-bottom:.65rem}
     .learning-bridge h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;max-width:760px}
     .learning-bridge>p{max-width:760px;margin-top:.8rem;color:var(--txt2);font-size:.85rem;line-height:1.8}
-    .bridge-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1.7rem}
+    .scope-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:1.35rem}.scope-strip span{border:1px solid rgba(255,255,255,.11);border-radius:3px;background:rgba(5,5,5,.42);padding:.75rem .85rem;color:#dde5da;font-size:.72rem;font-weight:800;line-height:1.45}.bridge-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1.7rem}
     .bridge-step{position:relative;min-height:145px;padding:1.1rem;border:1px solid var(--border);border-radius:3px;background:rgba(8,8,8,.82)}
     .bridge-step:not(:last-child)::after{content:'→';position:absolute;right:-.62rem;top:50%;z-index:2;color:var(--accent);font-weight:900}
     .bridge-step b{display:block;color:var(--accent);font-size:.58rem;letter-spacing:.14em}
@@ -34,7 +34,7 @@
     .phase-head{display:grid;grid-template-columns:90px 1fr;gap:1.5rem;align-items:start;margin-bottom:1.6rem}
     .phase-num{font-size:2.6rem;font-weight:900;color:var(--accent);line-height:1}
     .phase h2{font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:.55rem}
-    .phase-intro{color:var(--txt2);font-size:.88rem;line-height:1.85;max-width:720px}
+    .phase-intro{color:var(--txt2);font-size:.82rem;line-height:1.7;max-width:660px}
     .subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
     .subject{background:#0d0e0d;border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:1.5rem}
     .subject-top{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-bottom:1rem}
@@ -46,15 +46,15 @@
     .material{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--border)}
     .material-label{display:flex;align-items:center;gap:.45rem;color:var(--accent);font-size:.62rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:.7rem}
     .material-label::before{content:'</>';display:grid;place-items:center;width:27px;height:27px;border:1px solid rgba(163,230,53,.28);border-radius:2px;background:rgba(163,230,53,.045);font-size:.55rem;letter-spacing:0}
-    .material pre{margin:0;max-height:250px;overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:3px;background:#070807;padding:1rem;color:#d7e7d5;font:500 .67rem/1.65 Consolas,'Courier New',monospace;tab-size:2;white-space:pre}
+    .material pre{margin:0;max-height:190px;overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:3px;background:#070807;padding:1rem;color:#d7e7d5;font:500 .67rem/1.65 Consolas,'Courier New',monospace;tab-size:2;white-space:pre}
     .material p{margin-top:.72rem;color:#8c9689;font-size:.69rem;line-height:1.65}
     .material p strong{color:#d7e7d5}
     .application{margin-top:.85rem;padding:.8rem .9rem;border:1px solid rgba(255,255,255,.1);border-left:2px solid rgba(163,230,53,.48);border-radius:2px;background:rgba(255,255,255,.018);color:#aeb7aa;font-size:.69rem;line-height:1.65}
     .application span{display:inline-block;margin-right:.45rem;padding:.18rem .45rem;border-radius:50px;background:var(--accent);color:#101400;font-size:.55rem;font-weight:900;letter-spacing:.04em}
     .application span.foundation{background:#353b32;color:#cbd1c8}.application span.team{background:#284138;color:#9ce8c5}
     .note{margin-top:1rem;background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.15);border-radius:12px;padding:1rem 1.2rem;color:var(--txt2);font-size:.78rem;line-height:1.7}
-    @media(max-width:850px){.bridge-flow{grid-template-columns:1fr 1fr}.bridge-step:nth-child(2)::after{display:none}}
-    @media(max-width:720px){.subject-grid{grid-template-columns:1fr}.phase-head{grid-template-columns:1fr;gap:.5rem}.phase-num{font-size:1.4rem}.learning-bridge{padding:1.35rem}.bridge-flow{grid-template-columns:1fr}.bridge-step{min-height:0}.bridge-step::after{display:none!important}}
+    @media(max-width:850px){.scope-strip,.bridge-flow{grid-template-columns:1fr 1fr}.bridge-step:nth-child(2)::after{display:none}}
+    @media(max-width:720px){.subject-grid{grid-template-columns:1fr}.phase-head{grid-template-columns:1fr;gap:.5rem}.phase-num{font-size:1.4rem}.learning-bridge{padding:1.35rem}.scope-strip,.bridge-flow{grid-template-columns:1fr}.bridge-step{min-height:0}.bridge-step::after{display:none!important}}
   </style>
 </head>
 <body>
@@ -71,7 +71,7 @@
     <div class="curr-hero-inner">
       <span class="eyebrow">Learning Scope · 14 Subjects</span>
       <h1>기초부터 배포까지,<br><span>학습 범위와 깊이.</span></h1>
-      <p>원본 수업자료를 공개하는 페이지가 아니라, 14개 과목에서 무엇을 배우고 어느 범위까지 실습했는지를 정리한 학습 소개입니다. 대표 예시는 전체 자료가 아닌 학습 내용을 설명하기 위한 짧은 요약입니다.</p>
+      <p>원본 수업자료는 공개하지 않고, 배운 기술 범위와 실습 수준만 포트폴리오용으로 요약했습니다. 핵심은 “무엇을 배웠고, 어느 기능 구현으로 이어졌는가”입니다.</p>
     </div>
   </section>
 
@@ -85,8 +85,9 @@
   <main class="curr-main">
     <section class="learning-bridge">
       <span class="eyebrow">Learning Progression</span>
-      <h2>개념 이해에서 구현·연동·배포까지 학습했습니다.</h2>
-      <p>단순히 기술 이름을 접한 수준이 아니라, 문법과 구조를 익히고 작은 실습을 구현한 뒤 여러 기술을 연결해 보는 순서로 학습했습니다. 프로젝트 적용은 학습 결과를 확인하는 보조 사례로 표시합니다.</p>
+      <h2>개념 이해 → 기능 구현 → 서비스 연동 → 배포 흐름으로 학습했습니다.</h2>
+      <p>아래 내용은 수업자료 원문이 아니라 학습 결과 요약입니다. 프로젝트 설명보다 학습 과정이 먼저 보이도록 범위와 적용 지점을 짧게 정리했습니다.</p>
+      <div class="scope-strip"><span>웹/브라우저 구조 이해</span><span>Java·DB·Spring 백엔드 구현</span><span>데이터 분석·ML 모델 실습</span><span>AI API·Git·AWS 배포 흐름</span></div>
       <div class="bridge-flow">
         <article class="bridge-step"><b>01 · UNDERSTAND</b><strong>핵심 개념 이해</strong><p>웹 요청·응답, 객체지향, 관계형 데이터와 MVC 구조를 설명할 수 있는 기반을 익혔습니다.</p></article>
         <article class="bridge-step"><b>02 · PRACTICE</b><strong>기능 단위 구현</strong><p>DOM 이벤트, JDBC, Servlet, CRUD와 계층형 백엔드를 직접 실습했습니다.</p></article>
@@ -102,7 +103,7 @@
   &lt;label for="email"&gt;이메일&lt;/label&gt;
   &lt;input id="email" name="email" type="email" required&gt;
   &lt;button type="submit"&gt;가입&lt;/button&gt;
-&lt;/form&gt;</code></pre><p><strong>학습 흐름</strong> · HTML은 화면의 골조와 데이터 의미를 정의하고, form의 action·method·name이 서버 요청 구조로 연결됩니다.</p><div class="application"><span class="foundation">구현 기반</span>BIDEO의 작품 등록·상세 조회와 회원 입력 화면의 데이터 구조를 이해하는 기반이 됐습니다.</div></div></article>
+&lt;/form&gt;</code></pre><p><strong>요약</strong> · HTML은 화면의 골조와 데이터 의미를 정의하고, form의 action·method·name이 서버 요청 구조로 연결됩니다.</p><div class="application"><span class="foundation">구현 기반</span>BIDEO의 작품 등록·상세 조회와 회원 입력 화면의 데이터 구조를 이해하는 기반이 됐습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>CSS</h3><span class="subject-id">SUBJECT 02</span></div><ul><li>전체·태그·클래스·아이디·그룹 선택자</li><li>Cascading, 상속, 명시도와 선언 순서</li><li>박스 모델, Flex 정렬, Font, Position, Z-index</li><li>Overflow, Transition, Media Query, Clone 실습</li></ul><div class="material"><div class="material-label">대표 학습 예시 · 반응형 화면</div><pre><code>body {
   background: #03cc2c;
   font-size: 25px;
@@ -113,7 +114,7 @@
     background: #ff4b4b;
     font-size: 18px;
   }
-}</code></pre><p><strong>학습 흐름</strong> · 같은 HTML을 유지하면서 viewport 너비에 따라 스타일을 재정의해 데스크톱과 모바일 레이아웃을 분리했습니다.</p><div class="application"><span class="foundation">구현 기반</span>프로젝트 화면과 현재 포트폴리오를 데스크톱·모바일에 맞춰 구성하는 데 적용했습니다.</div></div></article>
+}</code></pre><p><strong>요약</strong> · 같은 HTML을 유지하면서 viewport 너비에 따라 스타일을 재정의해 데스크톱과 모바일 레이아웃을 분리했습니다.</p><div class="application"><span class="foundation">구현 기반</span>프로젝트 화면과 현재 포트폴리오를 데스크톱·모바일에 맞춰 구성하는 데 적용했습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>JavaScript</h3><span class="subject-id">SUBJECT 03</span></div><ul><li>변수·상수·Scope, 연산자, 함수, 객체, 배열</li><li>ES Module, Date, Promise와 Fetch API</li><li>DOM 탐색·변경, 브라우저 이벤트 처리</li><li>Service·Layout·Event 분리, Todo·Modal·Banner 실습</li><li>Kakao API와 결제 API 호출 실습</li></ul><div class="material"><div class="material-label">대표 학습 예시 · 모달 이벤트</div><pre><code>const showWarnModal = (message) =&gt; {
   document.querySelector("#content-wrap")
     .innerHTML = message;
@@ -122,7 +123,7 @@
 };
 
 document.querySelector(".modal")
-  .addEventListener("click", closeModal);</code></pre><p><strong>학습 흐름</strong> · DOM 선택 → 내용 변경 → 이벤트 등록 → 애니메이션 종료 후 숨김 순서로 사용자 상호작용을 구현했습니다.</p><div class="application"><span class="foundation">서비스 연결</span>경매·결제 과정의 버튼 이벤트와 서버 요청 결과를 화면에 반영하는 흐름으로 이어졌습니다.</div></div></article>
+  .addEventListener("click", closeModal);</code></pre><p><strong>요약</strong> · DOM 선택 → 내용 변경 → 이벤트 등록 → 애니메이션 종료 후 숨김 순서로 사용자 상호작용을 구현했습니다.</p><div class="application"><span class="foundation">서비스 연결</span>경매·결제 과정의 버튼 이벤트와 서버 요청 결과를 화면에 반영하는 흐름으로 이어졌습니다.</div></div></article>
       </div>
     </section>
 
@@ -137,7 +138,7 @@ document.querySelector(".modal")
 
 int total = results.stream()
     .reduce(Integer::sum)
-    .orElse(0);</code></pre><p><strong>학습 흐름</strong> · 컬렉션을 filter·map·sorted로 변환하고 collect·reduce로 결과를 만드는 함수형 처리 흐름을 실습했습니다.</p><div class="application"><span class="foundation">백엔드 기반</span>Spring Boot에서 작품·경매·결제 도메인 객체와 컬렉션 데이터를 처리하는 Java 기반이 됐습니다.</div></div></article>
+    .orElse(0);</code></pre><p><strong>요약</strong> · 컬렉션을 filter·map·sorted로 변환하고 collect·reduce로 결과를 만드는 함수형 처리 흐름을 실습했습니다.</p><div class="application"><span class="foundation">백엔드 기반</span>Spring Boot에서 작품·경매·결제 도메인 객체와 컬렉션 데이터를 처리하는 Java 기반이 됐습니다.</div></div></article>
       </div>
     </section>
 
@@ -152,7 +153,7 @@ int total = results.stream()
   member_status ENUM('disable','enable')
     DEFAULT 'enable',
   created_datetime DATETIME DEFAULT CURRENT_TIMESTAMP
-);</code></pre><p><strong>학습 흐름</strong> · PK·UNIQUE·NOT NULL·DEFAULT 제약조건으로 데이터 무결성을 정의하고 회원·파일·게시글 관계로 확장했습니다.</p><div class="application"><span>직접 적용</span>BIDEO의 작품·예술관·경매·결제 데이터 관계와 중복 결제 방지 조건을 설계하는 데 활용했습니다.</div></div></article>
+);</code></pre><p><strong>요약</strong> · PK·UNIQUE·NOT NULL·DEFAULT 제약조건으로 데이터 무결성을 정의하고 회원·파일·게시글 관계로 확장했습니다.</p><div class="application"><span>직접 적용</span>BIDEO의 작품·예술관·경매·결제 데이터 관계와 중복 결제 방지 조건을 설계하는 데 활용했습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>JSP / Servlet</h3><span class="subject-id">SUBJECT 06</span></div><ul><li>Apache·Tomcat·WAS와 Servlet 생명주기</li><li>GET·POST, Forward·Redirect</li><li>JSP 표현식과 요청 데이터 처리</li><li>MVC Model 1·2와 Front Controller</li><li>MyBatis Mapper를 통한 회원가입·로그인</li></ul><div class="material"><div class="material-label">대표 학습 예시 · Front Controller</div><pre><code>String uri = req.getRequestURI();
 String target = uri.substring(0, uri.lastIndexOf("."));
 
@@ -163,7 +164,7 @@ if (target.equals("/join")) {
 }
 
 req.getRequestDispatcher(result.getPath())
-   .forward(req, resp);</code></pre><p><strong>학습 흐름</strong> · 하나의 Servlet이 URL을 분석해 Controller로 위임하고, 처리 결과에 따라 forward 또는 redirect를 선택하도록 구성했습니다.</p><div class="application"><span class="team">팀 프로젝트 경험</span>GGShop에서 Spring MVC·MyBatis 기반 요청 처리와 게시판 CRUD 구조로 확장했습니다.</div></div></article>
+   .forward(req, resp);</code></pre><p><strong>요약</strong> · 하나의 Servlet이 URL을 분석해 Controller로 위임하고, 처리 결과에 따라 forward 또는 redirect를 선택하도록 구성했습니다.</p><div class="application"><span class="team">팀 프로젝트 경험</span>GGShop에서 Spring MVC·MyBatis 기반 요청 처리와 게시판 CRUD 구조로 확장했습니다.</div></div></article>
       </div>
     </section>
 
@@ -182,7 +183,7 @@ public class PostDAO {
   public Optional&lt;PostDTO&gt; findById(Long id) {
     return postMapper.selectById(id);
   }
-}</code></pre><p><strong>학습 흐름</strong> · Controller → Service → Repository → Mapper로 책임을 나누고 DTO·VO·페이징·검색을 결합한 CRUD 구조를 만들었습니다.</p><div class="application"><span>직접 적용</span>BIDEO 작품·예술관 CRUD, 경매 입찰·종료·낙찰, Bootpay 결제 검증의 핵심 계층 구조로 적용했습니다.</div></div></article>
+}</code></pre><p><strong>요약</strong> · Controller → Service → Repository → Mapper로 책임을 나누고 DTO·VO·페이징·검색을 결합한 CRUD 구조를 만들었습니다.</p><div class="application"><span>직접 적용</span>BIDEO 작품·예술관 CRUD, 경매 입찰·종료·낙찰, Bootpay 결제 검증의 핵심 계층 구조로 적용했습니다.</div></div></article>
       </div>
     </section>
 
@@ -200,7 +201,7 @@ public class PostDAO {
         name = "print_name"
 
 a1 = A()
-a2 = A(100)</code></pre><p><strong>학습 흐름</strong> · 전역·클래스·인스턴스·지역 변수의 범위를 비교하고 생성자와 self를 이용한 객체 상태 관리를 실습했습니다.</p><div class="application"><span class="foundation">AI 기반</span>데이터 전처리 스크립트와 FastAPI 서비스에서 모델·요청 객체를 구성하는 기반이 됐습니다.</div></div></article>
+a2 = A(100)</code></pre><p><strong>요약</strong> · 전역·클래스·인스턴스·지역 변수의 범위를 비교하고 생성자와 self를 이용한 객체 상태 관리를 실습했습니다.</p><div class="application"><span class="foundation">AI 기반</span>데이터 전처리 스크립트와 FastAPI 서비스에서 모델·요청 객체를 구성하는 기반이 됐습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>Data Analysis</h3><span class="subject-id">SUBJECT 09</span></div><ul><li>기초 통계와 데이터 구조 이해</li><li>NumPy ndarray와 벡터 연산</li><li>Pandas DataFrame, 정제·결측치·중복 처리</li><li>Matplotlib·Seaborn 시각화</li><li>행복 지수·수면 건강 데이터 분석</li><li>Recency·Frequency·Monetary 기반 RFM 분석</li></ul><div class="material"><div class="material-label">대표 학습 예시 · RFM 전처리</div><pre><code>cp_df = pd.read_csv(
     "./datasets/customer_personality_analysis.csv",
     sep="\t"
@@ -210,7 +211,7 @@ cp_df.duplicated().sum()
 cp_df.isna().sum()
 cp_df["Income"] = cp_df["Income"].fillna(
     cp_df["Income"].median()
-)</code></pre><p><strong>학습 흐름</strong> · CSV 로딩 → 구조 확인 → 중복·결측치 탐색 → 중앙값 대체 후 고객의 Recency·Frequency·Monetary 지표로 확장했습니다.</p><div class="application"><span>프로젝트 적용</span>BIDEO의 작품·고객 활동 데이터를 모델 입력에 맞게 정제하고 분포를 확인하는 과정에 활용했습니다.</div></div></article>
+)</code></pre><p><strong>요약</strong> · CSV 로딩 → 구조 확인 → 중복·결측치 탐색 → 중앙값 대체 후 고객의 Recency·Frequency·Monetary 지표로 확장했습니다.</p><div class="application"><span>프로젝트 적용</span>BIDEO의 작품·고객 활동 데이터를 모델 입력에 맞게 정제하고 분포를 확인하는 과정에 활용했습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>Machine Learning</h3><span class="subject-id">SUBJECT 10</span></div><ul><li>Feature·Label·학습·검증 데이터 개념</li><li>Decision Tree 분류와 다중 분류</li><li>Cross Validation과 과적합 확인</li><li>Confusion Matrix, Accuracy·Precision·Recall·F1</li><li>Naive Bayes 감정 분류</li><li>선형·다변량 회귀와 Decision Tree Regression</li><li>TF-IDF·Cosine Similarity 추천 시스템</li></ul><div class="material"><div class="material-label">대표 학습 예시 · 모델 평가</div><pre><code>confusion = confusion_matrix(y_test, prediction)
 accuracy = accuracy_score(y_test, prediction)
 precision = precision_score(y_test, prediction)
@@ -220,7 +221,7 @@ print(confusion)
 print(
   f"정확도 {accuracy:.4f} / "
   f"정밀도 {precision:.4f} / 재현율 {recall:.4f}"
-)</code></pre><p><strong>학습 흐름</strong> · 학습/검증 데이터 분리 후 오차행렬과 정확도·정밀도·재현율을 함께 비교해 모델을 단일 점수로만 판단하지 않았습니다.</p><div class="application"><span>프로젝트 적용</span>작품 조회수·경매 낙찰 가능성 예측과 TF-IDF 기반 작품·예술관 추천 실험으로 확장했습니다.</div></div></article>
+)</code></pre><p><strong>요약</strong> · 학습/검증 데이터 분리 후 오차행렬과 정확도·정밀도·재현율을 함께 비교해 모델을 단일 점수로만 판단하지 않았습니다.</p><div class="application"><span>프로젝트 적용</span>작품 조회수·경매 낙찰 가능성 예측과 TF-IDF 기반 작품·예술관 추천 실험으로 확장했습니다.</div></div></article>
       </div>
     </section>
 
@@ -236,7 +237,7 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=50
 )
 chunks = splitter.split_documents(docs)
-vectorstore = FAISS.from_documents(chunks, embeddings)</code></pre><p><strong>학습 흐름</strong> · Prompt → Model → Parser 체인을 구성하고 문서를 Load·Split·Embed·Retrieve한 뒤 답변 생성에 연결했습니다.</p><div class="application"><span>프로젝트 적용</span>BIDEO의 작품 큐레이션·문서 분석·질의응답을 위한 RAG 파이프라인 실험으로 이어졌습니다.</div></div></article>
+vectorstore = FAISS.from_documents(chunks, embeddings)</code></pre><p><strong>요약</strong> · Prompt → Model → Parser 체인을 구성하고 문서를 Load·Split·Embed·Retrieve한 뒤 답변 생성에 연결했습니다.</p><div class="application"><span>프로젝트 적용</span>BIDEO의 작품 큐레이션·문서 분석·질의응답을 위한 RAG 파이프라인 실험으로 이어졌습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>FastAPI</h3><span class="subject-id">SUBJECT 12</span></div><ul><li>Uvicorn·ASGI와 동기·비동기 요청 처리</li><li>Pydantic 요청·응답 모델과 Swagger</li><li>Router·Service·Repository·Domain 구조</li><li>PostgreSQL CRUD API</li><li>감정 분석·스팸 판별·추천 API</li><li>LLM Streaming, Cache와 pickle 모델 로딩</li></ul><div class="material"><div class="material-label">대표 학습 예시 · ML 추론 API</div><pre><code>class SpamCheckRequest(BaseModel):
     message: str
 
@@ -248,7 +249,7 @@ class SpamCheckResponse(BaseModel):
 async def check_spam(request: SpamCheckRequest):
     model = joblib.load("spam_model.pkl")
     prediction = model.predict([request.message])
-    return {"isSpam": bool(prediction[0])}</code></pre><p><strong>학습 흐름</strong> · Pydantic으로 요청·응답 계약을 정의하고 저장된 ML 모델을 로딩해 비동기 REST API의 추론 결과로 반환했습니다.</p><div class="application"><span>직접 연동</span>Python 모델 서비스를 Spring Boot와 분리하고 API로 호출해 예측·추천 결과를 전달했습니다.</div></div></article>
+    return {"isSpam": bool(prediction[0])}</code></pre><p><strong>요약</strong> · Pydantic으로 요청·응답 계약을 정의하고 저장된 ML 모델을 로딩해 비동기 REST API의 추론 결과로 반환했습니다.</p><div class="application"><span>직접 연동</span>Python 모델 서비스를 Spring Boot와 분리하고 API로 호출해 예측·추천 결과를 전달했습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>Git / GitHub</h3><span class="subject-id">SUBJECT 13</span></div><ul><li>로컬·원격 저장소와 Git 기본 설정</li><li>init·add·commit·status·log</li><li>Branch 생성과 버전 이동</li><li>Fast-forward·Merge·Conflict 해결</li><li>fetch·pull·push·clone</li><li>Organization·Fork·Pull Request 협업 흐름</li></ul><div class="material"><div class="material-label">대표 학습 예시 · 협업 명령 흐름</div><pre><code>git checkout -b feature/member
 git add .
 git commit -m "회원 기능 구현"
@@ -259,7 +260,7 @@ git diff --stat origin/main
 git merge origin/main
 
 # 충돌 취소
-git merge --abort</code></pre><p><strong>학습 흐름</strong> · 기능 브랜치 생성 → 커밋 → 원격 push → 최신 main 반영 → 충돌 해결 → Pull Request 순서로 협업했습니다.</p><div class="application"><span class="team">협업 적용</span>BIDEO·Clausion·GGShop 팀 저장소에서 브랜치와 Pull Request 중심의 변경 흐름을 경험했습니다.</div></div></article>
+git merge --abort</code></pre><p><strong>요약</strong> · 기능 브랜치 생성 → 커밋 → 원격 push → 최신 main 반영 → 충돌 해결 → Pull Request 순서로 협업했습니다.</p><div class="application"><span class="team">협업 적용</span>BIDEO·Clausion·GGShop 팀 저장소에서 브랜치와 Pull Request 중심의 변경 흐름을 경험했습니다.</div></div></article>
         <article class="subject"><div class="subject-top"><h3>AWS / Deployment</h3><span class="subject-id">SUBJECT 14</span></div><ul><li>Ubuntu 계정·시간대·패키지 설정</li><li>EC2에 Java 17 설치와 Gradle Build</li><li>Spring Boot JAR 실행과 포트 리다이렉션</li><li>MySQL·PostgreSQL·Redis 서버 구성</li><li>Docker 설치와 컨테이너 실행</li><li>Swap Memory 구성</li><li>Nginx Reverse Proxy와 Load Balancing</li><li>Cloudflare Tunnel 기초</li></ul><div class="material"><div class="material-label">대표 학습 예시 · Nginx 분산</div><pre><code>upstream spring_app {
   least_conn;
   server app-01.internal:8080;
@@ -273,7 +274,7 @@ server {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
   }
-}</code></pre><p><strong>학습 흐름</strong> · EC2 서버 구성 → JAR·Docker 실행 → DB·Redis 연결 → Nginx Reverse Proxy와 Load Balancing으로 요청을 전달했습니다. 공개 화면에서는 키·IP·비밀번호를 제거했습니다.</p><div class="application"><span>직접 적용</span>BIDEO 작품 이미지의 AWS S3 저장을 구현했고, 서비스 배포에 필요한 EC2·Nginx·Docker 구조를 학습했습니다.</div></div></article>
+}</code></pre><p><strong>요약</strong> · EC2 서버 구성 → JAR·Docker 실행 → DB·Redis 연결 → Nginx Reverse Proxy와 Load Balancing으로 요청을 전달했습니다. 공개 화면에서는 키·IP·비밀번호를 제거했습니다.</p><div class="application"><span>직접 적용</span>BIDEO 작품 이미지의 AWS S3 저장을 구현했고, 서비스 배포에 필요한 EC2·Nginx·Docker 구조를 학습했습니다.</div></div></article>
       </div>
       <div class="note">React·TypeScript·WebSocket·RabbitMQ·LiveKit 등은 독립 수업 자료가 아니라 프로젝트에서 사용한 기술이므로 프로젝트 페이지에서 별도로 설명합니다.</div>
     </section>
