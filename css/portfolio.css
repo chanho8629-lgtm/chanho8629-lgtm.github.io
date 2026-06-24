@@ -1,7 +1,7 @@
 /* ══ 정찬호 포트폴리오 — 공통 스타일 ══ */
 :root{--accent:#a3e635;--bg:#000;--bg2:#090a09;--bg3:#101110;--border:#242524;--txt:#fff;--txt2:#929592;--txt3:#555955;--r:5px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6;}
 a{text-decoration:none;color:inherit;}
 
