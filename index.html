@@ -227,12 +227,12 @@
     }), {threshold:.42});
     archiveCards.forEach(card => archiveObserver.observe(card));
     showArchiveScene(0);
-    if(window.__initialHash === '#archive') setTimeout(() => {
+    if(window.__initialHash === '#archive') addEventListener('load', () => setTimeout(() => {
       document.documentElement.style.scrollBehavior = 'auto';
-      const archiveTop = archiveSection.getBoundingClientRect().top + scrollY;
-      scrollTo(0,archiveTop);
+      archiveSection.scrollIntoView({block:'start'});
+      history.replaceState(null,'',`${location.pathname}${location.search}#archive`);
       setTimeout(() => document.documentElement.style.scrollBehavior = '', 120);
-    }, 700);
+    }, 500), {once:true});
 
     if(!reduceMotion){
       addEventListener('scroll', () => {
