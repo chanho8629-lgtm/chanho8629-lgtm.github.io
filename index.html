@@ -69,6 +69,10 @@
     .contact{min-height:76vh;background:#26343b;color:#fff;border:0}.contact::before{border-color:rgba(255,255,255,.08)}.contact-kicker{color:#8bd2ee}.contact h2 span{color:#ff7c72;text-shadow:none}.contact-intro{color:#b9c2c4}.contact-item{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.13);box-shadow:none}.contact-item:first-child strong{color:#ff8b82}.contact-item:hover{border-color:#ff8b82}.contact-actions a{background:#ff7c72;box-shadow:none}.contact-actions a:last-child{background:transparent}.contact-item small,.contact-item span{color:#aab5b8}footer{background:#1d282e;color:#aab5b8;border:0}
     @media(max-width:800px){.developer-stage{opacity:.72;right:-38%;width:100%}.intro-copy{left:7%;width:70%;z-index:2}.ring{grid-template-columns:1fr 1fr;grid-template-rows:none}.archive-head{grid-template-columns:1fr;gap:1.5rem}.archive-scenes{grid-auto-columns:78%}.story{padding:1.2rem}.copy{margin:0}.visual{min-height:420px}.learn-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:520px){.nav{height:64px}.menu a:not(:last-child){display:none}.intro{min-height:760px;padding-top:64px}.developer-stage{top:64px;right:-64%;width:150%;height:54%;opacity:.62}.dev-shape{padding:1.2rem}.dev-shape b,.dev-shape span{display:none}.intro-copy{left:0;top:auto;bottom:7%;transform:none;width:100%;padding:0 7%;text-align:left}.intro-copy .small{margin:0 0 .9rem}.intro h1{max-width:340px;margin:0;font-size:2.65rem;line-height:.98}.intro h1 .ai-line{font-size:inherit;white-space:normal}.intro h1 .service-line{max-width:340px;margin:.2rem 0 0;font-size:inherit;line-height:.98}.mobile-break{display:none}.intro p{max-width:330px;margin:1rem 0 0;font-size:.68rem}.ai-signature{max-width:330px;margin:1rem 0 0}.hero-quick{display:none}.down{display:none}.orbit-section,.learning,.ai-focus,.archive{padding:90px 6%}.orbit-head h2{font-size:2.4rem}.ring{grid-template-columns:1fr}.poster{min-height:190px}.learn-grid{grid-template-columns:1fr}.archive h2{font-size:2.8rem}.archive-scenes{grid-auto-columns:92%}.archive-card{min-height:390px;padding:1.5rem}.project-head h2{font-size:3.1rem}.story{padding:.7rem}.visual{min-height:300px;border-radius:18px}.copy{border-radius:18px}.contact{padding:5rem 6%}.contact h2{font-size:3.4rem}}
+    /* cinematic scroll archive: one scroll chapter per record */
+    .archive{height:600vh;padding:0;background:#17212b;overflow:visible}.archive-in{position:sticky;top:0;width:100%;max-width:none;height:100vh;overflow:hidden;padding:88px 6% 38px}.archive-in::after{content:'';position:absolute;width:46vw;aspect-ratio:1;right:-12vw;bottom:-25vw;border-radius:50%;background:var(--cinema-color,#f2d9cf);filter:blur(1px);opacity:.16;transition:background .8s,transform 1s cubic-bezier(.16,1,.3,1);transform:scale(var(--cinema-scale,1))}.archive-head{position:relative;z-index:4;display:block;width:min(670px,54%)}.archive-kicker{margin-bottom:.6rem}.archive h2{font-size:clamp(2.5rem,4.4vw,4.9rem);line-height:.92}.archive-intro{margin-top:1rem;max-width:590px;font-size:.76rem}.archive-tabs{position:absolute;z-index:6;right:6%;top:104px;margin:0}.archive-progress{position:absolute;z-index:6;left:6%;right:6%;bottom:68px;margin:0}.archive-scenes{position:absolute;z-index:3;inset:0;display:block;overflow:hidden;padding:0;scroll-snap-type:none}.archive-card{position:absolute;inset:auto 6% 110px 6%;min-height:0;height:42vh;padding:2.2rem 2.5rem;border-radius:28px;opacity:0!important;transform:translate3d(0,70px,0) scale(.94)!important;pointer-events:none;transition:opacity .65s ease,transform .85s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}.archive-card.active{opacity:1!important;transform:translate3d(0,0,0) scale(1)!important;pointer-events:auto}.archive-card.leaving{opacity:0!important;transform:translate3d(0,-55px,0) scale(1.03)!important}.archive-card h3{max-width:760px;font-size:clamp(2rem,3.5vw,4rem)}.archive-card p{max-width:650px;font-size:.82rem}.archive-card::before{font-size:min(24vw,20rem);right:.02em;bottom:-.24em}.archive-count{position:absolute;z-index:7;left:6%;right:6%;bottom:24px;margin:0}.archive-nav button{background:rgba(255,255,255,.04)}
+    @media(max-width:800px){.archive{height:600vh}.archive-in{padding:82px 6% 28px}.archive-head{width:88%}.archive h2{font-size:2.7rem}.archive-intro{max-width:520px}.archive-tabs{top:285px;left:6%;right:auto}.archive-card{inset:auto 6% 100px;height:47vh;padding:1.7rem}.archive-progress{bottom:60px}.archive-count{bottom:18px}}
+    @media(max-width:520px){.archive{height:600vh;padding:0}.archive-in{padding:78px 6% 20px}.archive-head{width:100%}.archive h2{font-size:2.25rem}.archive-intro{font-size:.66rem;line-height:1.65}.archive-tabs{top:270px;gap:.3rem}.archive-tab{padding:.48rem .62rem;font-size:.55rem}.archive-card{inset:auto 5% 88px;height:43vh;padding:1.35rem;border-radius:20px}.archive-card h3{font-size:1.72rem}.archive-card p{font-size:.68rem}.archive-card::before{font-size:9rem}.archive-progress{bottom:53px}.archive-count{left:5%;right:5%;bottom:12px}.archive-nav button{width:34px;height:34px}}
   </style>
 </head>
 <body>
@@ -179,48 +183,65 @@
     }), {threshold:.18});
     stories.forEach(story => observer.observe(story));
 
-    const archiveTrack = document.querySelector('.archive-scenes');
+    const archiveSection = document.querySelector('.archive');
     const archiveCards = [...document.querySelectorAll('.archive-card')];
     const archiveTabs = [...document.querySelectorAll('.archive-tab')];
     const archiveCurrent = document.querySelector('.archive-current');
     const archiveTotal = document.querySelector('.archive-total');
     const archiveBar = document.querySelector('.archive-progress i');
     let archiveIndex = 0;
-    const visibleArchiveCards = () => archiveCards.filter(card => !card.hidden);
-    const updateArchive = () => {
-      const cards = visibleArchiveCards();
-      if(!cards.length) return;
-      const center = archiveTrack.scrollLeft + archiveTrack.clientWidth / 2;
-      archiveIndex = cards.reduce((best, card, index) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const bestCenter = cards[best].offsetLeft + cards[best].offsetWidth / 2;
-        return Math.abs(cardCenter - center) < Math.abs(bestCenter - center) ? index : best;
-      }, 0);
-      archiveCards.forEach(card => card.classList.remove('active'));
-      cards[archiveIndex].classList.add('active');
+    let previousArchiveIndex = 0;
+    let archiveTicking = false;
+    const archiveColors = ['#f2d9cf','#9ccfe0','#ffc08c','#c5b8dc','#9fd0bb','#f58c78'];
+    const showArchiveScene = index => {
+      index = Math.max(0, Math.min(archiveCards.length - 1, index));
+      if(index !== archiveIndex) previousArchiveIndex = archiveIndex;
+      archiveIndex = index;
+      archiveCards.forEach((card, cardIndex) => {
+        card.classList.toggle('active', cardIndex === archiveIndex);
+        card.classList.toggle('leaving', cardIndex === previousArchiveIndex && cardIndex !== archiveIndex);
+      });
       archiveCurrent.textContent = String(archiveIndex + 1).padStart(2,'0');
-      archiveTotal.textContent = String(cards.length).padStart(2,'0');
-      archiveBar.style.width = `${((archiveIndex + 1) / cards.length) * 100}%`;
+      archiveTotal.textContent = String(archiveCards.length).padStart(2,'0');
+      archiveSection.style.setProperty('--cinema-color', archiveColors[archiveIndex]);
+      archiveSection.style.setProperty('--cinema-scale', String(1 + archiveIndex * .035));
+      archiveTabs.forEach(tab => {
+        const filter = tab.dataset.filter;
+        tab.classList.toggle('active', filter === archiveCards[archiveIndex].dataset.type);
+      });
     };
-    const moveArchive = direction => {
-      const cards = visibleArchiveCards();
-      archiveIndex = Math.max(0, Math.min(cards.length - 1, archiveIndex + direction));
-      cards[archiveIndex].scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest',inline:'start'});
-      setTimeout(updateArchive, reduceMotion ? 0 : 380);
+    const archiveSceneTop = index => {
+      const distance = archiveSection.offsetHeight - innerHeight;
+      return archiveSection.offsetTop + distance * (index / (archiveCards.length - 1));
     };
+    const moveArchive = direction => scrollTo({top:archiveSceneTop(Math.max(0,Math.min(archiveCards.length-1,archiveIndex+direction))),behavior:reduceMotion?'auto':'smooth'});
     archiveTabs.forEach(tab => tab.addEventListener('click', () => {
-      const filter = tab.dataset.filter;
-      archiveTabs.forEach(item => item.classList.toggle('active', item === tab));
-      archiveCards.forEach(card => card.hidden = filter !== 'all' && card.dataset.type !== filter);
-      archiveIndex = 0;
-      archiveTrack.scrollTo({left:0,behavior:reduceMotion?'auto':'smooth'});
-      updateArchive();
+      const target = tab.dataset.filter === 'blog' ? 2 : 0;
+      scrollTo({top:archiveSceneTop(target),behavior:reduceMotion?'auto':'smooth'});
     }));
-    archiveTrack.addEventListener('scroll', updateArchive, {passive:true});
     document.querySelector('.archive-prev').addEventListener('click', () => moveArchive(-1));
     document.querySelector('.archive-next').addEventListener('click', () => moveArchive(1));
-    archiveCards[0].classList.add('active');
-    updateArchive();
+    const updateCinematicArchive = () => {
+      const rect = archiveSection.getBoundingClientRect();
+      const distance = archiveSection.offsetHeight - innerHeight;
+      const progress = Math.max(0,Math.min(1,-rect.top / distance));
+      const scene = Math.min(archiveCards.length - 1,Math.floor(progress * archiveCards.length));
+      showArchiveScene(scene);
+      archiveBar.style.width = `${Math.max(2,progress * 100)}%`;
+      archiveTicking = false;
+    };
+    addEventListener('scroll', () => {
+      if(archiveTicking) return;
+      archiveTicking = true;
+      requestAnimationFrame(updateCinematicArchive);
+    }, {passive:true});
+    showArchiveScene(0);
+    updateCinematicArchive();
+    if(location.hash === '#archive') setTimeout(() => {
+      document.documentElement.style.scrollBehavior = 'auto';
+      scrollTo(0,archiveSection.offsetTop);
+      setTimeout(() => document.documentElement.style.scrollBehavior = '', 120);
+    }, 80);
 
     if(!reduceMotion){
       addEventListener('scroll', () => {
