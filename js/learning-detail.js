@@ -4,6 +4,10 @@ const metaStyles = document.createElement('link');
 metaStyles.rel = 'stylesheet';
 metaStyles.href = 'css/learning-meta.css';
 document.head.append(metaStyles);
+const uiStyles = document.createElement('link');
+uiStyles.rel = 'stylesheet';
+uiStyles.href = 'css/learning-ui.css';
+document.head.append(uiStyles);
 const metadata = {
   web: {category:'WEB FOUNDATION',tags:['HTML','CSS','JavaScript','DOM · Fetch'],intro:'웹 요청·응답 구조를 이해하고 문서 구조, 반응형 레이아웃, DOM 이벤트와 비동기 통신을 순서대로 학습했습니다. 화면의 입력 데이터가 서버 요청으로 이어지는 흐름을 익혀 작품 등록·상세 조회와 경매·결제 인터랙션을 구현하는 기반으로 연결했습니다.'},
   java: {category:'BACKEND FOUNDATION',tags:['Java','OOP','Collection','JDBC'],intro:'Java 기본 문법에서 객체지향 모델링, 컬렉션 처리, 예외·스레드·파일 처리와 JDBC까지 확장했습니다. 도메인 객체의 책임을 나누고 데이터를 안정적으로 처리하는 방법을 익혀 Spring Boot 백엔드 구현의 기반으로 활용했습니다.'},
@@ -28,6 +32,14 @@ fetch('curriculum.html')
     meta.innerHTML = `<div class="meta-label">CATEGORY</div><div class="meta-value">${info.category}</div><div class="meta-label">TAG</div><div class="meta-tags">${info.tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="meta-label">INTRODUCTION</div><p class="meta-intro">${info.intro}</p>`;
     section.querySelector('.phase-head').after(meta);
     mount.replaceChildren(section);
+    const sequence = [
+      ['web','learning-web.html','Web Foundation'],['java','learning-java.html','Java'],['db','learning-db.html','DB / JSP'],
+      ['spring','learning-spring.html','Spring Boot'],['data','learning-data.html','Data / ML'],['ai','learning-ai.html','AI / Deploy']
+    ];
+    const current = sequence.findIndex(item => item[0] === page);
+    const previous = sequence[(current - 1 + sequence.length) % sequence.length];
+    const next = sequence[(current + 1) % sequence.length];
+    mount.insertAdjacentHTML('beforeend', `<nav class="learning-pagination" aria-label="다른 학습 페이지"><a href="${previous[1]}"><small>PREVIOUS LEARNING</small><strong>← ${previous[2]}</strong></a><a href="${next[1]}"><small>NEXT LEARNING</small><strong>${next[2]} →</strong></a></nav>`);
     document.title = `${section.querySelector('h2')?.textContent || '학습 상세'} | JCH Portfolio`;
   })
   .catch(error => {
