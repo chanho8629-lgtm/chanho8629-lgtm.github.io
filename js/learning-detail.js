@@ -45,6 +45,15 @@ fetch('curriculum.html')
     meta.className = 'learning-meta';
     meta.innerHTML = `<div class="meta-label">CATEGORY</div><div class="meta-value">${info.category}</div><div class="meta-label">TAG</div><div class="meta-tags">${info.tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="meta-label">INTRODUCTION</div><p class="meta-intro">${info.intro}</p>`;
     section.querySelector('.phase-head').after(meta);
+    section.querySelectorAll('.material').forEach(material => {
+      const label = material.querySelector('.material-label');
+      if (label) {
+        const title = label.textContent.replace(/^핵심 구현 노트\s*·\s*/, '').trim();
+        label.innerHTML = `<span>CORE IMPLEMENTATION</span><strong>${title}</strong>`;
+      }
+      const summary = material.querySelector('p strong');
+      if (summary?.textContent.trim() === '요약') summary.textContent = '핵심 이해';
+    });
     mount.replaceChildren(section);
     const sequence = [
       ['web','learning-web.html','Web Foundation'],['java','learning-java.html','Java'],['db','learning-db.html','DB / JSP'],
