@@ -101,6 +101,23 @@
     <section class="section contact" id="contact"><div class="contact-in reveal"><p class="eyebrow">TRANSMISSION CHANNEL · 04 · BACKEND & AI DEVELOPER</p><h2>정찬호<span>JUNG CHAN HO.</span></h2><p class="lead">Spring Boot 기반 백엔드부터 데이터 분석, 머신러닝, 생성형 AI와 AWS 배포까지 학습하고 실제 서비스로 연결하고 있습니다.</p><div class="contact-row"><a class="contact-card" href="mailto:jch8629@naver.com"><small>EMAIL</small><strong>jch8629@naver.com</strong></a><div class="contact-card"><small>LOCATION</small><strong>대한민국</strong></div><div class="contact-card"><small>STATUS</small><strong>구직 중</strong></div></div><div class="tags"><a href="mailto:jch8629@naver.com">이메일 보내기 →</a><a href="https://github.com/chanho8629-lgtm">GitHub 프로필 →</a></div></div></section>
   </main><footer class="footer"><span>© 2026 Jung Chan Ho</span><span>Backend · Data · AI · Deploy</span></footer>
   <script>
+    const portfolioImageMap={
+      'images/reference/scene-03.png':'images/learning/generated/web-foundation.jpg',
+      'images/reference/scene-04.png':'images/learning/generated/java-programming.jpg',
+      'images/reference/scene-05.png':'images/learning/generated/database-server.jpg',
+      'images/reference/scene-06.png':'images/learning/generated/spring-backend.jpg',
+      'images/reference/scene-07.png':'images/learning/generated/data-ml.jpg',
+      'images/reference/scene-08.png':'images/learning/generated/ai-rag.jpg',
+      'images/reference/scene-09.png':'images/learning/generated/ai-rag.jpg',
+      'images/reference/scene-10.png':'images/learning/generated/deploy-cloud.jpg',
+      'images/reference/scene-11.png':'images/projects/bideo-auction-live.jpg',
+      'images/reference/scene-12.png':'images/learning/generated/ai-rag.jpg',
+      'images/reference/scene-13.png':'images/learning/generated/spring-backend.jpg',
+      'images/reference/scene-14.png':'images/learning/generated/data-ml.jpg'
+    };
+    document.querySelectorAll('img').forEach(image=>{if(portfolioImageMap[image.getAttribute('src')])image.src=portfolioImageMap[image.getAttribute('src')]});
+    const projectImages={BIDEO:'images/projects/bideo-auction-live.jpg',Clausion:'images/projects/clausion-project.svg',GGShop:'images/projects/ggshop-v2g-flow.jpg'};
+    document.querySelectorAll('.project-image img').forEach(image=>{if(projectImages[image.alt])image.src=projectImages[image.alt]});
     document.querySelector('.archive')?.remove();document.querySelector('.menu a[href="#archive"]')?.remove();
     const projectsSection=document.querySelector('.projects');const projectPanels=[...projectsSection.children],projectsSticky=document.createElement('div'),projectsTrack=document.createElement('div');projectsSticky.className='projects-sticky';projectsTrack.className='projects-track';projectsTrack.append(...projectPanels);projectsSticky.append(projectsTrack);projectsSection.append(projectsSticky);projectsSection.classList.add('projects-horizontal');let projectsFrame=0;const renderProjects=()=>{projectsFrame=0;if(innerWidth<=850){projectsTrack.style.removeProperty('transform');return}const rect=projectsSection.getBoundingClientRect(),distance=Math.max(1,projectsSection.offsetHeight-innerHeight),progress=Math.min(1,Math.max(0,-rect.top/distance)),travel=Math.max(0,projectsTrack.scrollWidth-innerWidth);projectsTrack.style.transform=`translate3d(${-travel*progress}px,0,0)`};const requestProjects=()=>{if(!projectsFrame)projectsFrame=requestAnimationFrame(renderProjects)};addEventListener('scroll',requestProjects,{passive:true});addEventListener('resize',requestProjects);renderProjects();
     const learningPages={web:'learning-web.html',java:'learning-java.html',db:'learning-db.html',spring:'learning-spring.html',data:'learning-data.html',ai:'learning-ai.html'};document.querySelectorAll('a[href^="curriculum.html#"]').forEach(link=>{const key=link.hash.slice(1);if(learningPages[key])link.href=learningPages[key]});
