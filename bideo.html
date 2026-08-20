@@ -2,7 +2,14 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BIDEO | JCH Portfolio</title>
+  <meta name="description" content="정찬호가 직접 구현한 작품·예술관 CRUD, 경매·결제, AWS S3 저장과 FastAPI 기반 AI 연동을 설명하는 BIDEO 프로젝트 리포트입니다.">
+  <meta name="author" content="정찬호"><meta name="robots" content="index, follow"><meta name="theme-color" content="#08080b">
+  <link rel="canonical" href="https://chanho8629-lgtm.github.io/bideo.html"><link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <meta property="og:locale" content="ko_KR"><meta property="og:type" content="article"><meta property="og:site_name" content="JCH Developer Portfolio">
+  <meta property="og:title" content="BIDEO | 거래 백엔드와 AI 서비스 연동"><meta property="og:description" content="작품·예술관 CRUD, 경매·결제, S3 저장을 직접 구현하고 AI 기능을 서비스에 연결한 팀 프로젝트입니다.">
+  <meta property="og:url" content="https://chanho8629-lgtm.github.io/bideo.html"><meta property="og:image" content="https://chanho8629-lgtm.github.io/images/projects/bideo-auction-live.jpg">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="BIDEO | 거래 백엔드와 AI 서비스 연동"><meta name="twitter:description" content="정찬호의 핵심 백엔드 구현과 AI 연동 범위를 확인하세요."><meta name="twitter:image" content="https://chanho8629-lgtm.github.io/images/projects/bideo-auction-live.jpg">
+  <title>BIDEO | 정찬호 백엔드 프로젝트</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/portfolio.css">
@@ -12,9 +19,10 @@
   <link rel="stylesheet" href="css/project-report.css">
 </head>
 <body>
-  <header class="hdr"><a href="index.html" class="logo">JCH<em>.</em></a><nav class="gnav"><a href="index.html">Home</a><a href="index.html#learning">Learning</a><a href="index.html#projects">Projects</a><a href="index.html#contact" class="gnav-cta">Contact</a></nav></header>
+  <a class="skip-link" href="#main-content">본문 바로가기</a>
+  <header class="hdr"><a href="index.html" class="logo" aria-label="정찬호 포트폴리오 홈">JCH<em>.</em></a><nav class="gnav" aria-label="주요 메뉴"><a href="index.html">Home</a><a href="index.html#learning">Learning</a><a href="index.html#projects">Projects</a><a href="index.html#contact" class="gnav-cta">Contact</a></nav></header>
   <section class="hero"><div class="inner"><div class="project-hero-copy"><span class="eyebrow">Flagship Backend & AI Team Project</span><h1>BIDEO.</h1><p>영상 기반 작품 큐레이션·전시·오픈마켓 플랫폼입니다. 작품과 예술관 관리, 경매·결제, S3 저장 위에 LLM·RAG-Anything·멀티모달 생성·예측·추천 기능을 FastAPI로 분리해 서비스 흐름에 연결했습니다.</p><div class="badge-row" style="margin-top:1.4rem"><span class="badge">Spring Boot</span><span class="badge">FastAPI</span><span class="badge">LLM</span><span class="badge">RAG-Anything</span><span class="badge">Machine Learning</span><span class="badge">PostgreSQL</span><span class="badge">AWS S3</span></div></div><figure class="project-visual" data-project="bideo"><img src="images/projects/bideo-auction-live.jpg" alt="BIDEO 실시간 경매 화면"><figcaption>LIVE AUCTION · BACKEND TRANSACTION</figcaption></figure></div></section>
-  <main class="main">
+  <main class="main" id="main-content">
     <section class="owner-box"><span class="eyebrow">My Core Contribution</span><h2>거래 백엔드를 직접 구현하고, AI를 활용해 서비스 연결 범위를 확장했습니다.</h2><p>작품·예술관 관리에서 경매, 결제 검증, 파일 저장까지 주요 흐름을 Spring Boot 중심으로 구현했습니다. AI 기능 구현에는 생성형 AI 도구와 기존 모델을 활용했지만, 입력 데이터·모델 목적·FastAPI 요청/응답 계약·Spring Boot 연결 로직을 검토하고 이해했습니다.</p><div class="owner-list"><span>직접 구현 · CRUD</span><span>직접 구현 · 경매/결제</span><span>직접 구현 · AWS S3</span><span>이해/연동 · FastAPI/AI</span></div></section>
     <section class="block"><span class="eyebrow">Backend & AI Integration</span><h2>구현·연동 범위</h2><div class="cards">
       <article class="card card-l"><h3>백엔드 기능</h3><ul><li>작품·예술관 CRUD와 조회 흐름</li><li>경매 입찰·종료·낙찰 처리</li><li>Bootpay 결제 검증과 중복 결제 방지</li><li>AWS S3 작품 이미지·파일 저장</li></ul></article>
@@ -39,7 +47,7 @@
       <article class="card"><h3>파일 저장</h3><p class="feat-desc">작품 등록 흐름과 S3 저장을 연결하고 파일 경로와 DB 메타데이터를 함께 관리했습니다.</p></article>
       <article class="card"><h3>AI 서비스 분리</h3><p class="feat-desc">모델 학습과 추론은 Python/FastAPI로 분리하고, 핵심 서비스는 Spring Boot가 API로 호출하도록 구성했습니다.</p></article>
     </div></section>
-    <section class="block"><span class="eyebrow">Links</span><h2>코드와 시연</h2><div class="links"><a class="btn-main" href="https://github.com/chanho8629-lgtm/ec2">GitHub 저장소 →</a><a class="btn-back" href="index.html">← 메인으로</a></div></section>
+    <section class="block"><span class="eyebrow">Repository</span><h2>코드 확인</h2><div class="links"><a class="btn-main" href="https://github.com/chanho8629-lgtm/ec2">GitHub 저장소 →</a><a class="btn-back" href="index.html">← 메인으로</a></div></section>
   </main>
   <footer class="pf-footer"><span>© 2026 Jung Chan Ho</span><span>BIDEO Team Project</span></footer>
   <script src="js/project-report.js"></script>

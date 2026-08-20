@@ -218,3 +218,5 @@ html.is-deep-link .reveal,
     transform: none !important;
   }
 }
+.skip-link{position:fixed;z-index:10000;left:1rem;top:1rem;padding:.75rem 1rem;background:#fff;color:#111;font-weight:900;transform:translateY(-180%);transition:transform .2s}.skip-link:focus{transform:translateY(0)}
+a:focus-visible,button:focus-visible{outline:3px solid #c47cff;outline-offset:4px}

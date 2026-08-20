@@ -1,9 +1,12 @@
 /* ══ 정찬호 포트폴리오 — 공통 스타일 ══ */
 :root{--accent:#a3e635;--bg:#000;--bg2:#090a09;--bg3:#101110;--border:#242524;--txt:#fff;--txt2:#929592;--txt3:#555955;--r:5px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;overflow-x:hidden;}
+html{scroll-behavior:smooth;scroll-padding-top:88px;overflow-x:hidden;}
 body{font-family:'Space Grotesk','Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6;}
 a{text-decoration:none;color:inherit;}
+.skip-link{position:fixed;z-index:10000;left:1rem;top:1rem;padding:.75rem 1rem;background:#fff;color:#111;font-weight:900;transform:translateY(-180%);transition:transform .2s;}
+.skip-link:focus{transform:translateY(0);}
+a:focus-visible,button:focus-visible{outline:3px solid #b77cff;outline-offset:4px;}
 
 /* ── 헤더 ── */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(0,0,0,.88);border-bottom:1px solid #111;backdrop-filter:blur(16px);}

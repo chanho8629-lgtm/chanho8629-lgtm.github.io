@@ -2,7 +2,12 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GGShop | JCH Portfolio</title>
+  <meta name="description" content="Spring MVC·MyBatis 기반 CRUD, 인증, 파일, 검색 기능을 학습하고 적용한 GGShop 팀 프로젝트 리포트입니다.">
+  <meta name="author" content="정찬호"><meta name="robots" content="index, follow"><meta name="theme-color" content="#08080b">
+  <link rel="canonical" href="https://chanho8629-lgtm.github.io/ggshop.html"><link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <meta property="og:locale" content="ko_KR"><meta property="og:type" content="article"><meta property="og:site_name" content="JCH Developer Portfolio"><meta property="og:title" content="GGShop | Spring·MyBatis 팀 프로젝트"><meta property="og:description" content="전기차 충전과 에너지 거래 도메인으로 백엔드 기본기를 적용했습니다."><meta property="og:url" content="https://chanho8629-lgtm.github.io/ggshop.html"><meta property="og:image" content="https://chanho8629-lgtm.github.io/images/projects/ggshop-v2g-flow.jpg">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GGShop | Spring·MyBatis 팀 프로젝트"><meta name="twitter:description" content="CRUD·인증·파일·검색 기능을 적용한 팀 학습 프로젝트입니다."><meta name="twitter:image" content="https://chanho8629-lgtm.github.io/images/projects/ggshop-v2g-flow.jpg">
+  <title>GGShop | 정찬호 팀 학습 프로젝트</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/portfolio.css">
@@ -10,9 +15,10 @@
   <link rel="stylesheet" href="css/project-report.css">
 </head>
 <body>
-  <header class="hdr"><a href="index.html" class="logo">JCH<em>.</em></a><nav class="gnav"><a href="index.html">Home</a><a href="index.html#learning">Learning</a><a href="index.html#projects">Projects</a><a href="index.html#contact" class="gnav-cta">Contact</a></nav></header>
+  <a class="skip-link" href="#main-content">본문 바로가기</a>
+  <header class="hdr"><a href="index.html" class="logo" aria-label="정찬호 포트폴리오 홈">JCH<em>.</em></a><nav class="gnav" aria-label="주요 메뉴"><a href="index.html">Home</a><a href="index.html#learning">Learning</a><a href="index.html#projects">Projects</a><a href="index.html#contact" class="gnav-cta">Contact</a></nav></header>
   <section class="hero"><div class="inner"><div class="project-hero-copy"><span class="eyebrow">Team Learning Project</span><h1>GGSHOP.</h1><p>전기차 충전과 V2G/P2P 에너지 거래 도메인을 주제로 Spring MVC와 MyBatis 기반 웹 서비스의 기본기를 학습한 팀 프로젝트입니다.</p><div class="badge-row" style="margin-top:1.4rem"><span class="badge">Java 17</span><span class="badge">Spring Boot</span><span class="badge">MyBatis</span><span class="badge">MySQL</span><span class="badge">Thymeleaf</span><span class="badge">Kakao OAuth</span></div></div><figure class="project-visual" data-project="ggshop"><img src="images/projects/ggshop-v2g-flow.jpg" alt="GGShop V2G 에너지 거래 흐름도"><figcaption>V2G FLOW · SPRING MVC / MYBATIS</figcaption></figure></div></section>
-  <main class="main">
+  <main class="main" id="main-content">
     <section class="block"><span class="eyebrow">Features</span><h2>구현 기능</h2><div class="cards">
       <article class="card"><h3>회원·인증</h3><ul><li>회원가입·로그인·세션 처리</li><li>카카오 OAuth 로그인</li><li>프로필과 회원 정보 관리</li></ul></article>
       <article class="card"><h3>충전소·거래</h3><ul><li>전기차 충전소 등록·조회·수정·삭제</li><li>UID AJAX 중복 검사</li><li>V2G 거래 등록과 조건별 조회</li></ul></article>
