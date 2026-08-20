@@ -21,8 +21,8 @@
       <div class="hero-positioning__proof">
         <span>CRUD · AUCTION · PAYMENT · S3</span>
         <span>FASTAPI · RAG · ML</span>
-        <span>SPRING BOOT INTEGRATION</span>
-        <a class="hero-positioning__cta" href="bideo.html">핵심 구현 확인 →</a>
+        <a class="hero-positioning__cta" href="bideo.html">대표 프로젝트 →</a>
+        <a class="hero-positioning__cta hero-positioning__cta--ghost" href="https://github.com/chanho8629-lgtm">GitHub →</a>
       </div>`;
     heroCopy.append(positioning);
   }
@@ -93,4 +93,44 @@
   addEventListener('pageshow', () => {
     if (location.hash) moveToHash();
   });
+
+  // Lightweight 3D depth for the hero. Transform-only motion keeps it responsive
+  // and falls back to the static editorial layout for touch/reduced-motion users.
+  const hero = document.querySelector('.hero');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = matchMedia('(pointer: fine)');
+  if (hero && finePointer.matches && !reduceMotion.matches) {
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+    let frame = 0;
+    const renderDepth = () => {
+      frame = 0;
+      current.x += (target.x - current.x) * .085;
+      current.y += (target.y - current.y) * .085;
+      hero.style.setProperty('--hero-tilt-x', `${(-current.y * 3.2).toFixed(2)}deg`);
+      hero.style.setProperty('--hero-tilt-y', `${(current.x * 4.4).toFixed(2)}deg`);
+      hero.style.setProperty('--hero-card-tilt-x', `${(current.y * 1.45).toFixed(2)}deg`);
+      hero.style.setProperty('--hero-card-tilt-y', `${(-current.x * 2).toFixed(2)}deg`);
+      hero.style.setProperty('--hero-depth-x', `${(current.x * 13).toFixed(2)}px`);
+      hero.style.setProperty('--hero-depth-y', `${(current.y * 9).toFixed(2)}px`);
+      hero.style.setProperty('--hero-light-x', `${(50 + current.x * 18).toFixed(2)}%`);
+      hero.style.setProperty('--hero-light-y', `${(42 + current.y * 14).toFixed(2)}%`);
+      if (Math.abs(target.x - current.x) > .001 || Math.abs(target.y - current.y) > .001) {
+        frame = requestAnimationFrame(renderDepth);
+      }
+    };
+    const requestDepth = () => {
+      if (!frame) frame = requestAnimationFrame(renderDepth);
+    };
+    hero.addEventListener('pointermove', event => {
+      target.x = (event.clientX / innerWidth - .5) * 2;
+      target.y = (event.clientY / innerHeight - .5) * 2;
+      requestDepth();
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => {
+      target.x = 0;
+      target.y = 0;
+      requestDepth();
+    }, { passive: true });
+  }
 })();
