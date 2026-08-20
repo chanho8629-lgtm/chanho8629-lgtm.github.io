@@ -251,3 +251,61 @@ a:focus-visible,button:focus-visible{outline:3px solid #c47cff;outline-offset:4p
 .hero:not(.hero-active) .hero-cinematic__blade {
   animation-play-state: paused !important;
 }
+
+/* Match the homepage to the editorial grid and framed visuals used elsewhere. */
+.logo i { color: #9d4dff !important; }
+
+@media (min-width: 851px) {
+  .hero {
+    background-color: #08070b !important;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) !important;
+    background-size: 54px 54px !important;
+  }
+  .hero::before {
+    inset: auto !important;
+    top: calc(72px + 8vh) !important;
+    right: 3.6vw !important;
+    width: min(53vw,780px) !important;
+    height: min(72vh,630px) !important;
+    border: 1px solid rgba(157,77,255,.32);
+    border-radius: 34px;
+    background-image: linear-gradient(90deg,rgba(8,7,11,.18),rgba(8,7,11,.52)),linear-gradient(180deg,rgba(8,7,11,.04),rgba(8,7,11,.42)),url('../images/it-machine-room-v2.webp') !important;
+    background-position: 58% center !important;
+    box-shadow: 0 30px 90px rgba(0,0,0,.58),inset 0 0 0 1px rgba(255,255,255,.025);
+    filter: saturate(.86) contrast(1.04) brightness(.64) !important;
+  }
+  .hero::after { background: linear-gradient(90deg,#08070b 0 31%,rgba(8,7,11,.82) 42%,rgba(8,7,11,.08) 72%) !important; }
+  .hero-cinematic,.hero-future-hud,.hero-tech-scan,.hero-signal-canvas,.hero-interface,.hero .motion-type,.hero .hero-visual { display: none !important; }
+  .hero-question,.hero-answer { left: -6vw !important;right: auto !important;width: 45vw !important;text-align: left !important; }
+  .hero-question::before { left: 0 !important;top: -3.5rem !important;padding: 0 !important;border: 0 !important;background: none !important;box-shadow: none !important;clip-path: none !important;color: #ff5138 !important; }
+  .hero-question::after { left: 0 !important;top: -1.45rem !important;width: 58px !important;height: 1px !important;background: #9d4dff !important;box-shadow: none !important; }
+  .hero-question .question-line,.hero-question .question-line:first-of-type,.hero-question .question-line:last-of-type {
+    width: max-content !important;max-width: 43vw !important;margin-left: 0 !important;padding: 0 !important;border: 0 !important;border-image: none !important;clip-path: none !important;
+    background: none !important;box-shadow: none !important;filter: none !important;color: #f7f5f2 !important;-webkit-text-fill-color: currentColor !important;-webkit-text-stroke: 0 !important;
+    text-shadow: 0 8px 34px rgba(0,0,0,.72) !important;letter-spacing: -.075em !important;
+  }
+  .hero-question .question-line:last-of-type { color: #a957ff !important;-webkit-text-fill-color: #a957ff !important; }
+  .hero-question .question-line:last-of-type::before { display: none !important; }
+  .hero-question__brief { left: 0 !important;color: #8f8995 !important; }
+  .hero-question__brief b { color: #ff6a54 !important; }
+  .hero-question__map {
+    left: 48vw !important;right: auto !important;width: min(33vw,455px) !important;height: min(54vh,470px) !important;border: 1px solid rgba(157,77,255,.26) !important;border-radius: 22px;
+    background: rgba(7,7,11,.88) !important;box-shadow: 0 24px 65px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.025) !important;backdrop-filter: blur(10px) !important;
+  }
+  .hero-question__map::before { color: #a39ba8 !important;text-shadow: none !important; }
+  .hero-question__map::after { color: #9d58df !important;text-shadow: none !important; }
+  .hero-question__step.is-live { border-color: rgba(157,77,255,.48) !important;background: linear-gradient(90deg,rgba(157,77,255,.16),rgba(255,255,255,.025)) !important;box-shadow: inset 3px 0 #9d4dff !important; }
+  .hero-answer { color: #a957ff !important;text-shadow: 0 0 8px rgba(157,77,255,.45),0 8px 34px rgba(0,0,0,.78) !important; }
+  .hero-positioning { left: 4vw;bottom: 5vh;width: min(43vw,620px);border-color: rgba(157,77,255,.26);border-left-color: #9d4dff;background: rgba(8,7,11,.9); }
+}
+
+@media (max-width: 850px) {
+  .hero { background-color: #08070b !important;background-image: linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px) !important;background-size: 38px 38px !important; }
+  .hero::before {
+    content: '';position: fixed;inset: 92px 5vw auto !important;z-index: 0;width: auto;height: 52vh;visibility: hidden;border: 1px solid rgba(157,77,255,.28);border-radius: 25px;
+    background: linear-gradient(180deg,rgba(8,7,11,.2),rgba(8,7,11,.72)),url('../images/it-machine-room-v2.webp') 58% center / cover no-repeat;opacity: calc(.72 - var(--hero-progress) * .9);pointer-events: none;
+  }
+  .hero.hero-active::before { visibility: visible; }
+  .hero-question .question-line:last-of-type { color: #a957ff !important; }
+  .hero-positioning { border-color: rgba(157,77,255,.26);border-left-color: #9d4dff;background: rgba(8,7,11,.92); }
+}
