@@ -1,6 +1,14 @@
 (() => {
   document.body.classList.add('interview-ready');
 
+  // Keep the hero immediate, but defer below-the-fold portfolio imagery.
+  document.querySelectorAll('main img').forEach(image => {
+    const isHeroImage = Boolean(image.closest('.hero'));
+    image.decoding = 'async';
+    image.loading = isHeroImage ? 'eager' : 'lazy';
+    image.fetchPriority = isHeroImage ? 'high' : 'low';
+  });
+
   const heroCopy = document.querySelector('.hero > .reveal:not(.hero-visual)');
   if (heroCopy && !heroCopy.querySelector('.hero-positioning')) {
     const positioning = document.createElement('aside');
