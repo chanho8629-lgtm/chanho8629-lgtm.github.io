@@ -130,7 +130,23 @@ html.is-deep-link .reveal,
     background-image:
       linear-gradient(90deg, rgba(1, 4, 7, .52), rgba(2, 7, 11, .2) 46%, rgba(3, 3, 8, .4)),
       linear-gradient(180deg, rgba(1, 4, 7, .04), rgba(2, 5, 8, .15) 68%, rgba(1, 3, 5, .52)),
-      url('../images/mechanical-hangar-v1.webp') !important;
+      url('../images/it-machine-room-v2.webp') !important;
+  }
+
+  /* Keep the hero mechanical through real infrastructure, not portal-like ornaments. */
+  .hero-mech,
+  .hero-cinematic__blade,
+  .hero-sparks {
+    display: none !important;
+  }
+
+  .hero-cinematic__grid {
+    opacity: calc(.18 - var(--hero-progress) * .28) !important;
+  }
+
+  .hero-cinematic__serial {
+    border-color: rgba(179, 116, 255, .2) !important;
+    background: rgba(5, 7, 11, .78) !important;
   }
 
   .hero-question__map {
@@ -147,7 +163,7 @@ html.is-deep-link .reveal,
   .hero {
     background-image:
       linear-gradient(180deg, rgba(3, 6, 10, .58), rgba(4, 5, 10, .82)),
-      url('../images/mechanical-hangar-v1.webp') !important;
+      url('../images/it-machine-room-v2.webp') !important;
     background-position: center top !important;
     background-size: auto 100svh !important;
     background-repeat: no-repeat !important;
