@@ -205,7 +205,7 @@
       'images/reference/scene-14.png':'images/learning/generated/data-ml.jpg'
     };
     document.querySelectorAll('img').forEach(image=>{if(portfolioImageMap[image.getAttribute('src')])image.src=portfolioImageMap[image.getAttribute('src')]});
-    const projectImages={BIDEO:'images/projects/bideo-project.svg',Clausion:'images/projects/clausion-project.svg',GGShop:'images/projects/ggshop-project.svg'};
+    const projectImages={BIDEO:'images/projects/bideo-project.svg',Clausion:'images/projects/clausion-project.svg',GGShop:'images/projects/ggshop-service-ui.png'};
     document.querySelectorAll('.project-image img').forEach(image=>{if(projectImages[image.alt])image.src=projectImages[image.alt]});
     document.querySelectorAll('.project').forEach(panel=>{const link=panel.querySelector('.project-info>a');if(!link)return;panel.tabIndex=0;panel.setAttribute('role','link');panel.setAttribute('aria-label',`${panel.querySelector('h3')?.textContent.trim()||'프로젝트'} 상세 보기`);panel.addEventListener('click',event=>{if(!event.target.closest('a'))location.href=link.href});panel.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();location.href=link.href}})});
     document.querySelector('.archive')?.remove();document.querySelector('.menu a[href="#archive"]')?.remove();
