@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="정찬호의 BIDEO AI 서비스 연동 구조와 RAG-Anything, RandomForest, TF-IDF 추천 구현 흐름을 코드 기준으로 설명합니다.">
+  <meta name="author" content="정찬호">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#07070a">
+  <link rel="canonical" href="https://chanho8629-lgtm.github.io/ai-engineering.html">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="JCH Developer Portfolio">
+  <meta property="og:title" content="AI Engineering Report | 정찬호">
+  <meta property="og:description" content="Spring Boot와 FastAPI 사이의 AI 서비스 경계, RAG-Anything과 예측·추천 기능을 구현 흐름 중심으로 정리했습니다.">
+  <meta property="og:url" content="https://chanho8629-lgtm.github.io/ai-engineering.html">
+  <meta property="og:image" content="https://chanho8629-lgtm.github.io/images/reference/scene-09.png">
+  <title>AI Engineering Report | 정찬호</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/ai-engineering.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">본문 바로가기</a>
+  <header class="hdr"><a href="index.html" class="logo" aria-label="정찬호 포트폴리오 홈">JCH<em>.</em></a><nav class="gnav" aria-label="주요 메뉴"><a href="#architecture">Architecture</a><a href="#rag">RAG</a><a href="#capabilities">AI Functions</a><a href="index.html#contact" class="gnav-cta">Contact</a></nav></header>
+
+  <main id="main-content">
+    <section class="ai-hero">
+      <div class="hero-copy">
+        <p class="kicker">AI ENGINEERING REPORT · BIDEO</p>
+        <h1>AI를 호출하는 데서 끝내지 않고,<br><span>서비스 흐름에 연결했습니다.</span></h1>
+        <p class="hero-lead">Spring Boot는 작품·경매의 비즈니스 흐름을 담당하고, FastAPI는 모델 로딩·전처리·추론·검색을 담당합니다. 이 페이지는 두 영역이 어떤 데이터 계약으로 연결되는지 실제 프로젝트 파일을 기준으로 설명합니다.</p>
+        <div class="tech-tags"><span>Spring Boot</span><span>FastAPI</span><span>RAG-Anything</span><span>RandomForest</span><span>TF-IDF</span><span>AWS S3</span></div>
+      </div>
+      <div class="system-console" aria-label="AI 서비스 연결 개요">
+        <div class="console-bar"><span></span><b>SERVICE / AI BOUNDARY</b><small>CONNECTED</small></div>
+        <div class="console-flow">
+          <article><small>PRODUCT</small><strong>Spring Boot</strong><p>인증 · 작품 · 경매 · DB</p></article>
+          <i aria-hidden="true">→</i>
+          <article class="active"><small>AI GATEWAY</small><strong>FastAPI</strong><p>검증 · 전처리 · 추론</p></article>
+          <i aria-hidden="true">→</i>
+          <article><small>INTELLIGENCE</small><strong>RAG · ML · LLM</strong><p>검색 · 예측 · 추천</p></article>
+        </div>
+        <div class="console-log"><span>POST /api/auction/rag/analyze</span><span>POST /api/work/recommend</span><span>POST /api/work/regression</span></div>
+      </div>
+      <a class="scroll-cue" href="#architecture">구조부터 보기 <span>↓</span></a>
+    </section>
+
+    <section class="report-section architecture" id="architecture">
+      <div class="section-heading reveal-ai"><p class="kicker">SERVICE ARCHITECTURE</p><h2>AI 서비스 연결 구조</h2><p>모델을 핵심 거래 서버 안에 넣지 않고 별도 추론 API로 분리해 책임과 장애 범위를 나눴습니다.</p></div>
+      <div class="architecture-map reveal-ai" aria-label="AI 요청 처리 단계">
+        <article><b>REQUEST</b><strong>사용자 기능 요청</strong><p>작품 정보, 이미지, 가격·입찰 이력, 조회·좋아요 데이터를 수집합니다.</p><span>Browser / App</span></article>
+        <article><b>BUSINESS</b><strong>Spring Boot</strong><p>인증과 도메인 ID를 확인하고 AI가 필요한 데이터만 요청 객체로 만듭니다.</p><span>Domain / Transaction</span></article>
+        <article><b>SERVING</b><strong>FastAPI</strong><p>Pydantic 계약으로 입력을 검증하고 기능별 서비스에 추론을 위임합니다.</p><span>Validation / Async API</span></article>
+        <article><b>MODEL</b><strong>RAG · ML · LLM</strong><p>문서 검색, 이미지 분석, 예측 또는 유사도 계산을 실행합니다.</p><span>Inference / Retrieval</span></article>
+        <article><b>RESPONSE</b><strong>서비스 결과</strong><p>점수·추천 ID·분석 리포트를 반환해 작품과 경매 화면에 연결합니다.</p><span>JSON / UI</span></article>
+      </div>
+      <div class="boundary-grid">
+        <article class="boundary reveal-ai"><p class="kicker">SPRING BOOT</p><h3>제품과 거래의 책임</h3><ul><li>사용자 인증과 도메인 권한 확인</li><li>작품·예술관·경매·결제 상태 관리</li><li>DB 트랜잭션과 결과 영속화</li><li>AI 결과를 사용자 기능에 반영</li></ul></article>
+        <article class="boundary reveal-ai"><p class="kicker">FASTAPI</p><h3>AI 실행의 책임</h3><ul><li>입력 스키마와 값 검증</li><li>모델 지연 로딩과 전처리</li><li>RAG 검색·LLM 생성·ML 추론</li><li>기능별 응답 형식 표준화</li></ul></article>
+        <article class="boundary reveal-ai"><p class="kicker">FAILURE PATH</p><h3>실패도 서비스 흐름으로</h3><ul><li>검색 실패 시 입력 기반 보수적 응답</li><li>fast mode로 전체 RAG 검색 생략</li><li>빈 추천 결과와 예외 응답 분리</li><li>AI 장애가 거래 데이터에 번지지 않게 격리</li></ul></article>
+      </div>
+    </section>
+
+    <section class="report-section rag-section" id="rag">
+      <div class="section-heading reveal-ai"><p class="kicker">RAG-ANYTHING · HYBRID RETRIEVAL</p><h2>경매 문서를<br><span>근거 있는 리포트로.</span></h2><p>RAG-Anything이 문서·표·이미지를 인덱싱하고 LightRAG hybrid 검색 결과를 작품·경매 데이터와 결합합니다.</p></div>
+      <div class="rag-pipeline reveal-ai">
+        <article><b>INDEX</b><strong>문서 수집</strong><p>PDF 리포트를 Docling으로 파싱하고 이미지·표 처리 옵션을 켭니다.</p></article>
+        <article><b>EMBED</b><strong>한국어 벡터화</strong><p>ko-sbert 768차원 임베딩으로 검색 가능한 지식베이스를 구성합니다.</p></article>
+        <article><b>RETRIEVE</b><strong>Hybrid 검색</strong><p>작품 정보와 이미지 분석을 질의로 조합해 관련 근거를 찾습니다.</p></article>
+        <article><b>GENERATE</b><strong>LLM 리포트</strong><p>가격 매력도, 리스크, 예상 낙찰가와 ROI 시나리오를 생성합니다.</p></article>
+      </div>
+      <div class="mode-compare">
+        <article class="mode-card reveal-ai"><span>FAST MODE</span><h3>속도가 우선일 때</h3><p>전체 RAG 검색을 생략하고 현재 작품·가격·반응 신호로 빠른 분석을 만듭니다. API 키나 외부 호출이 실패해도 로컬 규칙 기반의 보수적 결과를 반환하도록 구성돼 있습니다.</p><code>used_rag: false</code></article>
+        <article class="mode-card highlight reveal-ai"><span>HYBRID RAG</span><h3>근거가 우선일 때</h3><p>이미지 분석과 경매 메타데이터를 검색 질의로 만든 뒤 인덱싱한 문서를 hybrid 모드로 조회합니다. 검색 실패 시 실패 사실을 밝히고 입력값 기준으로 대체합니다.</p><code>mode: "hybrid"</code></article>
+      </div>
+      <div class="endpoint-strip reveal-ai"><span>POST /api/auction/rag/index</span><span>POST /api/auction/rag/analyze</span><span>gpt-4o-mini</span><span>RAG-Anything + LightRAG</span></div>
+    </section>
+
+    <section class="report-section capabilities" id="capabilities">
+      <div class="section-heading reveal-ai"><p class="kicker">DATA-DRIVEN AI FUNCTIONS</p><h2>데이터 기반 AI 기능</h2><p>각 기능은 같은 ‘AI’가 아니라 입력, 모델, 출력과 서비스 사용 지점이 다릅니다.</p></div>
+      <div class="capability-grid">
+        <article class="capability reveal-ai"><span>RETRIEVAL / GENERATION</span><h3>경매 ROI 리포트</h3><p>문서 근거와 작품 이미지, 가격·입찰 신호를 결합해 경매 전략과 예상 시나리오를 설명합니다.</p><dl><div><dt>INPUT</dt><dd>PDF · 이미지 · 가격 · 반응</dd></div><div><dt>ENGINE</dt><dd>RAG-Anything · LightRAG · LLM</dd></div><div><dt>OUTPUT</dt><dd>근거 포함 경매 분석 리포트</dd></div></dl></article>
+        <article class="capability reveal-ai"><span>PREDICTION</span><h3>조회수·인기 분류</h3><p>작품 반응, 비율, 품질, 시간 피처를 이용해 예상 조회수와 고조회수 확률을 계산합니다.</p><dl><div><dt>INPUT</dt><dd>조회 · 좋아요 · 댓글 · 시간 피처</dd></div><div><dt>ENGINE</dt><dd>RandomForest 회귀·분류</dd></div><div><dt>OUTPUT</dt><dd>예측값 · 확률 · threshold 판정</dd></div></dl></article>
+        <article class="capability reveal-ai"><span>RECOMMENDATION</span><h3>작품·예술관 추천</h3><p>제목·카테고리·설명·태그를 텍스트 특징으로 만들고 유사도가 높은 후보를 반환합니다.</p><dl><div><dt>INPUT</dt><dd>작품 설명 · 태그 · 갤러리 문맥</dd></div><div><dt>ENGINE</dt><dd>TF-IDF · Cosine Similarity</dd></div><div><dt>OUTPUT</dt><dd>추천 ID · 유사도 점수</dd></div></dl></article>
+        <article class="capability reveal-ai"><span>MULTIMODAL</span><h3>이미지 생성·분석</h3><p>프롬프트로 작품 이미지를 생성하고 S3 저장 경로와 이미지 분석 결과를 서비스 데이터로 연결하는 흐름입니다.</p><dl><div><dt>INPUT</dt><dd>Prompt · 작품 메타데이터</dd></div><div><dt>ENGINE</dt><dd>Image Generation · Vision</dd></div><div><dt>OUTPUT</dt><dd>S3 URL · 제목 · 설명</dd></div></dl></article>
+      </div>
+      <aside class="code-evidence reveal-ai"><div><p class="kicker">CODE EVIDENCE</p><h3>설명 가능한 구현 포인트</h3></div><ul><li><b>추천</b> char_wb 2–4 gram, 최대 6,000개 TF-IDF 특징과 cosine similarity</li><li><b>예측</b> 회귀·분류 API를 분리하고 threshold로 운영 판정 조정</li><li><b>RAG</b> 문서 인덱싱 API와 분석 API를 분리해 재사용</li><li><b>안정성</b> RAG 실패 시 입력 기반 LLM 또는 로컬 분석으로 대체</li></ul></aside>
+    </section>
+
+    <section class="report-section scope" id="scope">
+      <div class="section-heading reveal-ai"><p class="kicker">IMPLEMENTATION SCOPE</p><h2>제가 설명할 수 있는 범위</h2></div>
+      <div class="scope-panel reveal-ai"><p>작품·예술관 CRUD, 경매·결제, AWS S3 저장은 Spring Boot 중심으로 직접 구현했습니다. AI 기능은 생성형 AI 도구와 팀의 기존 모델을 활용했으며, 입력 데이터와 모델 목적, FastAPI 요청·응답 계약, Spring Boot 연결 로직과 실패 흐름을 코드 기준으로 검토하고 이해했습니다.</p><div><span>직접 구현 · Backend</span><span>검토·연동 · AI API</span><span>설명 가능 · RAG/ML Logic</span></div></div>
+      <div class="report-links reveal-ai"><a class="primary" href="bideo.html">BIDEO 전체 프로젝트 보기 →</a><a href="https://github.com/chanho8629-lgtm/ec2">GitHub 코드 보기 →</a><a href="index.html#ai">← 메인 AI 섹션</a></div>
+    </section>
+  </main>
+  <footer class="pf-footer"><span>© 2026 Jung Chan Ho</span><span>AI Engineering · BIDEO</span></footer>
+  <script src="js/ai-engineering.js"></script>
+</body>
+</html>
