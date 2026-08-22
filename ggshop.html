@@ -26,11 +26,11 @@
       <article class="card"><h3>학습한 구조</h3><ul><li>Controller·Service·DAO 계층 분리</li><li>MyBatis Mapper 기반 SQL 관리</li><li>예외 처리와 서버사이드 렌더링</li></ul></article>
     </div></section>
     <section class="block"><span class="eyebrow">Contribution</span><h2>기여 범위</h2><div class="hl-box"><p>팀 프로젝트의 회원·충전소·거래·게시판 기능 구현 과정에 참여했습니다. 전체 시스템을 단독 개발한 것으로 표현하지 않고, Spring/MyBatis 기반 CRUD와 인증·파일·검색 기능을 학습한 프로젝트로 정리했습니다.</p></div></section>
-    <section class="block" id="layered-architecture"><span class="eyebrow">Why Layered Architecture</span><h2>CRUD를 한 파일에 작성하지 않은 이유</h2><div class="why-grid">
-      <article><b>Controller · 요청 경계</b><p>URL과 폼 데이터를 받고 응답 화면을 선택합니다. 요청 처리와 DB 코드를 분리해 Controller가 커지는 것을 막았습니다.</p></article>
-      <article><b>DTO · 데이터 전달 계약</b><p>화면과 서버 사이에 필요한 값만 전달해 파라미터 누락을 줄이고, 테이블 구조가 화면에 직접 노출되지 않게 했습니다.</p></article>
-      <article><b>Service · 업무 규칙</b><p>중복 확인, 권한 판단, 등록 순서처럼 기능의 핵심 규칙을 모아 여러 Controller에서 같은 로직을 재사용하도록 했습니다.</p></article>
-      <article><b>DAO·Mapper · DB 책임</b><p>DAO는 저장·조회 의도를 제공하고 Mapper는 SQL을 관리합니다. 화면이나 업무 코드에서 SQL을 제거해 쿼리 변경 지점을 한곳으로 모았습니다.</p></article>
+    <section class="block" id="layered-architecture"><span class="eyebrow">Why Layered Architecture</span><h2>CRUD를 만들며 정한 파일 분리 기준</h2><p>게시판 CRUD를 처음 연결할 때는 요청 처리와 SQL을 가까이 두는 편이 빠르게 느껴졌습니다. 하지만 검색, 페이징, 파일 첨부가 붙으면서 한 기능을 고칠 때 다른 부분까지 같이 확인해야 했습니다. 이후부터는 다음 기준으로 나눠 작업했습니다.</p><div class="why-grid">
+      <article><b>Controller · 화면 요청</b><p>URL과 폼 값을 받고 성공 또는 오류 화면을 정했습니다. DB 조회나 중복 검사 코드는 넣지 않았습니다.</p></article>
+      <article><b>DTO · 화면에서 넘어오는 값</b><p>등록, 수정, 조회마다 필요한 값이 달라 별도 전달 객체로 묶었습니다. 메서드 인자가 계속 늘어나는 문제도 줄일 수 있었습니다.</p></article>
+      <article><b>Service · 처리 순서</b><p>작성자 확인, 중복 검사, 등록과 파일 저장처럼 순서가 필요한 코드를 모았습니다. Controller가 달라도 같은 규칙을 다시 사용할 수 있었습니다.</p></article>
+      <article><b>DAO·Mapper · 조회와 SQL</b><p>DAO에는 <em>무엇을 조회할지</em>, Mapper에는 <em>어떤 SQL로 조회할지</em>를 두었습니다. 쿼리를 수정할 때 화면 코드를 함께 고치지 않아도 됐습니다.</p></article>
     </div><p class="request-line"><span>REQUEST FLOW</span> · Browser → Controller → DTO → Service → DAO → MyBatis Mapper → MySQL → View</p></section>
     <a class="btn-back" href="index.html">← 메인으로</a>
   </main>
