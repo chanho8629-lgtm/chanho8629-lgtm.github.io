@@ -1,0 +1,178 @@
+/*
+ * JCH portfolio cohesion layer
+ * Keeps each page's interaction model, while sharing one visual grammar.
+ */
+:root {
+  --jch-bg: #060608;
+  --jch-panel: #0c0c11;
+  --jch-panel-2: #111018;
+  --jch-text: #f5f3f7;
+  --jch-muted: #aaa5b0;
+  --jch-line: rgba(255,255,255,.105);
+  --jch-violet: #9b5cff;
+  --jch-violet-soft: #c6a3f4;
+  --jch-signal: #ff6748;
+  --jch-cyan: #65dff5;
+  --jch-radius: 18px;
+  --jch-page: min(1500px, 92vw);
+  --jch-shadow: 0 28px 80px rgba(0,0,0,.28);
+}
+
+::selection { background: var(--jch-violet); color: #fff; }
+html { background: var(--jch-bg); }
+body { background-color: var(--jch-bg); color: var(--jch-text); text-rendering: optimizeLegibility; }
+body, button, input, textarea { font-family: 'Noto Sans KR', sans-serif; }
+h1, h2, h3, h4, .logo, .detail-logo, .eyebrow, small, code { font-family: 'Space Grotesk','Noto Sans KR',sans-serif; }
+p { text-wrap: pretty; }
+img { background: #0a0a0d; }
+a { text-underline-offset: .22em; }
+
+/* One header language across home, reports and learning pages. */
+.nav, .hdr, .detail-header {
+  border-bottom: 1px solid var(--jch-line) !important;
+  background: rgba(6,6,9,.84) !important;
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+.nav-in, .hdr, .detail-header { max-width: 100%; }
+.logo i, .logo em, .detail-logo em { color: var(--jch-violet) !important; }
+.menu a, .gnav a, .detail-nav a { color: #aaa6b0; transition: color .2s ease, background .2s ease; }
+.menu a:hover, .gnav a:hover, .detail-nav a:hover { color: #fff !important; }
+.gnav-cta {
+  border: 1px solid rgba(155,92,255,.42) !important;
+  border-radius: 999px !important;
+  background: rgba(155,92,255,.11) !important;
+  color: #eee4fb !important;
+}
+
+/* Shared editorial labels and section rhythm. */
+.eyebrow, .kicker {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  color: var(--jch-signal) !important;
+  font-size: .62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .15em !important;
+}
+.eyebrow::before, .kicker::before {
+  content: '';
+  flex: 0 0 28px;
+  height: 1px;
+  background: currentColor;
+}
+.section-title, .section-heading h2, .phase h2, .block h2 {
+  color: var(--jch-text);
+  letter-spacing: -.055em !important;
+}
+.section-copy, .phase-intro, .hero-lead, .block > p { color: var(--jch-muted); line-height: 1.85; }
+
+/* Homepage: retain the cinematic identity, reduce competing decoration. */
+body > .nav { box-shadow: 0 14px 40px rgba(0,0,0,.18); }
+.hero-future-hud, .hero-mech, .hero-sparks { display: none !important; }
+.hero-cinematic__grid { opacity: .12 !important; }
+.hero-cinematic__serial { opacity: .48 !important; }
+.hero-question__map { border-radius: 14px !important; }
+.hero-positioning {
+  border: 1px solid rgba(101,223,245,.18) !important;
+  border-left: 2px solid var(--jch-cyan) !important;
+  background: rgba(4,8,12,.64);
+  backdrop-filter: blur(12px);
+}
+.section-head, .projects > .section-head { width: var(--jch-page); max-width: 1500px; margin-inline: auto; }
+main > .section:not(.ai) { width: 100%; }
+.section-head { gap: clamp(2rem,5vw,6rem) !important; }
+.section-head .section-copy { padding-left: 1.25rem; border-left: 1px solid rgba(155,92,255,.45); }
+
+/* Learning keeps imagery, but uses one frame and caption treatment. */
+.learning-stage__tile, #experience .roadmap a, .learning-card {
+  border: 1px solid var(--jch-line) !important;
+  border-radius: var(--jch-radius) !important;
+  background: var(--jch-panel) !important;
+  box-shadow: var(--jch-shadow);
+}
+.learning-stage__tile::after { letter-spacing: .1em; }
+#experience .roadmap img, .learning-card img { filter: saturate(.75) brightness(.7) !important; }
+#experience .roadmap a:hover img, .learning-card:hover img { filter: saturate(.98) brightness(.82) !important; }
+#experience .roadmap h3, .learning-card h3 { letter-spacing: -.045em; }
+
+/* Home AI: same hierarchy as the reports; no white/black style jump. */
+.ai { border-block: 1px solid var(--jch-line); }
+.ai-item, .ai .pipeline, .ai .caps { border-radius: var(--jch-radius) !important; }
+.ai-item { border-color: rgba(155,92,255,.24) !important; }
+.ai .pipeline article, .ai .caps div { background: linear-gradient(145deg,var(--jch-panel-2),#09090d) !important; }
+.ai .pipeline p, .ai .caps span { color: #9e98a3 !important; }
+
+/* Archive reads as authored technical notes, not an image carousel template. */
+.archive { width: 100% !important; background: #08080b; border-block: 1px solid var(--jch-line); }
+.archive .section-head { width: var(--jch-page); margin-inline: auto !important; padding-inline: 0 !important; }
+.film { padding-inline: 4vw; }
+.film article { border: 1px solid var(--jch-line); border-radius: var(--jch-radius); box-shadow: var(--jch-shadow); }
+.film img { filter: saturate(.72) brightness(.64); }
+.film-copy small { color: var(--jch-violet-soft) !important; letter-spacing: .1em; }
+.film-copy a { border-color: var(--jch-violet) !important; }
+
+/* Project overview and detail pages share the same framing. */
+.projects { border-top: 1px solid var(--jch-line); }
+.projects-track .project-image, .projects .project-image { border-radius: var(--jch-radius) !important; }
+.projects-track .project-info p, .projects .project-info p { color: var(--jch-muted) !important; }
+.projects-track .meta span, .projects .meta span { border-radius: 999px; }
+.main { width: var(--jch-page) !important; max-width: 1500px !important; box-sizing: border-box; }
+.main::before { color: #76717c !important; }
+.main .block, .main .owner-box { border-top-color: var(--jch-line) !important; }
+.main .card, .main .ai-feature, .main .why-grid article {
+  border-radius: var(--jch-radius) !important;
+  background: linear-gradient(145deg,var(--jch-panel-2),#09090d) !important;
+}
+.main .layer-flow { border-radius: var(--jch-radius) !important; }
+.main .layer-step { background: #0b0b10; }
+.project-visual { border-radius: clamp(20px,2.2vw,34px) !important; transform: none !important; }
+
+/* Curriculum and individual learning pages. */
+.curr-hero, .detail-main { background-color: var(--jch-bg); }
+.curr-main, .detail-main { width: var(--jch-page); max-width: 1500px; margin-inline: auto; box-sizing: border-box; }
+.curr-nav { border-color: var(--jch-line) !important; background: rgba(7,7,10,.9) !important; }
+.curr-nav a { border-radius: 999px !important; }
+.phase::before { border-radius: clamp(18px,2vw,30px) !important; }
+.subject, .layer-why {
+  border-radius: var(--jch-radius) !important;
+  border-color: var(--jch-line) !important;
+  background: linear-gradient(145deg,var(--jch-panel-2),#09090d) !important;
+}
+.subject::before { background: linear-gradient(90deg,var(--jch-violet),transparent 48%) !important; }
+.material pre { border-radius: 12px !important; }
+.application { border-radius: 8px !important; }
+
+/* AI engineering report uses the same panel density as project reports. */
+.ai-hero, .report-section { width: var(--jch-page) !important; max-width: 1500px; box-sizing: border-box; }
+.system-console, .architecture-map, .boundary, .rag-pipeline article,
+.mode-card, .capability, .code-evidence, .scope-panel { border-radius: var(--jch-radius) !important; }
+.architecture-map article, .rag-pipeline article, .capability, .mode-card {
+  background: linear-gradient(145deg,var(--jch-panel-2),#09090d) !important;
+}
+.scope-panel { background: #e9e5ed !important; }
+
+/* Contact closes every page with the same restrained contrast. */
+.contact { border-top: 1px solid var(--jch-line); background: radial-gradient(circle at 85% 20%,rgba(155,92,255,.12),transparent 28%),#070709 !important; }
+.contact-card { border-color: var(--jch-line) !important; background: rgba(255,255,255,.025) !important; }
+.footer, .pf-footer { border-top-color: var(--jch-line) !important; background: #050507 !important; }
+
+@media (max-width: 850px) {
+  :root { --jch-page: 90vw; --jch-radius: 14px; }
+  .section-head .section-copy { padding-left: 1rem; }
+  .hero-positioning { background: rgba(4,8,12,.84); }
+  .film { padding-inline: 5vw; }
+  .main, .curr-main, .detail-main, .ai-hero, .report-section { width: 90vw !important; padding-inline: 0 !important; }
+  .main .block, .main .owner-box { margin-bottom: 5.5rem !important; }
+  .project-visual { border-radius: 16px !important; }
+}
+
+@media (max-width: 520px) {
+  .section-copy, .phase-intro, .block > p { font-size: .78rem !important; }
+  .section-head .section-copy { padding-left: 0; border-left: 0; }
+  .eyebrow::before, .kicker::before { flex-basis: 18px; }
+  .contact-card { border-radius: 12px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
